@@ -14,8 +14,11 @@ gasta ~44 mil, então dois quadros e alguns celulares cabem com folga. TLS na po
 
 1. Crie a conta em <https://www.emqx.com/en/cloud> e um deployment **Serverless**
    (região mais próxima, ex. `us-east-1`).
-2. Em **Overview**, anote o endereço (`xxxxxxxx.ala.us-east-1.emqxsl.com`) e baixe a
-   **CA Certificate**. Ela vai para o `mqtt_ca` do `firmware/secrets.yaml`.
+2. Em **Overview**, anote o endereço (`xxxxxxxx.ala.us-east-1.emqxsl.com`). Ele fica só no
+   `.env` e no `firmware/secrets.yaml`, nunca no repositório, que é público.
+3. A **CA Certificate** do console já está versionada em `broker/emqxsl-ca.crt`
+   (DigiCert Global Root G2, pública, vale até 2038). Ela vai colada no `mqtt_ca` do
+   `firmware/secrets.yaml`.
 
 ### 2. Usuários (Access Control → Authentication)
 
@@ -57,7 +60,7 @@ Crie um `.env` na raiz do repositório (ignorado pelo git):
 LOTUS_MQTT_HOST=xxxxxxxx.ala.us-east-1.emqxsl.com
 LOTUS_MQTT_USER=app-admin
 LOTUS_MQTT_PASS=...
-LOTUS_MQTT_CA=/caminho/para/emqxsl-ca.crt
+LOTUS_MQTT_CA=broker/emqxsl-ca.crt
 ```
 
 Depois, em terminais separados:
