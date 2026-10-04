@@ -1,4 +1,4 @@
-# Inversor Metaltex IF10-203-1 (site B)
+# Inversor Metaltex IF10-203-1 (site CLP)
 
 Fontes: `docs/manuais/metaltex-if10-catalogo.pdf` e `docs/manuais/metaltex-if10-20x-1-manual.pdf`
 (Ref. 4-003-1.5, jul/2021). As páginas citadas abaixo são as do manual.

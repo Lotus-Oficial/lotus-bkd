@@ -1,16 +1,16 @@
-// Flora · página de componentes: totais por casa, abas, filtros e lista agrupada por etapa.
-// Os dados vêm de dados-componentes.js (window.FLORA_COMPONENTES e window.FLORA_ETAPAS).
+// Lótus · página de componentes: totais por casa, abas, filtros e lista agrupada por etapa.
+// Os dados vêm de dados-componentes.js (window.LOTUS_COMPONENTES e window.LOTUS_ETAPAS).
 
-const ITENS = window.FLORA_COMPONENTES;
-const ETAPAS = window.FLORA_ETAPAS;
-const SITES = { fernando: "Casa Fernando", felipe: "Casa Felipe" };
+const ITENS = window.LOTUS_COMPONENTES;
+const ETAPAS = window.LOTUS_ETAPAS;
+const SITES = { esp: "Site ESP", clp: "Site CLP" };
 const STATUS = { comprar: "a comprar", comprado: "comprado", tenho: "já tenho" };
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 const brl0 = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
 const $ = (s) => document.querySelector(s);
 
-let site = location.hash === "#felipe" ? "felipe" : "fernando";
+let site = location.hash === "#clp" ? "clp" : "esp";
 let filtro = "todos";
 
 // valor unitário que vale para o item: pago, se houver, senão a estimativa
@@ -47,8 +47,8 @@ function cardTotal(titulo, r, extra = "") {
 
 function renderTotais() {
   $("#totals").innerHTML =
-    cardTotal("Casa Fernando", resumo(ITENS.filter((i) => i.site === "fernando"))) +
-    cardTotal("Casa Felipe", resumo(ITENS.filter((i) => i.site === "felipe"))) +
+    cardTotal("Site ESP", resumo(ITENS.filter((i) => i.site === "esp"))) +
+    cardTotal("Site CLP", resumo(ITENS.filter((i) => i.site === "clp"))) +
     cardTotal("Projeto inteiro", resumo(ITENS), "total-all");
 }
 
@@ -102,7 +102,7 @@ function renderGrupos() {
       const itens = todos.filter((i) => filtro === "todos" || i.status === filtro);
       if (!itens.length) return "";
       const r = resumo(todos);
-      const agora = site === "fernando" && key === "bancada";
+      const agora = site === "esp" && key === "bancada";
       return `
         <section class="group ${agora ? "is-now" : ""}">
           <header class="group-head">

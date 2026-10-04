@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🌱 flora
+# 🌱 lotus
 
 **O quintal se rega sozinho. Você só acompanha.**
 
@@ -14,11 +14,11 @@ Irrigação automática para duas casas, com dois controladores físicos diferen
 
 ## O que é
 
-O Flora controla a irrigação de **duas casas independentes**. Cada casa tem seu próprio quadro,
+O Lótus controla a irrigação de **duas casas independentes**. Cada casa tem seu próprio quadro,
 sua própria bomba e sua própria conexão Wi-Fi. As duas são operadas pelo mesmo app, porque
-falam o mesmo contrato MQTT (`flora/v1`).
+falam o mesmo contrato MQTT (`lotus/v1`).
 
-| | Casa Fernando (site A) | Casa Felipe (site B) |
+| | Site ESP | Site CLP |
 |---|---|---|
 | **Objetivo** | Custo baixo e conserto fácil | Reaproveitar equipamento parado |
 | **Cérebro** | ESP32 + placa de 8 relés | CLP Delta DVP20SX211R + ESP32 como gateway |
@@ -27,9 +27,9 @@ falam o mesmo contrato MQTT (`flora/v1`).
 | **Bomba** | Contator 24VAC + boia em série | Inversor Metaltex IF10 com PID de pressão constante |
 
 ```
- ESP32 Casa Fernando ──┐
+ ESP32 site ESP ───────┐
                       ├──►  Broker MQTT (nuvem, TLS)  ◄──  App Android (Kotlin)
- ESP32 Casa Felipe ───┘
+ ESP32 site CLP ───────┘
 ```
 
 Todos se conectam **de dentro para fora**: não é preciso abrir porta no roteador nem manter servidor em casa.
@@ -38,18 +38,23 @@ A agenda roda no quadro, então se a internet cair a irrigação continua.
 ## Estrutura
 
 ```
-flora/
+lotus/
 ├── docs/
 │   ├── ARCHITECTURE.md      arquitetura física e de comunicação dos dois sites
 │   ├── hardware/            notas de projeto por equipamento (o que usamos e como configurar)
 │   ├── manuais/             PDFs originais dos fabricantes + extração em .txt
 │   └── img/                 imagens do README
+├── firmware/                ESPHome de cada quadro (lotus-esp.yaml)
+├── broker/                  configuração do broker MQTT (nuvem e Mosquitto local)
+├── tools/                   lotus_mqtt.py: ouve, comanda e simula um quadro
 └── site/                    página de apresentação e lista de componentes (HTML, CSS e JS puros)
 ```
 
 ## Documentação
 
-- [Arquitetura](docs/ARCHITECTURE.md): quadros, mapa de E/S, Modbus, contrato `flora/v1` e roteiro
+- [Arquitetura](docs/ARCHITECTURE.md): quadros, mapa de E/S, Modbus, contrato `lotus/v1` e roteiro
+- [Contrato MQTT `lotus/v1`](docs/CONTRATO-MQTT.md): tópicos, comandos e erros
+- [Broker](broker/README.md): EMQX na nuvem, permissões e broker local para testes
 - [Inversor Metaltex IF10](docs/hardware/metaltex-if10.md): parametrização, PID e mapa Modbus
 - [CLP Delta DVP20SX211R](docs/hardware/delta-dvp20sx2.md): especificações confirmadas e pendências
 - [Índice de manuais](docs/manuais/README.md): o que já temos e o que falta
@@ -80,9 +85,9 @@ python3 -m http.server -d site 8000
 
 | Etapa | Situação |
 |---|---|
-| 1. Bancada da Casa Fernando (ESP32 + relés + ESPHome) | 🟡 próxima |
-| 2. Broker e contrato `flora/v1` | ⚪ |
-| 3. Instalação da Casa Fernando | ⚪ |
-| 4. Bancada da Casa Felipe (IF10 + ladder + Modbus) | ⚪ |
-| 5. Instalação da Casa Felipe | ⚪ |
+| 1. Bancada do site ESP (ESP32 + relés + ESPHome) | 🟡 próxima |
+| 2. Broker e contrato `lotus/v1` | ⚪ |
+| 3. Instalação do site ESP | ⚪ |
+| 4. Bancada do site CLP (IF10 + ladder + Modbus) | ⚪ |
+| 5. Instalação do site CLP | ⚪ |
 | 6. App Android (Kotlin) | ⚪ |

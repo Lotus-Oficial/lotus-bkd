@@ -1,8 +1,8 @@
-// Flora · interações da página de apresentação.
+// Lótus · interações da página de apresentação.
 // Sem dependências: simula um ciclo de rega, desenha gotas no fundo e revela seções ao rolar.
 
 const SITES = {
-  fernando: {
+  esp: {
     hw: "ESP32 · ESPHome sprinkler · 7 zonas",
     zones: [
       ["Gramado frente", "aspersor", 8],
@@ -20,7 +20,7 @@ const SITES = {
       ["Próximo", "06:00", ""],
     ],
   },
-  felipe: {
+  clp: {
     hw: "CLP Delta DVP20SX2 · inversor IF10 · 5 zonas",
     zones: [
       ["Pomar", "gotejamento", 14],
@@ -41,7 +41,7 @@ const SITES = {
 const SPEED = 30; // segundos simulados por segundo real
 const $ = (s) => document.querySelector(s);
 
-let site = "fernando";
+let site = "esp";
 let zone = 2;
 let remaining = 0;
 

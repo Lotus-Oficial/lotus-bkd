@@ -15,5 +15,5 @@ Cópias originais dos PDFs. Ao lado de cada um há uma extração em `.txt` (ger
 - [ ] **Delta DVP-ES2/EX2/SS2/SA2/SX2 Programming Manual**: instruções, registradores especiais
       (D1120/M1120/M1143) e mapa Modbus. Disponível em downloadcenter.deltaww.com.
 - [ ] Datasheet das válvulas solenoides, quando forem escolhidas.
-- [ ] Datasheet das bombas (site A e site B), quando forem escolhidas.
-- [ ] Datasheet do transdutor de pressão 4–20mA (site B).
+- [ ] Datasheet das bombas (site ESP e site CLP), quando forem escolhidas.
+- [ ] Datasheet do transdutor de pressão 4–20mA (site CLP).

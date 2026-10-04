@@ -1,10 +1,10 @@
-# Flora: arquitetura
+# Lótus: arquitetura
 
 Controle de irrigação para **duas casas independentes**, cada uma com seu próprio
 controlador e sua própria bomba. As duas usam o **mesmo app Android** (Kotlin nativo),
 que fica para a etapa final.
 
-| | Casa Fernando (**site A**) | Casa Felipe (**site B**) |
+| | **Site ESP** | **Site CLP** |
 |---|---|---|
 | Objetivo | Custo baixo | Reaproveitar material parado |
 | Cérebro | ESP32 + placa de 8 relés | CLP Delta DVP20SX211R + ESP32 como gateway |
@@ -16,7 +16,7 @@ Os dois sites não compartilham hardware nem rede. A única coisa em comum é o
 
 ---
 
-## 1. Site A: Casa Fernando (ESP32)
+## 1. Site ESP: ESP32 + relés
 
 ### 1.1 Quadro físico
 
@@ -62,7 +62,7 @@ Os dois sites não compartilham hardware nem rede. A única coisa em comum é o
 
 ---
 
-## 2. Site B: Casa Felipe (CLP + inversor)
+## 2. Site CLP: CLP + inversor
 
 ### 2.1 Equipamentos
 
@@ -146,7 +146,7 @@ Mais zonas exigem um módulo de expansão de saídas DVP-S na porta lateral.
   - tempo máximo por zona;
   - watchdog: se o ESP32 parar de dar sinal, o CLP fecha as zonas abertas remotamente;
   - o modo Manual ignora comandos remotos.
-- **ESP32:** cuida da agenda e da conexão. Roda o mesmo ESPHome `sprinkler` do site A, mas
+- **ESP32:** cuida da agenda e da conexão. Roda o mesmo ESPHome `sprinkler` do site ESP, mas
   cada "válvula" é um **pedido** escrito em um bit M do CLP via Modbus. Ele nunca escreve direto
   nas saídas Y.
 
@@ -188,12 +188,12 @@ celular não consegue chamar o ESP32 diretamente pela internet.
 ### 3.2 A solução: um ponto de encontro na nuvem (broker MQTT)
 
 ```
-  Casa Fernando                   Nuvem                         Casa Felipe
+  Site ESP                        Nuvem                         Site CLP
  ┌────────────┐              ┌──────────────┐               ┌────────────┐
- │ ESP32 (A)  │──── sai ────►│ Broker MQTT  │◄──── sai ─────│ ESP32 (B)  │
- └────────────┘   (TLS)      │ (HiveMQ /    │    (TLS)      └────────────┘
-                             │  EMQX cloud, │
-                             │  plano grátis)│
+ │ ESP32 (ESP)│──── sai ────►│ Broker MQTT  │◄──── sai ─────│ ESP32 (CLP)│
+ └────────────┘   (TLS)      │ (EMQX        │    (TLS)      └────────────┘
+                             │  Serverless, │
+                             │ plano grátis)│
                              └──────▲───────┘
                                     │ sai (TLS)
                               ┌─────┴──────┐
@@ -210,44 +210,48 @@ O broker funciona como uma caixa postal:
 - Cada casa tem **usuário e senha próprios** no broker e só enxerga os próprios tópicos.
 - A agenda roda no ESP32. **Se a internet cair, a irrigação continua.** O app só deixa de ver
   e comandar até a conexão voltar, e os botões físicos continuam funcionando.
-- Os planos gratuitos de HiveMQ Cloud e EMQX Serverless sobram para dois ESP32 e alguns celulares.
-  O ESPHome suporta MQTT com TLS.
+- O plano gratuito do EMQX Serverless sobra para dois ESP32 e alguns celulares. O HiveMQ Cloud
+  Serverless, que era a outra opção, parou de ser vendido em 30/09/2026.
+- O ESPHome suporta MQTT com TLS no framework ESP-IDF.
 
 Alternativas descartadas:
-- **Só rede local** (app falando direto com o ESP32): não funciona fora de casa, e quem mais
-  precisa disso é o Fernando.
+- **Só rede local** (app falando direto com o ESP32): não funciona fora de casa, e as duas casas
+  precisam do acesso remoto.
 - **Home Assistant em cada casa:** exige um computador ligado em cada casa e torna o app
   próprio desnecessário.
 
-### 3.3 Contrato `flora/v1`
+### 3.3 Contrato `lotus/v1`
 
 ```
-flora/v1/{site}/status            → "online" | "offline"                         (retained, LWT)
-flora/v1/{site}/info              → {type:"esp32-relay"|"plc-delta", zones, hasPressure, ...} (retained)
-flora/v1/{site}/state             → {mode, activeZone, remainingS, queue[], rainDelayUntil, fault} (retained)
-flora/v1/{site}/zone/{n}/state    → {on, name, defaultDurationS}                 (retained)
-flora/v1/{site}/sensors           → {rain, level, pressureKpa?, flowLpm?}         (retained)
+lotus/v1/{site}/status            → "online" | "offline"                                (retained, LWT)
+lotus/v1/{site}/info              → {type, fw, zones, hasPressure, hasFlow, hasButtons}  (retained)
+lotus/v1/{site}/state             → {mode, activeZone, remainingS, nextZone, rainDelayUntil, fault, ts} (retained)
+lotus/v1/{site}/zone/{n}/state    → {on, name, defaultDurationS}                        (retained)
+lotus/v1/{site}/sensors           → {rain, level, pressureKpa?, flowLpm?}                (retained)
+lotus/v1/{site}/schedule          → {enabled, days, starts}                              (retained)
 
-flora/v1/{site}/cmd               ← {id, op:"start_zone", zone, durationS}
-                                    {id, op:"start_cycle"} | {id, op:"stop_all"}
-                                    {id, op:"rain_delay", hours} | {id, op:"set_schedule", ...}
-flora/v1/{site}/cmd/ack           → {id, ok, error?}
+lotus/v1/{site}/cmd               ← {id, op, ...}  start_zone | start_cycle | stop_all | pause | resume
+                                                   rain_delay | set_zone | set_schedule
+lotus/v1/{site}/cmd/ack           → {id, ok, error?}
 ```
 
-- `{site}` = `casa-fernando`, `casa-felipe`. O app pode ter os dois cadastrados ou só um.
-- O app lê o `info` e mostra só o que o site tem. Pressão e vazão aparecem só no site B.
-- O `ack` informa se o comando foi recusado (exemplo: o site B em modo Manual).
+- `{site}` = `esp`, `clp`. O app pode ter os dois cadastrados ou só um.
+- O app lê o `info` e mostra só o que o site tem. Pressão e vazão aparecem só no site CLP.
+- O `ack` informa se o comando foi recusado (exemplo: o site CLP em modo Manual).
+- Especificação completa, com campos, erros e exemplos: [`CONTRATO-MQTT.md`](CONTRATO-MQTT.md).
+- Configuração do broker e das permissões: [`broker/README.md`](../broker/README.md).
 
 ---
 
 ## 4. Ordem de execução
 
-1. **Site A:** bancada com ESP32 + relés + ESPHome `sprinkler` + LEDs no lugar das válvulas.
-2. **Broker:** conta no HiveMQ/EMQX e ESP32 publicando no `flora/v1`, testado com `mosquitto_sub/pub`.
-3. **Site A:** escolha da bomba, hidráulica e instalação.
-4. **Site B:** parametrizar o IF10 (`docs/hardware/metaltex-if10.md`), ladder no CLP, teste Modbus pelo PC (mbpoll/QModMaster).
-5. **Site B:** gateway ESP32 com o mesmo contrato, depois inversor, bomba trifásica e transdutor.
-6. **App Android (Kotlin)** em cima do `flora/v1`.
+1. **Site ESP:** bancada com ESP32 + relés + ESPHome `sprinkler` + LEDs no lugar das válvulas.
+2. **Broker:** conta no EMQX e ESP32 publicando no `lotus/v1`, testado com `tools/lotus_mqtt.py`.
+   O firmware (`firmware/lotus-esp.yaml`) e o simulador já existem; falta criar a conta e gravar o ESP32.
+3. **Site ESP:** escolha da bomba, hidráulica e instalação.
+4. **Site CLP:** parametrizar o IF10 (`docs/hardware/metaltex-if10.md`), ladder no CLP, teste Modbus pelo PC (mbpoll/QModMaster).
+5. **Site CLP:** gateway ESP32 com o mesmo contrato, depois inversor, bomba trifásica e transdutor.
+6. **App Android (Kotlin)** em cima do `lotus/v1`.
 
 ## 5. Em aberto
 
@@ -255,4 +259,7 @@ flora/v1/{site}/cmd/ack           → {id, ok, error?}
 - [ ] Número de zonas em cada casa e vazão da maior zona.
 - [ ] Testar na bancada se o registrador 0007H do IF10 devolve a pressão (P007).
 - [ ] Manual de programação do CLP Delta DVP-SX2 (ver `docs/manuais/README.md`).
-- [ ] A Casa Felipe é monofásica? Se for bifásica 220V, o resultado é o mesmo para o inversor.
+- [ ] Boia do site ESP com **dois contatos** (ou um relé auxiliar): um em série com a bobina do
+      contator e outro, seco, para a entrada do ESP32 (GPIO33). Não dá para ler o mesmo contato
+      que está no circuito de 24VAC.
+- [ ] O site CLP é monofásica? Se for bifásica 220V, o resultado é o mesmo para o inversor.

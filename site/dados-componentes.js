@@ -1,4 +1,4 @@
-// Flora · lista de componentes das duas casas.
+// Lótus · lista de componentes das duas casas.
 //
 // Este arquivo é a fonte da verdade da página componentes.html. Ao comprar algo:
 //   1. mude `status` para "comprado"
@@ -16,7 +16,7 @@
 //   busca       termo de busca no Mercado Livre, usado enquanto não há `loja`
 //   manual      caminho no repositório ou URL do manual/datasheet, ou null
 
-window.FLORA_ETAPAS = {
+window.LOTUS_ETAPAS = {
   bancada: { nome: "Bancada", desc: "Para começar a testar o firmware em cima da mesa." },
   quadro: { nome: "Quadro elétrico", desc: "Caixa, proteção e alimentação do controlador." },
   bomba: { nome: "Bomba", desc: "Bomba, acionamento e proteção do motor." },
@@ -24,11 +24,11 @@ window.FLORA_ETAPAS = {
   hidraulica: { nome: "Hidráulica", desc: "Válvulas, filtro, tubos e cabos até o quintal." },
 };
 
-window.FLORA_COMPONENTES = [
-  // ================= CASA FERNANDO (site A) =================
+window.LOTUS_COMPONENTES = [
+  // ================= SITE ESP =================
   // --- bancada
   {
-    site: "fernando", etapa: "bancada", status: "comprado",
+    site: "esp", etapa: "bancada", status: "comprado",
     nome: "ESP32 DevKit V1 (38 pinos)",
     spec: "Cérebro do quadro. Roda o ESPHome com o componente sprinkler.",
     qtd: 1, estimativa: 45, pago: 47.99,
@@ -37,7 +37,7 @@ window.FLORA_COMPONENTES = [
     manual: "https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf",
   },
   {
-    site: "fernando", etapa: "bancada", status: "comprado",
+    site: "esp", etapa: "bancada", status: "comprado",
     nome: "Módulo relé 8 canais 5V com optoacoplador",
     spec: "Versão 5V, com jumper JD-VCC. Aciona com o pino em nível baixo. Um relé por zona e mais um para a bomba. Pago R$ 23,89 + ~R$ 4,90 de imposto estimado.",
     qtd: 1, estimativa: 45, pago: 28.79,
@@ -46,7 +46,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "bancada", status: "comprado",
+    site: "esp", etapa: "bancada", status: "comprado",
     nome: "Módulo expansor I/O PCF8574 HW-171 (8 bits)",
     spec: "Liga os 8 botões do painel usando só 2 pinos do ESP32. Alimentar com 3,3V (os pull-ups do I2C vão no VCC). Pago R$ 9,99 + ~R$ 2,09 de imposto estimado.",
     qtd: 1, estimativa: 15, pago: 12.08,
@@ -55,7 +55,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "bancada", status: "tenho",
+    site: "esp", etapa: "bancada", status: "tenho",
     nome: "Kit protoboard + jumpers + LEDs + resistores + botões",
     spec: "Os LEDs fazem o papel das válvulas durante os testes na bancada. Já existia; o link é do kit UMProb (protoboard 400, LEDs, resistores, 6 botões, jumpers M-M) usado como referência de valor.",
     qtd: 1, estimativa: 14.40, pago: null,
@@ -64,7 +64,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "bancada", status: "comprado",
+    site: "esp", etapa: "bancada", status: "comprado",
     nome: "Transformador de comando MEP 220V × 24VAC 50VA",
     spec: "Isolador, com bornes. Alimenta as válvulas e a bobina do contator. Depois vai para o quadro. Frete grátis.",
     qtd: 1, estimativa: 75, pago: 101.65,
@@ -73,7 +73,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "bancada", status: "comprado",
+    site: "esp", etapa: "bancada", status: "comprado",
     nome: "Válvula solenoide Rain Bird 100-HV 1\" 24VAC NF (a primeira das 7)",
     spec: "Para testar o relé com carga real. Depois vira a zona 1. As outras 6 estão na hidráulica. Irrigamatic, Full.",
     qtd: 1, estimativa: 190, pago: 160.34,
@@ -83,7 +83,7 @@ window.FLORA_COMPONENTES = [
   },
   // --- quadro
   {
-    site: "fernando", etapa: "quadro", status: "comprar",
+    site: "esp", etapa: "quadro", status: "comprar",
     nome: "Caixa hermética IP65 com placa de montagem (~30×25×15cm)",
     spec: "Abriga o ESP32, os relés, as fontes e o contator.",
     qtd: 1, estimativa: 130, pago: null, loja: null,
@@ -91,7 +91,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "quadro", status: "comprar",
+    site: "esp", etapa: "quadro", status: "comprar",
     nome: "Trilho DIN 35mm (1m)",
     spec: "Base de montagem das fontes, bornes e disjuntores.",
     qtd: 1, estimativa: 15, pago: null, loja: null,
@@ -99,7 +99,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "quadro", status: "comprar",
+    site: "esp", etapa: "quadro", status: "comprar",
     nome: "Borne de trilho 2,5mm²",
     spec: "Pontos de ligação para os cabos das válvulas, dos sensores e da rede.",
     qtd: 20, estimativa: 2.5, pago: null, loja: null,
@@ -107,7 +107,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "quadro", status: "comprar",
+    site: "esp", etapa: "quadro", status: "comprar",
     nome: "DR bipolar 25A 30mA",
     spec: "Protege as pessoas contra choque. Obrigatório em área molhada.",
     qtd: 1, estimativa: 120, pago: null, loja: null,
@@ -115,7 +115,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "quadro", status: "comprar",
+    site: "esp", etapa: "quadro", status: "comprar",
     nome: "Disjuntor bipolar 6A (comando)",
     spec: "Protege o transformador e a fonte de 5V.",
     qtd: 1, estimativa: 25, pago: null, loja: null,
@@ -123,7 +123,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "quadro", status: "comprar",
+    site: "esp", etapa: "quadro", status: "comprar",
     nome: "Fonte 5V 2A de trilho DIN (ex. Mean Well HDR-15-5)",
     spec: "Alimenta o ESP32 e a placa de relés dentro do quadro.",
     qtd: 1, estimativa: 80, pago: null, loja: null,
@@ -131,7 +131,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "quadro", status: "comprar",
+    site: "esp", etapa: "quadro", status: "comprar",
     nome: "Botão pulsador 22mm NA",
     spec: "7 botões de zona e 1 de parar tudo, na porta do quadro.",
     qtd: 8, estimativa: 12, pago: null, loja: null,
@@ -139,7 +139,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "quadro", status: "comprar",
+    site: "esp", etapa: "quadro", status: "comprar",
     nome: "Prensa-cabo PG9/PG11",
     spec: "Vedação dos cabos que entram na caixa.",
     qtd: 6, estimativa: 4, pago: null, loja: null,
@@ -148,7 +148,7 @@ window.FLORA_COMPONENTES = [
   },
   // --- bomba
   {
-    site: "fernando", etapa: "bomba", status: "comprar",
+    site: "esp", etapa: "bomba", status: "comprar",
     nome: "Bomba centrífuga monofásica 220V (a dimensionar)",
     spec: "O modelo depende da vazão da maior zona e da origem da água (poço ou caixa).",
     qtd: 1, estimativa: 700, pago: null, loja: null,
@@ -156,7 +156,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "bomba", status: "comprar",
+    site: "esp", etapa: "bomba", status: "comprar",
     nome: "Contator com bobina 24VAC (ex. WEG CWC012)",
     spec: "O relé 8 aciona a bobina e o contator liga a bomba. Assim o 220V não passa pela placa de relés.",
     qtd: 1, estimativa: 110, pago: null, loja: null,
@@ -164,7 +164,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "bomba", status: "comprar",
+    site: "esp", etapa: "bomba", status: "comprar",
     nome: "Disjuntor-motor (ex. WEG MPW18, faixa da bomba)",
     spec: "Protege a bomba contra sobrecarga e curto.",
     qtd: 1, estimativa: 220, pago: null, loja: null,
@@ -172,7 +172,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "bomba", status: "comprar",
+    site: "esp", etapa: "bomba", status: "comprar",
     nome: "Cabo PP 3×2,5mm² (quadro → bomba)",
     spec: "Comprimento a medir no local.",
     qtd: 10, unidade: "m", estimativa: 10, pago: null, loja: null,
@@ -181,7 +181,7 @@ window.FLORA_COMPONENTES = [
   },
   // --- sensores
   {
-    site: "fernando", etapa: "sensores", status: "comprar",
+    site: "esp", etapa: "sensores", status: "comprar",
     nome: "Boia elétrica (chave de nível)",
     spec: "Fica em série com a bobina do contator: sem água, a bomba não liga.",
     qtd: 1, estimativa: 45, pago: null, loja: null,
@@ -189,7 +189,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "sensores", status: "comprar",
+    site: "esp", etapa: "sensores", status: "comprar",
     nome: "Sensor de chuva Hunter Mini-Clik",
     spec: "Contato seco. Suspende a irrigação quando chove.",
     qtd: 1, estimativa: 220, pago: null, loja: null,
@@ -198,7 +198,7 @@ window.FLORA_COMPONENTES = [
   },
   // --- hidráulica
   {
-    site: "fernando", etapa: "hidraulica", status: "comprar",
+    site: "esp", etapa: "hidraulica", status: "comprar",
     nome: "Válvula solenoide Rain Bird 100-HV 1\" 24VAC NF",
     spec: "Zonas 2 a 7. A primeira está na bancada.",
     qtd: 6, estimativa: 160, pago: null, loja: null,
@@ -206,7 +206,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "hidraulica", status: "comprar",
+    site: "esp", etapa: "hidraulica", status: "comprar",
     nome: "Conector à prova d'água para válvula (gel/DBY)",
     spec: "Dois por válvula, nas emendas enterradas.",
     qtd: 14, estimativa: 4, pago: null, loja: null,
@@ -214,7 +214,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "hidraulica", status: "comprar",
+    site: "esp", etapa: "hidraulica", status: "comprar",
     nome: "Cabo multivias PP 8×0,75mm² (quadro → válvulas)",
     spec: "7 zonas e o comum. Comprimento a medir no local.",
     qtd: 30, unidade: "m", estimativa: 8, pago: null, loja: null,
@@ -222,7 +222,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "hidraulica", status: "comprar",
+    site: "esp", etapa: "hidraulica", status: "comprar",
     nome: "Filtro de disco 1\" 120 mesh",
     spec: "Protege as válvulas e os gotejadores contra sujeira.",
     qtd: 1, estimativa: 90, pago: null, loja: null,
@@ -230,7 +230,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "hidraulica", status: "comprar",
+    site: "esp", etapa: "hidraulica", status: "comprar",
     nome: "Manifold PVC 1\" (tubos, tês, registros, adaptadores)",
     spec: "Verba para montar o barrilete das válvulas.",
     qtd: 1, estimativa: 180, pago: null, loja: null,
@@ -238,7 +238,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "hidraulica", status: "comprar",
+    site: "esp", etapa: "hidraulica", status: "comprar",
     nome: "Tubo gotejador 16mm (rolo 100m)",
     spec: "A quantidade depende do levantamento dos canteiros.",
     qtd: 1, estimativa: 220, pago: null, loja: null,
@@ -246,7 +246,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "hidraulica", status: "comprar",
+    site: "esp", etapa: "hidraulica", status: "comprar",
     nome: "Conexões 16mm (iniciais, luvas, tês, finais de linha)",
     spec: "Verba.",
     qtd: 1, estimativa: 100, pago: null, loja: null,
@@ -254,10 +254,10 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
 
-  // ================= CASA FELIPE (site B) =================
+  // ================= SITE CLP =================
   // --- quadro
   {
-    site: "felipe", etapa: "quadro", status: "comprado",
+    site: "clp", etapa: "quadro", status: "comprado",
     nome: "CLP Delta DVP20SX211R",
     spec: "Abre as válvulas e aplica as travas de segurança.",
     qtd: 1, estimativa: 897.99, pago: 897.99,
@@ -266,7 +266,7 @@ window.FLORA_COMPONENTES = [
     manual: "../docs/manuais/delta-dvp-sx2-instruction-sheet.pdf",
   },
   {
-    site: "felipe", etapa: "quadro", status: "comprar",
+    site: "clp", etapa: "quadro", status: "comprar",
     nome: "ESP32 DevKit V1 (38 pinos)",
     spec: "Gateway Wi-Fi ⇄ Modbus. Roda o ESPHome.",
     qtd: 1, estimativa: 45, pago: null, loja: null,
@@ -274,7 +274,7 @@ window.FLORA_COMPONENTES = [
     manual: "https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf",
   },
   {
-    site: "felipe", etapa: "quadro", status: "comprar",
+    site: "clp", etapa: "quadro", status: "comprar",
     nome: "Módulo TTL ⇄ RS-485 com controle automático de direção (3,3V)",
     spec: "Liga o ESP32 ao COM2 do CLP e ao inversor.",
     qtd: 1, estimativa: 25, pago: null, loja: null,
@@ -282,15 +282,15 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "quadro", status: "tenho",
-    nome: "Fonte 24Vdc (do Felipe, modelo a confirmar pela etiqueta)",
+    site: "clp", etapa: "quadro", status: "tenho",
+    nome: "Fonte 24Vdc (já existente, modelo a confirmar pela etiqueta)",
     spec: "Alimenta o CLP, as entradas, o transdutor e o conversor do ESP32. Precisa ser CC, 24V, ≥1A. Consumo previsto ~8W.",
     qtd: 1, estimativa: 150, pago: null, loja: null,
     busca: "fonte mean well hdr-60-24",
     manual: null,
   },
   {
-    site: "felipe", etapa: "quadro", status: "comprar",
+    site: "clp", etapa: "quadro", status: "comprar",
     nome: "Conversor buck 24V → 5V (MP1584 ou LM2596)",
     spec: "Tira o 5V do ESP32 da fonte de 24V.",
     qtd: 1, estimativa: 15, pago: null, loja: null,
@@ -298,15 +298,15 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "quadro", status: "tenho",
-    nome: "Transformador 220V → 24VAC (do Felipe, potência a confirmar)",
+    site: "clp", etapa: "quadro", status: "tenho",
+    nome: "Transformador 220V → 24VAC (já existente, potência a confirmar)",
     spec: "Só para as válvulas, pelos comuns C0/C1 dos relés. NUNCA na alimentação do CLP. Precisa de ≥20VA.",
     qtd: 1, estimativa: 55, pago: null, loja: null,
     busca: "transformador 220v 24v 1a",
     manual: null,
   },
   {
-    site: "felipe", etapa: "quadro", status: "comprar",
+    site: "clp", etapa: "quadro", status: "comprar",
     nome: "Quadro IP65 ventilado (~40×30×20cm)",
     spec: "O inversor dissipa calor: o quadro precisa de grelha e ventilação.",
     qtd: 1, estimativa: 280, pago: null, loja: null,
@@ -314,7 +314,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "quadro", status: "comprar",
+    site: "clp", etapa: "quadro", status: "comprar",
     nome: "Trilho DIN 35mm (1m)",
     spec: "Base de montagem dos componentes.",
     qtd: 1, estimativa: 15, pago: null, loja: null,
@@ -322,7 +322,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "quadro", status: "comprar",
+    site: "clp", etapa: "quadro", status: "comprar",
     nome: "Borne de trilho 2,5mm²",
     spec: "Pontos de ligação dos cabos.",
     qtd: 24, estimativa: 2.5, pago: null, loja: null,
@@ -330,7 +330,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "quadro", status: "comprar",
+    site: "clp", etapa: "quadro", status: "comprar",
     nome: "DR bipolar 25A 30mA",
     spec: "Protege as pessoas contra choque.",
     qtd: 1, estimativa: 120, pago: null, loja: null,
@@ -338,7 +338,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "quadro", status: "comprar",
+    site: "clp", etapa: "quadro", status: "comprar",
     nome: "Disjuntor bipolar 6A (comando)",
     spec: "Protege as fontes e o transformador.",
     qtd: 1, estimativa: 25, pago: null, loja: null,
@@ -346,7 +346,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "quadro", status: "comprar",
+    site: "clp", etapa: "quadro", status: "comprar",
     nome: "Botão 22mm (parar, avançar) + chave seletora Auto/Manual",
     spec: "Operação local sem celular.",
     qtd: 3, estimativa: 15, pago: null, loja: null,
@@ -355,7 +355,7 @@ window.FLORA_COMPONENTES = [
   },
   // --- bomba
   {
-    site: "felipe", etapa: "bomba", status: "comprado",
+    site: "clp", etapa: "bomba", status: "comprado",
     nome: "Inversor Metaltex IF10-203-1 (3cv)",
     spec: "Recebe 1F 220V, entrega 3F 220V e controla a pressão por PID.",
     qtd: 1, estimativa: 900, pago: 900,
@@ -364,7 +364,7 @@ window.FLORA_COMPONENTES = [
     manual: "../docs/manuais/metaltex-if10-20x-1-manual.pdf",
   },
   {
-    site: "felipe", etapa: "bomba", status: "comprar",
+    site: "clp", etapa: "bomba", status: "comprar",
     nome: "Bomba centrífuga TRIFÁSICA 220V (até 3cv, a dimensionar)",
     spec: "Precisa ser trifásica: o inversor não aciona motor monofásico.",
     qtd: 1, estimativa: 1200, pago: null, loja: null,
@@ -372,7 +372,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "bomba", status: "comprar",
+    site: "clp", etapa: "bomba", status: "comprar",
     nome: "Disjuntor bipolar 20A curva C (entrada do inversor)",
     spec: "O inversor puxa 16A da rede monofásica.",
     qtd: 1, estimativa: 30, pago: null, loja: null,
@@ -380,7 +380,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "bomba", status: "comprar",
+    site: "clp", etapa: "bomba", status: "comprar",
     nome: "Cabo PP 4×2,5mm² (inversor → bomba)",
     spec: "U, V, W e terra. Comprimento a medir no local.",
     qtd: 10, unidade: "m", estimativa: 14, pago: null, loja: null,
@@ -389,7 +389,7 @@ window.FLORA_COMPONENTES = [
   },
   // --- sensores
   {
-    site: "felipe", etapa: "sensores", status: "comprar",
+    site: "clp", etapa: "sensores", status: "comprar",
     nome: "Transdutor de pressão 4–20mA, 0–10 bar, rosca 1/4\"",
     spec: "Realimentação do PID do inversor (entrada AVI, chave em I).",
     qtd: 1, estimativa: 180, pago: null, loja: null,
@@ -397,7 +397,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "sensores", status: "comprar",
+    site: "clp", etapa: "sensores", status: "comprar",
     nome: "Hidrômetro 1\" com saída pulsada (contato reed)",
     spec: "Ligado no X0 do CLP. Detecta tubo estourado ou zona sem água.",
     qtd: 1, estimativa: 250, pago: null, loja: null,
@@ -405,7 +405,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "sensores", status: "comprar",
+    site: "clp", etapa: "sensores", status: "comprar",
     nome: "Boia elétrica (chave de nível)",
     spec: "Ligada no X2 do CLP. É a proteção física contra a bomba rodar a seco.",
     qtd: 1, estimativa: 45, pago: null, loja: null,
@@ -413,7 +413,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "sensores", status: "comprar",
+    site: "clp", etapa: "sensores", status: "comprar",
     nome: "Sensor de chuva Hunter Mini-Clik",
     spec: "Contato seco, ligado no X1 do CLP.",
     qtd: 1, estimativa: 220, pago: null, loja: null,
@@ -422,7 +422,7 @@ window.FLORA_COMPONENTES = [
   },
   // --- hidráulica
   {
-    site: "felipe", etapa: "hidraulica", status: "comprar",
+    site: "clp", etapa: "hidraulica", status: "comprar",
     nome: "Válvula solenoide Rain Bird 100-HV 1\" 24VAC NF",
     spec: "Zonas 1 a 5, nas saídas Y0 a Y4.",
     qtd: 5, estimativa: 160, pago: null, loja: null,
@@ -430,7 +430,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "hidraulica", status: "comprar",
+    site: "clp", etapa: "hidraulica", status: "comprar",
     nome: "Conector à prova d'água para válvula (gel/DBY)",
     spec: "Dois por válvula.",
     qtd: 10, estimativa: 4, pago: null, loja: null,
@@ -438,7 +438,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "hidraulica", status: "comprar",
+    site: "clp", etapa: "hidraulica", status: "comprar",
     nome: "Cabo multivias PP 7×0,75mm² (quadro → válvulas)",
     spec: "5 zonas, o comum e uma reserva.",
     qtd: 30, unidade: "m", estimativa: 7, pago: null, loja: null,
@@ -446,7 +446,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "hidraulica", status: "comprar",
+    site: "clp", etapa: "hidraulica", status: "comprar",
     nome: "Filtro de disco 1\" 120 mesh",
     spec: "Protege as válvulas e os gotejadores contra sujeira.",
     qtd: 1, estimativa: 90, pago: null, loja: null,
@@ -454,7 +454,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "hidraulica", status: "comprar",
+    site: "clp", etapa: "hidraulica", status: "comprar",
     nome: "Manifold PVC 1\" (tubos, tês, registros, adaptadores)",
     spec: "Verba para o barrilete das válvulas e a tomada do transdutor.",
     qtd: 1, estimativa: 200, pago: null, loja: null,
@@ -462,7 +462,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "hidraulica", status: "comprar",
+    site: "clp", etapa: "hidraulica", status: "comprar",
     nome: "Tubo gotejador 16mm (rolo 100m)",
     spec: "A quantidade depende do levantamento.",
     qtd: 1, estimativa: 220, pago: null, loja: null,
@@ -470,7 +470,7 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "felipe", etapa: "hidraulica", status: "comprar",
+    site: "clp", etapa: "hidraulica", status: "comprar",
     nome: "Conexões 16mm (iniciais, luvas, tês, finais de linha)",
     spec: "Verba.",
     qtd: 1, estimativa: 100, pago: null, loja: null,

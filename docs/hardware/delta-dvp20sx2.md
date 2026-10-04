@@ -1,4 +1,4 @@
-# CLP Delta DVP20SX211R (site B)
+# CLP Delta DVP20SX211R (site CLP)
 
 Fonte: `docs/manuais/delta-dvp-sx2-instruction-sheet.pdf` (instruction sheet da série SX2).
 O mapa Modbus e os registradores especiais (D1120, M1120, M1143) **não** estão nesse documento.
