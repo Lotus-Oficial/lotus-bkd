@@ -37,8 +37,8 @@
         <p class="eyebrow">Irrigação automática · ESP32 · CLP · Android</p>
         <h1>O quintal se rega <em>sozinho.</em> Você só acompanha.</h1>
         <p class="lede">
-          Dois controladores em duas casas, um único app. Um ESP32 com ESPHome na casa do pai
-          e um CLP Delta com inversor na casa do amigo. Os dois falam o mesmo contrato MQTT.
+          Dois controladores em duas casas, um único app. Um ESP32 com ESPHome na Casa Fernando
+          e um CLP Delta com inversor na Casa Felipe. Os dois falam o mesmo contrato MQTT.
         </p>
         <div class="cta">
           <a class="btn btn-primary" href="#comunicacao">Ver arquitetura</a>
@@ -55,8 +55,8 @@
       <aside class="device" aria-label="Simulação do controlador">
         <div class="device-head">
           <div class="tabs" role="tablist">
-            <button class="tab is-active" role="tab" data-site="pai">casa-pai</button>
-            <button class="tab" role="tab" data-site="amigo">casa-amigo</button>
+            <button class="tab is-active" role="tab" data-site="fernando">casa-fernando</button>
+            <button class="tab" role="tab" data-site="felipe">casa-felipe</button>
           </div>
           <span class="online"><span class="dot"></span>online</span>
         </div>
@@ -100,7 +100,7 @@
         <article class="site reveal">
           <header>
             <span class="site-tag">Site A</span>
-            <h3>Casa do pai</h3>
+            <h3>Casa Fernando</h3>
             <p>Feito para custar pouco e ser fácil de consertar.</p>
           </header>
           <ul class="stack">
@@ -116,7 +116,7 @@
         <article class="site site-b reveal">
           <header>
             <span class="site-tag">Site B</span>
-            <h3>Casa do amigo</h3>
+            <h3>Casa Felipe</h3>
             <p>Usa equipamento industrial que já estava parado.</p>
           </header>
           <ul class="stack">
@@ -126,7 +126,7 @@
             <li><b>Bomba</b><span>Inversor Metaltex IF10 · 3cv · pressão constante por PID</span></li>
             <li><b>Proteções</b><span>Falta d'água · pressão fora da faixa · watchdog</span></li>
           </ul>
-          <div class="site-foot"><span class="chip">pressão constante</span><span class="chip">padrão industrial</span><a class="site-link" href="componentes.html#amigo">Ver componentes →</a></div>
+          <div class="site-foot"><span class="chip">pressão constante</span><span class="chip">padrão industrial</span><a class="site-link" href="componentes.html#felipe">Ver componentes →</a></div>
         </article>
       </div>
     </section>
@@ -159,14 +159,14 @@
           <!-- casa A -->
           <g class="node">
             <rect x="20" y="40" width="280" height="110" rx="18"/>
-            <text class="n-kicker" x="44" y="72">CASA DO PAI</text>
+            <text class="n-kicker" x="44" y="72">CASA FERNANDO</text>
             <text class="n-title" x="44" y="102">ESP32 · ESPHome</text>
             <text class="n-sub" x="44" y="128">relés → 7 válvulas · contator → bomba</text>
           </g>
           <!-- casa B -->
           <g class="node">
             <rect x="20" y="230" width="280" height="110" rx="18"/>
-            <text class="n-kicker" x="44" y="262">CASA DO AMIGO</text>
+            <text class="n-kicker" x="44" y="262">CASA FELIPE</text>
             <text class="n-title" x="44" y="292">ESP32 ⇄ CLP Delta</text>
             <text class="n-sub" x="44" y="318">Modbus RS-485 · inversor → bomba</text>
           </g>
@@ -249,11 +249,11 @@
         <h2>Do fio <em>ao app.</em></h2>
       </div>
       <ol class="roadmap">
-        <li class="reveal is-now"><span class="r-step">1</span><div><h3>Bancada da casa A</h3><p>ESP32, relés, ESPHome <code>sprinkler</code> e LEDs no lugar das válvulas.</p></div></li>
+        <li class="reveal is-now"><span class="r-step">1</span><div><h3>Bancada da Casa Fernando</h3><p>ESP32, relés, ESPHome <code>sprinkler</code> e LEDs no lugar das válvulas.</p></div></li>
         <li class="reveal"><span class="r-step">2</span><div><h3>Broker e contrato</h3><p>Conta no HiveMQ ou EMQX e o ESP32 publicando no <code>flora/v1</code>.</p></div></li>
-        <li class="reveal"><span class="r-step">3</span><div><h3>Instalação da casa A</h3><p>Bomba, hidráulica e quadro definitivo.</p></div></li>
-        <li class="reveal"><span class="r-step">4</span><div><h3>Bancada da casa B</h3><p>Configuração do IF10, ladder no CLP e teste do Modbus pelo PC.</p></div></li>
-        <li class="reveal"><span class="r-step">5</span><div><h3>Instalação da casa B</h3><p>Gateway ESP32, inversor, bomba trifásica e transdutor de pressão.</p></div></li>
+        <li class="reveal"><span class="r-step">3</span><div><h3>Instalação da Casa Fernando</h3><p>Bomba, hidráulica e quadro definitivo.</p></div></li>
+        <li class="reveal"><span class="r-step">4</span><div><h3>Bancada da Casa Felipe</h3><p>Configuração do IF10, ladder no CLP e teste do Modbus pelo PC.</p></div></li>
+        <li class="reveal"><span class="r-step">5</span><div><h3>Instalação da Casa Felipe</h3><p>Gateway ESP32, inversor, bomba trifásica e transdutor de pressão.</p></div></li>
         <li class="reveal"><span class="r-step">6</span><div><h3>App Android</h3><p>Kotlin nativo, consumindo apenas o contrato <code>flora/v1</code>.</p></div></li>
       </ol>
     </section>

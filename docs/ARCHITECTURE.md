@@ -4,7 +4,7 @@ Controle de irrigação para **duas casas independentes**, cada uma com seu pró
 controlador e sua própria bomba. As duas usam o **mesmo app Android** (Kotlin nativo),
 que fica para a etapa final.
 
-| | Casa do pai (**site A**) | Casa do amigo (**site B**) |
+| | Casa Fernando (**site A**) | Casa Felipe (**site B**) |
 |---|---|---|
 | Objetivo | Custo baixo | Reaproveitar material parado |
 | Cérebro | ESP32 + placa de 8 relés | CLP Delta DVP20SX211R + ESP32 como gateway |
@@ -16,7 +16,7 @@ Os dois sites não compartilham hardware nem rede. A única coisa em comum é o
 
 ---
 
-## 1. Site A: casa do pai (ESP32)
+## 1. Site A: Casa Fernando (ESP32)
 
 ### 1.1 Quadro físico
 
@@ -62,7 +62,7 @@ Os dois sites não compartilham hardware nem rede. A única coisa em comum é o
 
 ---
 
-## 2. Site B: casa do amigo (CLP + inversor)
+## 2. Site B: Casa Felipe (CLP + inversor)
 
 ### 2.1 Equipamentos
 
@@ -188,7 +188,7 @@ celular não consegue chamar o ESP32 diretamente pela internet.
 ### 3.2 A solução: um ponto de encontro na nuvem (broker MQTT)
 
 ```
-   Casa do pai                    Nuvem                         Casa do amigo
+  Casa Fernando                   Nuvem                         Casa Felipe
  ┌────────────┐              ┌──────────────┐               ┌────────────┐
  │ ESP32 (A)  │──── sai ────►│ Broker MQTT  │◄──── sai ─────│ ESP32 (B)  │
  └────────────┘   (TLS)      │ (HiveMQ /    │    (TLS)      └────────────┘
@@ -215,7 +215,7 @@ O broker funciona como uma caixa postal:
 
 Alternativas descartadas:
 - **Só rede local** (app falando direto com o ESP32): não funciona fora de casa, e quem mais
-  precisa disso é seu pai.
+  precisa disso é o Fernando.
 - **Home Assistant em cada casa:** exige um computador ligado em cada casa e torna o app
   próprio desnecessário.
 
@@ -234,7 +234,7 @@ flora/v1/{site}/cmd               ← {id, op:"start_zone", zone, durationS}
 flora/v1/{site}/cmd/ack           → {id, ok, error?}
 ```
 
-- `{site}` = `casa-pai`, `casa-amigo`. O app pode ter os dois cadastrados ou só um.
+- `{site}` = `casa-fernando`, `casa-felipe`. O app pode ter os dois cadastrados ou só um.
 - O app lê o `info` e mostra só o que o site tem. Pressão e vazão aparecem só no site B.
 - O `ack` informa se o comando foi recusado (exemplo: o site B em modo Manual).
 
@@ -255,4 +255,4 @@ flora/v1/{site}/cmd/ack           → {id, ok, error?}
 - [ ] Número de zonas em cada casa e vazão da maior zona.
 - [ ] Testar na bancada se o registrador 0007H do IF10 devolve a pressão (P007).
 - [ ] Manual de programação do CLP Delta DVP-SX2 (ver `docs/manuais/README.md`).
-- [ ] A casa do amigo é monofásica? Se for bifásica 220V, o resultado é o mesmo para o inversor.
+- [ ] A Casa Felipe é monofásica? Se for bifásica 220V, o resultado é o mesmo para o inversor.

@@ -18,7 +18,7 @@ O Flora controla a irrigação de **duas casas independentes**. Cada casa tem se
 sua própria bomba e sua própria conexão Wi-Fi. As duas são operadas pelo mesmo app, porque
 falam o mesmo contrato MQTT (`flora/v1`).
 
-| | Casa do pai (site A) | Casa do amigo (site B) |
+| | Casa Fernando (site A) | Casa Felipe (site B) |
 |---|---|---|
 | **Objetivo** | Custo baixo e conserto fácil | Reaproveitar equipamento parado |
 | **Cérebro** | ESP32 + placa de 8 relés | CLP Delta DVP20SX211R + ESP32 como gateway |
@@ -27,9 +27,9 @@ falam o mesmo contrato MQTT (`flora/v1`).
 | **Bomba** | Contator 24VAC + boia em série | Inversor Metaltex IF10 com PID de pressão constante |
 
 ```
- ESP32 casa do pai ──┐
-                     ├──►  Broker MQTT (nuvem, TLS)  ◄──  App Android (Kotlin)
- ESP32 casa do amigo ┘
+ ESP32 Casa Fernando ──┐
+                      ├──►  Broker MQTT (nuvem, TLS)  ◄──  App Android (Kotlin)
+ ESP32 Casa Felipe ───┘
 ```
 
 Todos se conectam **de dentro para fora**: não é preciso abrir porta no roteador nem manter servidor em casa.
@@ -80,9 +80,9 @@ python3 -m http.server -d site 8000
 
 | Etapa | Situação |
 |---|---|
-| 1. Bancada da casa A (ESP32 + relés + ESPHome) | 🟡 próxima |
+| 1. Bancada da Casa Fernando (ESP32 + relés + ESPHome) | 🟡 próxima |
 | 2. Broker e contrato `flora/v1` | ⚪ |
-| 3. Instalação da casa A | ⚪ |
-| 4. Bancada da casa B (IF10 + ladder + Modbus) | ⚪ |
-| 5. Instalação da casa B | ⚪ |
+| 3. Instalação da Casa Fernando | ⚪ |
+| 4. Bancada da Casa Felipe (IF10 + ladder + Modbus) | ⚪ |
+| 5. Instalação da Casa Felipe | ⚪ |
 | 6. App Android (Kotlin) | ⚪ |

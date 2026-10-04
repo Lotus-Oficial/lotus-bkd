@@ -3,14 +3,14 @@
 
 const ITENS = window.FLORA_COMPONENTES;
 const ETAPAS = window.FLORA_ETAPAS;
-const SITES = { pai: "Casa do pai", amigo: "Casa do amigo" };
+const SITES = { fernando: "Casa Fernando", felipe: "Casa Felipe" };
 const STATUS = { comprar: "a comprar", comprado: "comprado", tenho: "já tenho" };
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 const brl0 = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
 const $ = (s) => document.querySelector(s);
 
-let site = location.hash === "#amigo" ? "amigo" : "pai";
+let site = location.hash === "#felipe" ? "felipe" : "fernando";
 let filtro = "todos";
 
 // valor unitário que vale para o item: pago, se houver, senão a estimativa
@@ -47,8 +47,8 @@ function cardTotal(titulo, r, extra = "") {
 
 function renderTotais() {
   $("#totals").innerHTML =
-    cardTotal("Casa do pai", resumo(ITENS.filter((i) => i.site === "pai"))) +
-    cardTotal("Casa do amigo", resumo(ITENS.filter((i) => i.site === "amigo"))) +
+    cardTotal("Casa Fernando", resumo(ITENS.filter((i) => i.site === "fernando"))) +
+    cardTotal("Casa Felipe", resumo(ITENS.filter((i) => i.site === "felipe"))) +
     cardTotal("Projeto inteiro", resumo(ITENS), "total-all");
 }
 
@@ -102,7 +102,7 @@ function renderGrupos() {
       const itens = todos.filter((i) => filtro === "todos" || i.status === filtro);
       if (!itens.length) return "";
       const r = resumo(todos);
-      const agora = site === "pai" && key === "bancada";
+      const agora = site === "fernando" && key === "bancada";
       return `
         <section class="group ${agora ? "is-now" : ""}">
           <header class="group-head">
