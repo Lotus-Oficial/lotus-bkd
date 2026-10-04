@@ -72,11 +72,12 @@ window.FLORA_COMPONENTES = [
     manual: null,
   },
   {
-    site: "fernando", etapa: "bancada", status: "comprar",
-    nome: "Válvula solenoide 24VAC NF (a primeira das 7)",
-    spec: "Compre uma antes para testar o relé com carga real. As outras 6 estão na hidráulica.",
-    qtd: 1, estimativa: 190, pago: null, loja: null,
-    busca: "valvula solenoide irrigacao 24vac rain bird 100-dv",
+    site: "fernando", etapa: "bancada", status: "comprado",
+    nome: "Válvula solenoide Rain Bird 100-HV 1\" 24VAC NF (a primeira das 7)",
+    spec: "Para testar o relé com carga real. Depois vira a zona 1. As outras 6 estão na hidráulica. Irrigamatic, Full.",
+    qtd: 1, estimativa: 190, pago: 160.34,
+    loja: "https://www.mercadolivre.com.br/valvula-solenoide-rain-bird-100hv-para-irrigacao-de-jardim-de-1-254-cm/p/MLB22562898",
+    busca: "valvula solenoide rain bird 100-hv 24vac",
     manual: null,
   },
   // --- quadro
@@ -197,10 +198,10 @@ window.FLORA_COMPONENTES = [
   // --- hidráulica
   {
     site: "fernando", etapa: "hidraulica", status: "comprar",
-    nome: "Válvula solenoide 24VAC NF 1\" (Rain Bird 100-DV ou Hunter PGV)",
+    nome: "Válvula solenoide Rain Bird 100-HV 1\" 24VAC NF",
     spec: "Zonas 2 a 7. A primeira está na bancada.",
-    qtd: 6, estimativa: 190, pago: null, loja: null,
-    busca: "valvula solenoide irrigacao 24vac rain bird 100-dv",
+    qtd: 6, estimativa: 160, pago: null, loja: null,
+    busca: "valvula solenoide rain bird 100-hv 24vac",
     manual: null,
   },
   {
@@ -421,10 +422,10 @@ window.FLORA_COMPONENTES = [
   // --- hidráulica
   {
     site: "felipe", etapa: "hidraulica", status: "comprar",
-    nome: "Válvula solenoide 24VAC NF 1\" (Rain Bird 100-DV ou Hunter PGV)",
+    nome: "Válvula solenoide Rain Bird 100-HV 1\" 24VAC NF",
     spec: "Zonas 1 a 5, nas saídas Y0 a Y4.",
-    qtd: 5, estimativa: 190, pago: null, loja: null,
-    busca: "valvula solenoide irrigacao 24vac rain bird 100-dv",
+    qtd: 5, estimativa: 160, pago: null, loja: null,
+    busca: "valvula solenoide rain bird 100-hv 24vac",
     manual: null,
   },
   {
