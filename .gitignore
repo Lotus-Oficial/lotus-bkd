@@ -13,3 +13,6 @@ secrets.yaml
 build/
 local.properties
 *.apk
+
+# Conexão com o broker (tools/lotus_mqtt.py)
+.env

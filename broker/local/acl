@@ -1,0 +1,22 @@
+# Espelho das regras do EMQX (broker/README.md). Tudo o que não está aqui é negado.
+
+# Quadros: cada um só mexe na própria árvore.
+user quadro-esp
+topic readwrite lotus/v1/esp/#
+
+user quadro-clp
+topic readwrite lotus/v1/clp/#
+
+# Apps: leem a árvore do site e só escrevem no cmd.
+user app-esp
+topic read lotus/v1/esp/#
+topic write lotus/v1/esp/cmd
+
+user app-clp
+topic read lotus/v1/clp/#
+topic write lotus/v1/clp/cmd
+
+# Administrador: vê e comanda as duas casas.
+user app-admin
+topic read lotus/v1/#
+topic write lotus/v1/+/cmd

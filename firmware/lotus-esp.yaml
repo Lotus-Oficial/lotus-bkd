@@ -1,0 +1,402 @@
+# Lótus — site ESP (ESP32 + relés)
+#
+# ESP32 + placa de 8 relés. R1..R7 são as zonas, R8 é a bobina do contator da bomba.
+# Fala com o app pelo contrato lotus/v1 (docs/CONTRATO-MQTT.md) via broker MQTT com TLS.
+#
+# A agenda roda aqui: se a internet ou o broker caírem, a irrigação continua.
+#
+#   uvx esphome config  firmware/lotus-esp.yaml   # valida
+#   uvx esphome run     firmware/lotus-esp.yaml   # compila e grava (USB na 1ª vez, OTA depois)
+
+substitutions:
+  site: esp
+  prefix: lotus/v1/esp
+  fw_version: "0.1.0"
+  zonas: "7"
+
+esphome:
+  name: lotus-${site}
+  friendly_name: Lotus ESP
+  on_boot:
+    priority: -100
+    then:
+      - lambda: id(irrigacao).set_auto_advance(true);
+
+esp32:
+  board: esp32dev
+  framework:
+    # MQTT com TLS (certificate_authority) só existe no ESP-IDF.
+    type: esp-idf
+
+logger:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  # Sem Wi-Fi o ESP32 NÃO reinicia: um reboot no meio de uma zona fecharia a válvula à toa.
+  reboot_timeout: 0s
+  ap:
+    ssid: Lotus ESP
+    password: !secret ap_password
+
+captive_portal:
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+time:
+  - platform: sntp
+    id: relogio
+    timezone: America/Sao_Paulo
+    on_time:
+      # Agenda: confere a cada minuto cheio.
+      - seconds: 0
+        then:
+          - lambda: |-
+              auto agora = id(relogio).now();
+              if (!agora.is_valid() || !id(agenda_ativa)) return;
+              // day_of_week: 1 = domingo ... 7 = sábado → bit 0..6
+              if (!(id(agenda_dias) & (1 << (agora.day_of_week - 1)))) return;
+              int minuto = agora.hour * 60 + agora.minute;
+              bool bate = false;
+              for (auto inicio : id(agenda_inicios))
+                if (inicio == minuto) bate = true;
+              if (!bate) return;
+              if (id(irrigacao).active_valve().has_value()) {
+                ESP_LOGI("agenda", "ciclo ignorado: já está irrigando");
+                return;
+              }
+              if (id(falta_agua).state) {
+                ESP_LOGW("agenda", "ciclo ignorado: nível baixo");
+                return;
+              }
+              if (id(chuva_ate) > agora.timestamp) {
+                ESP_LOGI("agenda", "ciclo ignorado: atraso por chuva");
+                return;
+              }
+              if (id(chuva).state) {
+                ESP_LOGI("agenda", "ciclo ignorado: está chovendo");
+                return;
+              }
+              ESP_LOGI("agenda", "iniciando ciclo agendado");
+              id(irrigacao).start_full_cycle();
+
+mqtt:
+  id: mqtt_client
+  broker: !secret mqtt_broker
+  port: 8883
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+  client_id: lotus-${site}
+  certificate_authority: !secret mqtt_ca
+  # Prefixo vazio: o ESPHome não publica as entidades sozinho.
+  # Tudo o que sai para o broker é o contrato lotus/v1, montado à mão abaixo.
+  topic_prefix: null
+  discovery: false
+  log_topic: null
+  # Broker fora do ar também não pode reiniciar o ESP32.
+  reboot_timeout: 0s
+  birth_message:
+    topic: ${prefix}/status
+    payload: online
+    qos: 1
+    retain: true
+  will_message:
+    topic: ${prefix}/status
+    payload: offline
+    qos: 1
+    retain: true
+  shutdown_message:
+    topic: ${prefix}/status
+    payload: offline
+    qos: 1
+    retain: true
+  on_connect:
+    then:
+      - lambda: id(publicar_tudo) = true;
+  on_json_message:
+    topic: ${prefix}/cmd
+    qos: 1
+    then:
+      - lambda: |-
+          std::string cmd_id = x["id"] | "";
+          std::string op = x["op"] | "";
+          const char *erro = nullptr;
+          auto agora = id(relogio).now();
+          int zonas = ${zonas};
+
+          if (cmd_id.empty() || op.empty()) {
+            erro = "bad_request";
+          } else if (op == "start_zone") {
+            int zona = x["zone"] | 0;
+            uint32_t dur = x["durationS"] | 0u;
+            if (zona < 1 || zona > zonas) erro = "invalid_zone";
+            else if (dur > 86400) erro = "invalid_duration";
+            else if (id(falta_agua).state) erro = "fault_dry";
+            else if (dur > 0) id(irrigacao).start_single_valve(zona - 1, dur);
+            else id(irrigacao).start_single_valve(zona - 1);
+          } else if (op == "start_cycle") {
+            if (id(falta_agua).state) erro = "fault_dry";
+            else id(irrigacao).start_full_cycle();
+          } else if (op == "stop_all") {
+            id(irrigacao).shutdown(true);
+          } else if (op == "pause") {
+            id(irrigacao).pause();
+          } else if (op == "resume") {
+            if (id(falta_agua).state) erro = "fault_dry";
+            else id(irrigacao).resume();
+          } else if (op == "rain_delay") {
+            float horas = x["hours"] | -1.0f;
+            if (horas < 0 || horas > 24 * 14) erro = "invalid_hours";
+            else if (horas == 0) id(chuva_ate) = 0;
+            else if (!agora.is_valid()) erro = "no_time";
+            else {
+              id(chuva_ate) = agora.timestamp + (int64_t) (horas * 3600);
+              id(irrigacao).shutdown(true);
+            }
+            id(publicar_tudo) = true;
+          } else if (op == "set_zone") {
+            int zona = x["zone"] | 0;
+            uint32_t dur = x["defaultDurationS"] | 0u;
+            if (zona < 1 || zona > zonas) erro = "invalid_zone";
+            else if (dur < 1 || dur > 86400) erro = "invalid_duration";
+            else id(irrigacao).set_valve_run_duration(zona - 1, dur);
+          } else if (op == "set_schedule") {
+            JsonArrayConst inicios = x["starts"];
+            int dias = x["days"] | -1;
+            if (!x["enabled"].is<bool>() || dias < 0 || dias > 0x7F || inicios.isNull() || inicios.size() > 4) {
+              erro = "bad_request";
+            } else {
+              std::array<int16_t, 4> novos = {-1, -1, -1, -1};
+              size_t i = 0;
+              for (JsonVariantConst v : inicios) {
+                int m = v | -1;
+                if (m < 0 || m >= 24 * 60) { erro = "bad_request"; break; }
+                novos[i++] = m;
+              }
+              if (erro == nullptr) {
+                id(agenda_ativa) = x["enabled"].as<bool>();
+                id(agenda_dias) = dias;
+                id(agenda_inicios) = novos;
+                id(publicar_tudo) = true;
+              }
+            }
+          } else {
+            erro = "unknown_op";
+          }
+
+          ESP_LOGI("cmd", "%s %s -> %s", cmd_id.c_str(), op.c_str(), erro ? erro : "ok");
+          id(mqtt_client).publish_json("${prefix}/cmd/ack", [=](JsonObject r) {
+            r["id"] = cmd_id;
+            r["ok"] = erro == nullptr;
+            if (erro) r["error"] = erro;
+          }, 1, false);
+
+globals:
+  # Agenda: dias em bitmask (bit 0 = domingo ... bit 6 = sábado) e até 4 horários
+  # de início em minutos desde a meia-noite (-1 = vazio). Sobrevive a reboot.
+  - id: agenda_ativa
+    type: bool
+    restore_value: true
+    initial_value: "false"
+  - id: agenda_dias
+    type: uint8_t
+    restore_value: true
+    initial_value: "0x7F"
+  - id: agenda_inicios
+    type: std::array<int16_t, 4>
+    restore_value: true
+    initial_value: "{360, -1, -1, -1}"
+  # Atraso por chuva: epoch (s) até quando a agenda fica suspensa. 0 = sem atraso.
+  - id: chuva_ate
+    type: int64_t
+    restore_value: true
+    initial_value: "0"
+  # Pede a republicação de todos os tópicos retidos (ao conectar e após mudar config).
+  - id: publicar_tudo
+    type: bool
+    initial_value: "true"
+
+# --- Saídas: placa de 8 relés, aciona em nível baixo.
+# A placa deve ter o VCC das entradas em 3,3V e o JD-VCC em 5V (jumper removido),
+# senão o nível alto de 3,3V do ESP32 não chega a desligar o optoacoplador.
+switch:
+  - { platform: gpio, id: rele_1, pin: { number: GPIO16, inverted: true }, restore_mode: ALWAYS_OFF }
+  - { platform: gpio, id: rele_2, pin: { number: GPIO17, inverted: true }, restore_mode: ALWAYS_OFF }
+  - { platform: gpio, id: rele_3, pin: { number: GPIO18, inverted: true }, restore_mode: ALWAYS_OFF }
+  - { platform: gpio, id: rele_4, pin: { number: GPIO19, inverted: true }, restore_mode: ALWAYS_OFF }
+  - { platform: gpio, id: rele_5, pin: { number: GPIO23, inverted: true }, restore_mode: ALWAYS_OFF }
+  - { platform: gpio, id: rele_6, pin: { number: GPIO25, inverted: true }, restore_mode: ALWAYS_OFF }
+  - { platform: gpio, id: rele_7, pin: { number: GPIO26, inverted: true }, restore_mode: ALWAYS_OFF }
+  - { platform: gpio, id: rele_bomba, pin: { number: GPIO27, inverted: true }, restore_mode: ALWAYS_OFF }
+
+sprinkler:
+  - id: irrigacao
+    main_switch: Irrigação
+    auto_advance_switch: Avanço automático
+    # Abre a válvula, espera e só então liga a bomba; na parada desliga a bomba antes
+    # de fechar a válvula. A bomba nunca bate contra registro fechado.
+    pump_start_pump_delay: 3s
+    pump_stop_valve_delay: 3s
+    valve_overlap: 2s
+    valves:
+      - { valve_switch: Zona 1, valve_switch_id: rele_1, pump_switch_id: rele_bomba, run_duration_number: { name: Zona 1 duração, initial_value: 600 } }
+      - { valve_switch: Zona 2, valve_switch_id: rele_2, pump_switch_id: rele_bomba, run_duration_number: { name: Zona 2 duração, initial_value: 600 } }
+      - { valve_switch: Zona 3, valve_switch_id: rele_3, pump_switch_id: rele_bomba, run_duration_number: { name: Zona 3 duração, initial_value: 600 } }
+      - { valve_switch: Zona 4, valve_switch_id: rele_4, pump_switch_id: rele_bomba, run_duration_number: { name: Zona 4 duração, initial_value: 600 } }
+      - { valve_switch: Zona 5, valve_switch_id: rele_5, pump_switch_id: rele_bomba, run_duration_number: { name: Zona 5 duração, initial_value: 600 } }
+      - { valve_switch: Zona 6, valve_switch_id: rele_6, pump_switch_id: rele_bomba, run_duration_number: { name: Zona 6 duração, initial_value: 600 } }
+      - { valve_switch: Zona 7, valve_switch_id: rele_7, pump_switch_id: rele_bomba, run_duration_number: { name: Zona 7 duração, initial_value: 600 } }
+
+# --- Entradas
+i2c:
+  sda: GPIO21
+  scl: GPIO22
+
+pcf8574:
+  - id: painel
+    address: 0x20
+
+binary_sensor:
+  # Sensor de chuva: contato seco para o GND, fechado = molhado.
+  - platform: gpio
+    id: chuva
+    pin: { number: GPIO32, mode: { input: true, pullup: true }, inverted: true }
+    filters: [delayed_on_off: 5s]
+
+  # Boia: contato fechado para o GND = tem água. Fio solto lê como "falta água" (falha segura).
+  # A trava de verdade é o outro contato da boia em série com a bobina do contator;
+  # esta entrada só avisa o app e impede o firmware de abrir zonas a seco.
+  - platform: gpio
+    id: falta_agua
+    pin: { number: GPIO33, mode: { input: true, pullup: true } }
+    filters: [delayed_on_off: 3s]
+    on_press:
+      - lambda: |-
+          ESP_LOGW("boia", "nível baixo: parando tudo");
+          id(irrigacao).shutdown(true);
+
+  # Painel: botões 1..7 ligam/desligam a zona; botão 8 para tudo.
+  - { platform: gpio, id: botao_1, pin: { pcf8574: painel, number: 0, inverted: true }, filters: [delayed_on: 50ms], on_press: [lambda: id(alternar_zona).execute(1);] }
+  - { platform: gpio, id: botao_2, pin: { pcf8574: painel, number: 1, inverted: true }, filters: [delayed_on: 50ms], on_press: [lambda: id(alternar_zona).execute(2);] }
+  - { platform: gpio, id: botao_3, pin: { pcf8574: painel, number: 2, inverted: true }, filters: [delayed_on: 50ms], on_press: [lambda: id(alternar_zona).execute(3);] }
+  - { platform: gpio, id: botao_4, pin: { pcf8574: painel, number: 3, inverted: true }, filters: [delayed_on: 50ms], on_press: [lambda: id(alternar_zona).execute(4);] }
+  - { platform: gpio, id: botao_5, pin: { pcf8574: painel, number: 4, inverted: true }, filters: [delayed_on: 50ms], on_press: [lambda: id(alternar_zona).execute(5);] }
+  - { platform: gpio, id: botao_6, pin: { pcf8574: painel, number: 5, inverted: true }, filters: [delayed_on: 50ms], on_press: [lambda: id(alternar_zona).execute(6);] }
+  - { platform: gpio, id: botao_7, pin: { pcf8574: painel, number: 6, inverted: true }, filters: [delayed_on: 50ms], on_press: [lambda: id(alternar_zona).execute(7);] }
+  - { platform: gpio, id: botao_parar, pin: { pcf8574: painel, number: 7, inverted: true }, filters: [delayed_on: 50ms], on_press: [lambda: id(irrigacao).shutdown(true);] }
+
+script:
+  - id: alternar_zona
+    parameters: { zona: int }
+    then:
+      - lambda: |-
+          auto ativa = id(irrigacao).active_valve();
+          if (ativa.has_value() && ativa.value() == (size_t) (zona - 1)) {
+            id(irrigacao).shutdown(true);
+          } else if (!id(falta_agua).state) {
+            id(irrigacao).start_single_valve(zona - 1);
+          }
+
+# --- Publicação do estado no lotus/v1
+# Tópicos retidos, publicados só quando mudam. Durante a irrigação o state sai também
+# a cada 15s para corrigir o relógio do app; entre um e outro o app conta sozinho.
+interval:
+  - interval: 1s
+    then:
+      - lambda: |-
+          if (!id(mqtt_client).is_connected()) return;
+          auto *irr = id(irrigacao);
+          auto agora = id(relogio).now();
+          int zonas = ${zonas};
+          bool tudo = id(publicar_tudo);
+          id(publicar_tudo) = false;
+
+          if (tudo) {
+            id(mqtt_client).publish_json("${prefix}/info", [=](JsonObject r) {
+              r["type"] = "esp32-relay";
+              r["fw"] = "${fw_version}";
+              r["zones"] = zonas;
+              r["hasPressure"] = false;
+              r["hasFlow"] = false;
+              r["hasButtons"] = true;
+            }, 1, true);
+            id(mqtt_client).publish_json("${prefix}/schedule", [=](JsonObject r) {
+              r["enabled"] = id(agenda_ativa);
+              r["days"] = id(agenda_dias);
+              JsonArray a = r["starts"].to<JsonArray>();
+              for (auto m : id(agenda_inicios))
+                if (m >= 0) a.add(m);
+            }, 1, true);
+          }
+
+          // state
+          auto ativa = irr->active_valve();
+          auto pausada = irr->paused_valve();
+          auto proxima = irr->queued_valve();
+          const char *modo = ativa.has_value() ? "running" : (pausada.has_value() ? "paused" : "idle");
+          int zona_ativa = ativa.has_value() ? (int) ativa.value() + 1 : 0;
+          int zona_proxima = proxima.has_value() ? (int) proxima.value() + 1 : 0;
+          int64_t chuva_fim = id(chuva_ate) > (agora.is_valid() ? agora.timestamp : 0) ? id(chuva_ate) : 0;
+          const char *falha = id(falta_agua).state ? "dry" : nullptr;
+
+          static std::string assinatura_anterior;
+          static uint32_t ultimo_envio = 0;
+          char assinatura[64];
+          snprintf(assinatura, sizeof(assinatura), "%s|%d|%d|%lld|%s", modo, zona_ativa, zona_proxima,
+                   (long long) chuva_fim, falha ? falha : "");
+          bool mudou = assinatura_anterior != assinatura;
+          bool periodico = ativa.has_value() && millis() - ultimo_envio >= 15000;
+          if (tudo || mudou || periodico) {
+            auto restante = irr->time_remaining_active_valve();
+            id(mqtt_client).publish_json("${prefix}/state", [=](JsonObject r) {
+              r["mode"] = modo;
+              if (zona_ativa) r["activeZone"] = zona_ativa; else r["activeZone"] = nullptr;
+              if (restante.has_value()) r["remainingS"] = restante.value(); else r["remainingS"] = nullptr;
+              if (zona_proxima) r["nextZone"] = zona_proxima; else r["nextZone"] = nullptr;
+              if (chuva_fim) r["rainDelayUntil"] = chuva_fim; else r["rainDelayUntil"] = nullptr;
+              if (falha) r["fault"] = falha; else r["fault"] = nullptr;
+              if (agora.is_valid()) r["ts"] = agora.timestamp;
+            }, 1, true);
+            assinatura_anterior = assinatura;
+            ultimo_envio = millis();
+          }
+
+          // zone/{n}/state
+          static std::array<int8_t, ${zonas}> ligada_anterior;
+          static std::array<uint32_t, ${zonas}> duracao_anterior;
+          static bool zonas_iniciadas = false;
+          if (!zonas_iniciadas) {
+            ligada_anterior.fill(-1);
+            duracao_anterior.fill(0);
+            zonas_iniciadas = true;
+          }
+          for (int i = 0; i < zonas; i++) {
+            bool ligada = ativa.has_value() && ativa.value() == (size_t) i;
+            uint32_t duracao = irr->valve_run_duration(i);
+            if (!tudo && ligada_anterior[i] == ligada && duracao_anterior[i] == duracao) continue;
+            std::string nome = irr->valve_name(i);
+            char topico[64];
+            snprintf(topico, sizeof(topico), "${prefix}/zone/%d/state", i + 1);
+            id(mqtt_client).publish_json(topico, [=](JsonObject r) {
+              r["on"] = ligada;
+              r["name"] = nome;
+              r["defaultDurationS"] = duracao;
+            }, 1, true);
+            ligada_anterior[i] = ligada;
+            duracao_anterior[i] = duracao;
+          }
+
+          // sensors
+          static int8_t chuva_anterior = -1, nivel_anterior = -1;
+          bool chovendo = id(chuva).state;
+          bool nivel_ok = !id(falta_agua).state;
+          if (tudo || chuva_anterior != chovendo || nivel_anterior != nivel_ok) {
+            id(mqtt_client).publish_json("${prefix}/sensors", [=](JsonObject r) {
+              r["rain"] = chovendo;
+              r["level"] = nivel_ok ? "ok" : "low";
+            }, 1, true);
+            chuva_anterior = chovendo;
+            nivel_anterior = nivel_ok;
+          }
