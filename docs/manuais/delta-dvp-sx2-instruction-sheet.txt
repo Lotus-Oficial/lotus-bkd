@@ -1,0 +1,598 @@
+                 Send Quote Requests to info@automatedpt.com
+
+
+DVP-SX2
+
+
+
+
+DVP-0150030-02
+20240221
+
+
+
+
+      Send Quote Requests to info@automatedpt.com
+      Call +1(800)985-6929 To Order or Order Online At Deltaacdrives.com
+                       Send Quote Requests to info@automatedpt.com
+
+…………………………………………………………………  ENGLISH  ……………………………………………………………………
+Thank you for choosing Delta DVP-SX2. DVP-SX2 is a 20-point (8DI + 6 DO + 4AI +
+2AO) PLC MPU, offering various instructions and is with 16k steps program memory,
+able to connect with all Slim series extension models, including digital input/output (max.
+480 input/output extension points), analog modules (A/D, D/A transformation and
+temperature units) and all kinds of new high-speed extension modules. Its 2-group
+high-speed (100kHz) pulse outputs and the one new 2-axis interpolation instructions
+satisfy all kinds of applications. DVP-SX2 is small in size, and it can be installed easily.
+Users do not have to install any batteries in DVP-SX2 series PLCs. The PLC programs
+and the latched data are stored in the high-speed flash memories.
+EN  DVP-SX2 is an OPEN-TYPE device. It should be installed in a control cabinet
+        free of airborne dust, humidity, electric shock and vibration. To prevent
+        non-maintenance staff from operating DVP-SX2, or to prevent an accident from
+        damaging DVP-SX2, the control cabinet in which DVP-SX2 is installed should be
+        equipped with a safeguard. For example, the control cabinet in which DVP-SX2 is
+        installed can be unlocked with a special tool or key.
+EN  DO NOT connect AC power to any of I/O terminals, otherwise serious damage
+        may occur. Please check all wiring again before DVP-SX2 is powered up. After
+        DVP-SX2 is disconnected, Do NOT touch any terminals in a minute. Make sure
+        that the ground terminal       on DVP-SX2 is correctly grounded in order to
+        prevent electromagnetic interference.
+FR  DVP-SX2 est un module OUVERT. Il doit être installé que dans une enceinte
+        protectrice (boitier, armoire, etc.) saine, dépourvue de poussière, d’humidité, de
+        vibrations et hors d’atteinte des chocs électriques. La protection doit éviter que
+        les personnes non habilitées à la maintenance puissent accéder à l’appareil (par
+        exemple, une clé ou un outil doivent être nécessaire pour ouvrir a protection).
+FR  Ne pas appliquer la tension secteur sur les bornes d’entrées/Sorties, ou l’appareil
+        DVP-SX2 pourra être endommagé. Merci de vérifier encore une fois le câblage
+        avant la mise sous tension du DVP-SX2. Lors de la déconnection de l’appareil,
+        ne pas toucher les connecteurs dans la minute suivante. Vérifier que la terre est
+        bien reliée au connecteur de terre        afin d’éviter toute interférence
+        électromagnétique.
+ Product Profile
+  1 Left-side module             3 POWER/RUN/ERROR/USB indicator
+    connection port                                           10 Direct fastening hole
+
+                       4 COM1 communication
+                         indicator (RS-232)                   V0+
+                                                              I0+
+                                                              VI0-
+                                                              V1+
+                                                              I1+
+                                                              VI1-
+
+                                                              V2+
+
+
+                       5 COM2 communication                                     11 I/O terminal
+                                                              I2+
+                                                              VI2-
+
+
+
+                         indicator (RS-485)                   V3+
+
+                                                              I3+
+                                                              VI3-
+
+
+
+                          6 I/O indicator
+                                                               FE
+
+                                                              VO0
+                                                              IO0
+                                                              VO1
+
+
+
+                          7 USB port                                           12 RUN/STOP switch
+                                                              IO1
+
+                                                               AG
+
+
+
+
+                          8 VR0/VR1                                            13 COM1 port
+                                                                                  (RS-232)
+
+      2 Nameplate                       9 DIN rail clip                                  [ Figure 1 ]
+
+
+  14 COM2 port            16 3PIN removable terminal
+                                                                             18 I/O module
+     (RS-485)                (standard component)                               positioning hole
+
+
+                                                                             19 I/O module
+                                                                                connection port
+
+
+                                                                             20 Mounting slot
+                                                                                (35mm)
+
+  15 Power input
+                         17 Power input connection
+     port                   cable (standard component)    21 I/O module fastening clip   [ Figure 2 ]
+
+
+
+
+                                                 -1-
+            Send Quote Requests to info@automatedpt.com
+            Call +1(800)985-6929 To Order or Order Online At Deltaacdrives.com
+                                  Send Quote Requests to info@automatedpt.com
+
+ Electrical Specifications
+                  Model
+                                              DVP20SX211R                  DVP20SX211T               DVP20SX211S
+Item
+                      24VDC (-15% ~ 20%)
+Power supply voltage (with counter-connection protection on the polarity of DC input power)
+                      DVPPS01(PS02): input 100-240VAC, output 24VDC/1A(PS02: 2A)
+Inrush current        Max. 7.5A@24VDC
+Fuse capacity         2.5A/30VDC, Polyswitch
+Power consumption               4.7W                    4W                      4W
+Insulation resistance > 5MΩ (all I/O point-to-ground: 500VDC)
+                      ESD (IEC 61131-2, IEC 61000-4-2): 8kV Air Discharge
+                      EFT (IEC 61131-2, IEC 61000-4-4): Power Line: 2kV, Digital I/O: 1kV,
+                      Analog & Communication I/O: 1kV
+                      RS (IEC 61131-2, IEC 61000-4-3): 26MHz ~ 1GHz, 10V/m
+Noise immunity        Surge(IEC 61131-2, IEC 61000-4-5) :
+                      DC power cable: differential mode ±0.5 kV
+                      analog I/O, RS-232, USB (shielded): Common mode ±1 kV
+                      digital I/O, RS-485 (unshielded): Common mode ±1 kV
+                      The diameter of grounding wire cannot be smaller than the wire
+Grounding             diameter of terminals 24V and 0V (All DVP units should be grounded
+                      directly to the ground pole).
+                      Operation: 0°C ~ 55°C (temp.), 50 ~ 95% (humidity), Pollution degree2
+Operation / storage
+                      Storage: -25°C ~ 70°C (temp.), 5 ~ 95% (humidity)
+Vibration / shock     International standards: IEC61131-2, IEC 68-2-6 (TEST
+resistance            Fc)/IEC61131-2 & IEC 68-2-27 (TEST Ea)
+Weight (g)                       243g                   224g                   227g
+
+                  Spec.                                                   Input Point
+Items                                                   24VDC (-15% ~ 20%) single common port input
+Input No.                                            X0, X2                 X1, X3               X4 ~ X7
+Input type                                                           DC (SINK or SOURCE)
+Input Current (± 10%)                                                    24VDC, 5mA
+Input impedance                                                           4.7K Ohm
+              OffOn                                                       > 15VDC
+Action level
+              OnOff                                                       < 5VDC
+Response      OffOn                                 < 2.5μs                < 10μs                < 20us
+time          OnOff                                  < 5μs                 < 20μs                < 50us
+Filter time                                   Adjustable within 0 ~ 20ms by D1020 (Default: 10ms)
+
+                    Spec.                                                    Output Point
+Items                                                Relay       Transistor
+Output No.                                          Y0 ~ Y5       Y1, Y3     Y0, Y2
+                                                                                 Y4, Y5
+Max. frequency                                       1Hz           10kHz     100kHz
+                                                                                  1kHz
+                                                                           #1
+Working voltage                                 250VAC, < 30VDC5 ~ 30VDC
+                                                        SX211T: 0.5A/1 point (3A/ZP)
+              Resistive  1.5A/1 point (5A/COM)
+                                                       SX211S: 0.3A/1 point (1.8A/UP)
+ Max. load                         #2
+              Inductive                                        15W (30VDC)
+              Lamp          20WDC/100WAC                      2.5W (30VDC)
+ Response     OffOn                                  2μs           20μs         100μs
+                             Approx. 10 ms
+ time         OnOff                                  3μs           30μs         100μs
+#1: DVP20SX211T: UP, ZP must work with external auxiliary power supply 24VDC (-15% ~
+    +20%), rated consumption approx. 3mA/point.
+    DVP20SX211S: UP, ZP must work with external auxiliary power supply 5~30VDC, rated
+    consumption approx. 5mA/point.
+#2: Life curves                                             120VAC Resistive
+                                       3000
+                                       2000                 30VDC Inductive(t= 7ms)
+                                       1000                   240VAC Inductive(cosψ= 0.4)
+                                                                  120VAC Inductive(cosψ=0.4)
+
+
+
+
+                    Operation(X10 3)
+                                       500
+                                       300
+                                       200
+
+                                       100
+                                                    30VDC
+                                        50          Inductive
+                                                      (t=40ms)
+                                                                               Contact
+                                          0.1     0.2 0.3    0.5 0.7   1    2 Current(A)       [ Figure 3 ]
+
+                                                                   -2-
+         Send Quote Requests to info@automatedpt.com
+         Call +1(800)985-6929 To Order or Order Online At Deltaacdrives.com
+                        Send Quote Requests to info@automatedpt.com
+
+A/D and D/A Specifications
+                                 Analog Input (A/D)                     Analog Output (D/A)
+        Items
+                          Voltage           Current               Voltage          Current
+ Analog I/O range         ±10V       ±20mA      4 ~ 20mA#1        ±10V     0 ~ 20mA 4 ~ 20mA#1
+ Digital conversion
+                          ±2,000     ±2,000       0 ~ +2,000      ±2,000      0 ~ +4,000 0 ~ +4,000
+ range
+ Resolution #2                                             12-bit
+ Input impedance          > 1MΩ                250Ω                                  -
+ Tolerance carried
+                                          -                       ≥ 5KΩ                   ≤ 500Ω
+ impedance
+                        Non-linear accuracy: ±1% of full scale within the range of PLC operation
+ Overall accuracy       temperature
+                        Maximum deviation: ±1% of full scale at 20mA and +10V
+ Response time                 2ms (set up in D1118) #3                             2ms #4
+ Absolute input
+                          ±15V              ±32mA                               -
+ range
+ Digital data format 2’s complement of 16-bit, 12 significant bits
+                                                      #5
+ Average function          Provided (set up in D1062)                           -
+ Isolation method      No Isolation between digital circuit and analog circuit
+                       Voltage output has short circuit protection, but a long period of short
+ Protection
+                       circuit may cause internal wire damage and open circuit of current output.
+#1: Please refer to the detailed explanation of D1115.
+#2: Resolution formula
+                   Analog Input (A/D)                             Analog Output (D/A)
+             Voltage                  Current                Voltage                  Current
+                  20V                     40mA                    20V                    20mA
+          (5mV =       )         (10 μΑ =       )        (5mV =        )         (5 μΑ =       )
+                  4000                    4000                    4000                   4000
+#3: When the scan period is longer than 2ms or the set value, the setting will follow the scan
+    period.
+#4: When the scan period is longer than 2ms, the setting will follow the scan period.
+#5: When the sampling range is “1”, the present value will be read.
+ I/O Configuration
+                        Input                Output                       I/O configuration
+   Model
+                Point       Type     Point       Type          Relay            NPN             PNP
+                                                           V0+      S/S      V0+    S/S       V0+    S/S
+                                                           I0+      X0       I0+    X0        I0+    X0
+20SX211R                                        Relay      VI0-     X1       VI0-   X1        VI0-   X1
+                                                           V1+      X2       V1+    X2        V1+    X2
+                                                           I1+      X3       I1+    X3        I1+    X3
+                            DC                             VI1-     X4       VI1-   X4        VI1-   X4
+                                                NPN        V2+      X5       V2+    X5        V2+    X5
+ 20SX211T        8        (Sink Or    6
+                                              Transistor   I2+      X6       I2+    X6        I2+    X6
+                          Source)                          VI2-     X7       VI2-   X7        VI2-   X7
+                                                           V3+      C0       V3+    UP        V3+    UP
+                                                 PNP       I3+      Y0       I3+    ZP        I3+    ZP
+ 20SX211S                                                  VI3-     Y1       VI3-   Y0        VI3-   Y0
+                                              Transistor   FE       Y2        FE    Y1         FE    Y1
+                                                           VO0               VO0    Y2        VO0    Y2
+                                                           IO0      C1       IO0    Y3        IO0    Y3
+                          Analog                Analog     VO1      Y3       VO1    Y4        VO1    Y4
+SX2-R/T/S        4                    2
+                           Input                output     IO1      Y4       IO1    Y5        IO1    Y5
+                                                           AG       Y5       AG               AG
+
+
+ Dimension & Installation
+Please install the PLC in an enclosure with sufficient space around it to allow heat
+dissipation, as shown in the [Figure 5].
+ Direct Mounting: Please use M4 screw according to the dimension of the product.
+ DIN Rail Mounting: When mounting the PLC to 35mm DIN rail, be sure to use the
+retaining clip to stop any side-to-side movement of the PLC and reduce the chance of
+wires being loose. The retaining clip is at the bottom of the PLC. To secure the PLC to
+DIN rail, pull down the clip, place it onto the rail and gently push it up. To remove the
+PLC, pull the retaining clip down with a flat screwdriver and gently remove the PLC from
+DIN rail.
+
+
+
+
+                                                  -3-
+           Send Quote Requests to info@automatedpt.com
+           Call +1(800)985-6929 To Order or Order Online At Deltaacdrives.com
+                         Send Quote Requests to info@automatedpt.com
+
+                  70
+                  53.2          3
+
+                  V0+
+                   I0+
+                  VI0-
+                  V1+
+                   I1+
+                  VI1-
+                  V2+
+                   I2+
+
+
+
+   109.4
+                  VI2-
+
+
+
+
+                                90
+                  V3+
+
+
+
+   101
+                   I3+
+                  VI3-
+                   FE
+
+                  VO0
+                   IO0
+                  VO1
+                   IO1
+
+                   AG
+
+
+
+
+                                      Unit: mm
+
+                                3    [ Figure 4 ]
+
+ Wiring
+1. Use 26-16AWG (0.4~1.2mm) single or multiple core wire                         26-16AWG
+   on I/O wiring terminals. See the figure in the right hand
+   side for its specification. PLC terminal screws should be
+   tightened to 2.0 kg-cm (1.77 in-lbs) and please use only              0.4~1.2mm
+   60/75ºC copper conductor.
+2. DO NOT wire empty terminal and place the I/O signal cable in the same wiring
+   circuit.
+3. DO NOT drop tiny metallic conductor into the PLC while screwing and wiring. Tear
+   off the sticker on the heat dissipation hole for preventing alien substances from
+   dropping in, to ensure normal heat dissipation of the PLC.
+ Safety Wiring
+Since DVP-SX2 is only compatible with DC power supply, Delta power supply modules
+(DVPPS01/DVPPS02) are suitable power supplies for DVP-SX2. Users are suggested
+to install the protection circuit at the power supply terminal to protect DVPPS01 or
+DVPPS02. See the figure below.
+
+
+
+
+  ○ AC power supply:100 ~ 240VAC, 50/60Hz
+  1                                                    ○ Breaker
+                                                       2
+
+  ○ Emergency stop: This button cuts off the system power supply when accidental
+  3
+      emergency takes place.
+  ○ Power indicator
+  4                                                    ○ AC power supply load
+                                                       5
+
+  6 Power supply circuit protection fuse (2A)
+  ○                                                    7 DVPPS01/DVPPS02
+                                                       ○
+  ○ DC power supply output: 24VDC, 500mA
+  8                                                    ○ DVP-PLC (main processing unit)
+                                                       9
+
+  10 Digital I/O module
+  ○
+
+
+
+
+                                                 -4-
+           Send Quote Requests to info@automatedpt.com
+           Call +1(800)985-6929 To Order or Order Online At Deltaacdrives.com
+                       Send Quote Requests to info@automatedpt.com
+
+ Power Supply
+The power input of DVP-SX2 series is DC. When operating DVP-SX2 series, please
+note the following points:
+1. The power is connected to the two terminals, 24VDC and 0V, and the range of power
+   is 20.4 ~ 28.8VDC. If the power voltage is less than 20.4VDC, PLC will stop running,
+   all outputs will go “Off” and ERROR indicator will flash continuously.
+2. The power shutdown of less than 10 ms will not affect the operation of the PLC.
+   However, power shutdown time that is too long or the drop of power voltage will stop
+   the operation of the PLC and all outputs will go OFF. When the power returns to
+   normal status, the PLC will automatically resume operation. (Care should be taken
+   on the latched auxiliary relays and registers inside the PLC when programming).
+ Input Point Wiring
+There are 2 types of DC inputs, SINK and SOURCE. (See the example below. For
+detailed point configuration, please refer to the specification of each model.)
+ DC Signal IN – SINK mode                      DC Signal IN – SOURCE mode
+Input point loop equivalent circuit            Input point loop equivalent circuit
+
+
+               + 24V                                           +24V
+
+                                                               24G
+               24G
+                                                               S /S
+                S/ S
+                                                                X0
+                X0
+
+                X1
+                                                                X1
+
+               [ Figur e 7 ]
+                                                              [ Fig u re 8 ]
+
+
+
+
+ Output Point Wiring
+1. DVP-SX2 series have three output modules, relay and transistor (NPN/PNP). Be
+   aware of the connection of shared terminals when wiring output terminals.
+2. Output terminals, Y0, Y1, and Y2, of relay models use C0 common port; Y3, Y4, and
+   Y5 use C1 common port; as shown in the [Figure 9]. When output points are enabled,
+   their corresponding indicators on the front panel will be on.
+
+
+
+
+3. The output terminals Y0~Y5 of the transistor (NPN) model are connected to the
+   common terminals UP and ZP. See [Figure 10a]. The output terminals Y0~Y5 on the
+   transistor (PNP) model are connected to the common terminals UP and ZP. See
+   [Figure 10b].
+
+
+
+
+4. Isolation circuit: The optical coupler is used to isolate signals between the circuit
+   inside PLC and input modules.
+
+
+
+
+                                            -5-
+         Send Quote Requests to info@automatedpt.com
+         Call +1(800)985-6929 To Order or Order Online At Deltaacdrives.com
+                     Send Quote Requests to info@automatedpt.com
+
+ Relay (R) output circuit wiring
+
+
+
+
+○ DC power supply
+1                                                ○ Emergency stop: Uses external switch
+                                                 2
+
+○ Fuse: Uses 5~10A fuse at the shared terminal of output contacts to protect the output circuit
+3
+
+4 Transient voltage suppressor (SB360 3A 60V): To extend the life span of contact.
+○
+    1. Diode suppression of DC load: Used when in smaller power (Figure 12a)
+    2. Diode + Zener suppression of DC load: Used when in larger power and frequent On/Off
+       (Figure 12b)
+○ Incandescent light (resistive load)
+5                                                ○ AC power supply
+                                                 6
+
+○ Manually exclusive output: For example, Y3 and Y4 control the forward running and reverse
+7
+    running of the motor, forming an interlock for the external circuit, together with the PLC
+    internal program, to ensure safe protection in case of any unexpected errors.
+○ Absorber: To reduce the interference on AC load (Figure 13)
+8
+
+ Transistor (T) output circuit wiring
+  Transistor output - NPN type (SX211T):          Transistor output - PNP type (SX211S):
+
+
+
+
+○ DC power supply
+1                                 ○ Emergency stop
+                                  2                              ○ Circuit protection fuse
+                                                                 3
+
+
+
+                                              -6-
+         Send Quote Requests to info@automatedpt.com
+         Call +1(800)985-6929 To Order or Order Online At Deltaacdrives.com
+                              Send Quote Requests to info@automatedpt.com
+
+○ TVS diode: Prolongs the contacts’ durability for greater service life.
+4
+  1. Diode suppression: Used when in smaller power (Figure 15a)
+  2. Diode + Zener suppression: Used when in larger power and frequent On/Off (Figure 15b)
+○ Manually exclusive output: For example, Y3 and Y4 control the forward running and reverse
+5
+  running of the motor, forming an interlock for the external circuit, together with the PLC
+  internal program, to ensure safe protection in case of any unexpected errors.
+
+
+       A/D and D/A External Wiring
+ A/D: Active                                                         A/D: Passive
+       1 Voltage input                                                      1 Voltage input
+                                                    CH1                     +                                        CH1
+              +                                           V0+                                                              V0+
+ UIN                                                      I0+           UIN
+                                                                                                                           I0+
+              -                                           VI0-              -                                              V0-
+                            4 Shielded                                                        4 Shielded
+                               cable                                                                cable
+      2 Current input                                                                                                CH3
+                                                    CH3                     2 Current input
+                                                          V3+                                                              V3+
+              +                                                                  -                                         I3+
+                                                          I3+
+ UIN
+                                                          VI3-                                4 Shielded
+                                                                                                                           VI3-
+              -
+                                                          FE                     +                  cable                  FE
+                         4 Shielded
+ 3                             cable
+                                                                            Terminal of
+         Terminal
+                                                                          power module
+     of power module                                       0V                                                               0V
+                                                                            3
+                                                          24V                                                              24V
+                                                                                 5 Grounding (100       or less)
+                  5 Grounding (100       or less)
+                                             [ Figure 16 ]                                                         [ Figure 17 ]
+
+ D/A
+                        6 Voltage output
+                                                      CH1
+                                                                VO0
+                                                                IO0
+  8                                          4
+ AC drive, recorder,            Isolation wire
+ scale value...
+                         7 Current output
+                                                      CH2 VO1
+                                                          IO1                   Note: When the A/D module is
+  8                                                       AG                    connected to current signals, make
+ AC drive, recorder,
+                                             4                                  sure to short-circuit “V+” and “I+”
+                                Isolation wire            [ Figure 18 ]
+ scale value...                                                                 terminals.
+ RS-485 Wiring
+                      1 D+ D- SG                2   D+ D- SG                      SG D+ D-          2
+
+                        3                                                                       3
+
+
+
+                                         4                              4
+                                                                                                    Figure 19
+
+○ Master node
+1                                                                     ○ Slave node
+                                                                      2
+
+○ Terminal resistor
+ 3                                               ○ Shielded cable
+                                                 4
+Note: 1. Terminal resistors are suggested to be connected to master and the last slave with
+         resistor value of 120Ω.
+      2. To ensure communication quality, please apply double shielded twisted pair cable
+         (20AWG) for wiring.
+      3. When voltage drop occurs between the internal ground references of two systems,
+         connect the systems with Signal Ground point (SG) for achieving equal potential
+         between systems so that a stable communication can be obtained.
+ Precision of the RTC (Second/Month)
+          Temperature
+                                         0/32               25/77               55/131
+             (°C/°F)
+         Maximum error
+                                         -117                   52               -132
+            (Second)
+Duration in which the RTC is latched: One week (Only version 2.00 and above are
+supported.)
+
+
+                                                                 -7-
+              Send Quote Requests to info@automatedpt.com
+              Call +1(800)985-6929 To Order or Order Online At Deltaacdrives.com
+

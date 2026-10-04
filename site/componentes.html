@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flora · Componentes</title>
+  <meta name="description" content="Lista de compras das duas casas do Flora, com preço estimado, quanto já foi gasto, onde comprar e o manual de cada peça.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M16 3c5 7 9 11.5 9 16.5A9 9 0 0 1 7 19.5C7 14.5 11 10 16 3z' fill='%238fd18a'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-bom">
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="bom-hero">
+    <nav class="nav">
+      <a class="brand" href="index.html">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c5 7 9 11.5 9 16.5A9 9 0 0 1 7 19.5C7 14.5 11 10 16 3z"/><path class="vein" d="M16 27V14m0 6 4-4m-4 1-3-3"/></svg>
+        flora
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#casas">Casas</a></li>
+        <li><a href="index.html#comunicacao">Comunicação</a></li>
+        <li><a href="index.html#roteiro">Roteiro</a></li>
+        <li><a href="componentes.html" class="is-current">Componentes</a></li>
+      </ul>
+      <span class="nav-pill"><span class="dot"></span>em bancada</span>
+    </nav>
+
+    <div class="bom-head">
+      <p class="eyebrow">Lista de compras</p>
+      <h1>Quanto custa um quintal <em>que se rega sozinho.</em></h1>
+      <p class="lede">
+        Tudo o que cada casa precisa, com preço estimado, quanto já foi gasto, onde comprar e o manual
+        de cada peça. Os valores ficam em <code>site/dados-componentes.js</code>: ao comprar, marque o item
+        como comprado e informe o preço pago.
+      </p>
+    </div>
+
+    <div class="totals" id="totals"></div>
+  </header>
+
+  <main class="bom">
+    <div class="bom-bar">
+      <div class="tabs tabs-lg" role="tablist" id="siteTabs">
+        <button class="tab is-active" role="tab" data-site="pai">Casa do pai</button>
+        <button class="tab" role="tab" data-site="amigo">Casa do amigo</button>
+      </div>
+      <div class="filters" id="filters">
+        <button class="filter is-active" data-status="todos">Tudo</button>
+        <button class="filter" data-status="comprar">A comprar</button>
+        <button class="filter" data-status="comprado">Comprado</button>
+        <button class="filter" data-status="tenho">Já tenho</button>
+      </div>
+    </div>
+
+    <div id="groups"></div>
+
+    <p class="bom-note">
+      As estimativas são preços de referência de mercado de out/2026 e servem para planejar.
+      O total gasto considera só os itens marcados como <b>comprado</b> com o preço <b>pago</b>.
+      Itens que você <b>já tem</b> não entram no custo.
+    </p>
+  </main>
+
+  <footer class="footer">
+    <a class="brand brand-sm" href="index.html">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c5 7 9 11.5 9 16.5A9 9 0 0 1 7 19.5C7 14.5 11 10 16 3z"/></svg>
+      flora
+    </a>
+    <span>Manuais em <code>docs/manuais/</code> · notas de hardware em <code>docs/hardware/</code></span>
+  </footer>
+
+  <script src="dados-componentes.js"></script>
+  <script src="componentes.js"></script>
+</body>
+</html>

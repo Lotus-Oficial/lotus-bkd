@@ -44,6 +44,9 @@ Os dois sites não compartilham hardware nem rede. A única coisa em comum é o
 ```
 
 - **Válvulas:** 7 zonas (R1–R7). O R8 fica para a bomba.
+- **Botões:** os 8 botões do painel (7 zonas + parar tudo) entram por um expansor I2C **PCF8574**,
+  que usa só 2 pinos do ESP32. O sensor de chuva e a boia vão direto em GPIOs.
+- **Lista de compras:** [`site/componentes.html`](../site/componentes.html), com os dados em `site/dados-componentes.js`.
 - **Bomba:** o R8 aciona a bobina de um **contator com bobina 24VAC**. Assim o 220V fica
   só no transformador e nos contatos de força do contator. A placa de relés continua sem 220V.
 - **Transformador:** suba para **~50VA (2A)**. O 1A da especificação original servia só
@@ -152,7 +155,7 @@ Mais zonas exigem um módulo de expansão de saídas DVP-S na porta lateral.
 - **Física:** COM2 RS-485 do CLP ↔ módulo MAX485/MAX3485 no ESP32. O ESP32 é mestre
   Modbus RTU e o CLP é escravo no endereço 1.
 - **Configuração:** o COM2 sai de fábrica em Modbus ASCII 9600 7E1 e precisa ir para **RTU 8N1**
-  no ladder (D1120/M1120/M1143). A USB fica livre para programação (ISPSoft/WPLSoft).
+  no ladder (D1120/M1120/M1143, **a confirmar** no manual de programação). Detalhes do CLP em [`docs/hardware/delta-dvp20sx2.md`](hardware/delta-dvp20sx2.md). A USB fica livre para programação (ISPSoft/WPLSoft).
 - **Endereços Modbus Delta DVP:** X = 0x0400, Y = 0x0500, M = 0x0800, D = 0x1000.
 
 | Endereço | Direção | Conteúdo |
@@ -251,5 +254,5 @@ flora/v1/{site}/cmd/ack           → {id, ok, error?}
 - [ ] Origem da água em cada casa (poço ou caixa). Define a boia e a escolha das bombas.
 - [ ] Número de zonas em cada casa e vazão da maior zona.
 - [ ] Testar na bancada se o registrador 0007H do IF10 devolve a pressão (P007).
-- [ ] Manuais do CLP Delta DVP-SX2 (ver `docs/manuais/README.md`).
+- [ ] Manual de programação do CLP Delta DVP-SX2 (ver `docs/manuais/README.md`).
 - [ ] A casa do amigo é monofásica? Se for bifásica 220V, o resultado é o mesmo para o inversor.

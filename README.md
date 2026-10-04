@@ -6,7 +6,7 @@
 
 Irrigação automática para duas casas, com dois controladores físicos diferentes e um único app Android.
 
-![Página do projeto](docs/img/homepage.png)
+![Página do projeto](docs/img/homepage.jpg)
 
 </div>
 
@@ -44,14 +44,27 @@ flora/
 │   ├── hardware/            notas de projeto por equipamento (o que usamos e como configurar)
 │   ├── manuais/             PDFs originais dos fabricantes + extração em .txt
 │   └── img/                 imagens do README
-└── site/                    página de apresentação (HTML, CSS e JS puros)
+└── site/                    página de apresentação e lista de componentes (HTML, CSS e JS puros)
 ```
 
 ## Documentação
 
 - [Arquitetura](docs/ARCHITECTURE.md): quadros, mapa de E/S, Modbus, contrato `flora/v1` e roteiro
 - [Inversor Metaltex IF10](docs/hardware/metaltex-if10.md): parametrização, PID e mapa Modbus
+- [CLP Delta DVP20SX211R](docs/hardware/delta-dvp20sx2.md): especificações confirmadas e pendências
 - [Índice de manuais](docs/manuais/README.md): o que já temos e o que falta
+
+## Componentes e custos
+
+A página [`site/componentes.html`](site/componentes.html) lista tudo o que cada casa precisa,
+agrupado por etapa (bancada, quadro, bomba, sensores, hidráulica). Para cada item ela mostra o preço
+estimado, quanto já foi gasto, o link de compra e o manual.
+
+![Componentes](docs/img/componentes.jpg)
+
+Os dados ficam em [`site/dados-componentes.js`](site/dados-componentes.js). Ao comprar um item,
+mude `status` para `"comprado"`, preencha `pago` com o preço unitário e `loja` com o link.
+Os totais se recalculam sozinhos.
 
 ## Página do projeto
 
