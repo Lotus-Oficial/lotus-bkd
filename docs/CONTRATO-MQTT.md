@@ -9,6 +9,9 @@ contrato; o app lê o `info` de cada um e mostra só o que aquele site tem.
 - Tempos em segundos. Datas em epoch Unix (segundos, UTC).
 - Horários da agenda em **minutos desde a meia-noite, no fuso da casa** (`America/Sao_Paulo`).
 - Campos opcionais ausentes ou `null` significam "não se aplica" ou "nada no momento".
+- O app se inscreve em `lotus/v1/{site}/#`, uma inscrição por site. O EMQX **nega a inscrição
+  inteira** se o filtro for mais amplo que o permitido ao usuário (ex.: `app-esp` em `lotus/v1/#`).
+  O Mosquitto local é mais tolerante: só filtra as mensagens. Não use ele como referência para isso.
 
 ## Tópicos publicados pelo quadro
 

@@ -57,22 +57,37 @@ def conectar(client_id, will=None):
     if os.environ.get("LOTUS_MQTT_USER"):
         c.username_pw_set(os.environ["LOTUS_MQTT_USER"], os.environ.get("LOTUS_MQTT_PASS"))
     if tls:
-        c.tls_set(ca_certs=os.environ.get("LOTUS_MQTT_CA") or None, tls_version=ssl.PROTOCOL_TLS_CLIENT)
+        ca = os.environ.get("LOTUS_MQTT_CA")
+        if ca and not Path(ca).is_absolute():
+            ca = str(Path(__file__).resolve().parent.parent / ca)
+        c.tls_set(ca_certs=ca or None, tls_version=ssl.PROTOCOL_TLS_CLIENT)
     if will:
         c.will_set(*will)
 
     conectado = threading.Event()
+    recusa = []
 
     def on_connect(client, userdata, flags, rc, props):
         if rc.is_failure:
-            sys.exit(f"broker recusou a conexão: {rc}")
+            recusa.append(str(rc))
         conectado.set()
 
+    def on_subscribe(client, userdata, mid, codigos, props):
+        # O EMQX nega a inscrição inteira se o filtro for mais amplo que o permitido
+        # (ex.: app-esp assinando lotus/v1/#). Sem este aviso o cliente fica mudo.
+        if any(rc.is_failure for rc in codigos):
+            print(f"inscrição negada pelo broker ({codigos[0]}): confira as permissões do usuário",
+                  file=sys.stderr, flush=True)
+
     c.on_connect = on_connect
+    c.on_subscribe = on_subscribe
     c.connect(host, porta, keepalive=30)
     c.loop_start()
     if not conectado.wait(10):
         sys.exit(f"sem resposta de {host}:{porta}")
+    if recusa:
+        c.loop_stop()
+        sys.exit(f"broker recusou a conexão: {recusa[0]}")
     return c
 
 
