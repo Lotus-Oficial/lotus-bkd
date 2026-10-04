@@ -634,7 +634,7 @@ h2 { font-size: clamp(34px, 4.6vw, 62px); line-height: 1.04; }
 
 .cols, .item {
   display: grid;
-  grid-template-columns: 104px minmax(0, 1fr) 70px 120px 120px 150px;
+  grid-template-columns: 104px minmax(0, 1fr) 64px 120px 112px 196px;
   gap: 16px; align-items: center;
 }
 .cols {
@@ -656,6 +656,9 @@ h2 { font-size: clamp(34px, 4.6vw, 62px); line-height: 1.04; }
 .price-est { color: var(--muted); }
 .price-paid { color: var(--leaf); }
 .price-muted { color: var(--faint); font: italic 13px var(--sans); }
+.price-ref { color: var(--water); font-size: 13px; }
+.total-reuse { margin: 16px 0 0; padding-top: 14px; border-top: 1px dashed var(--line-2); font-size: 13px; color: var(--faint); }
+.total-reuse span { color: var(--water); font: 500 14px var(--mono); }
 .item-links { display: flex; gap: 6px; justify-content: flex-end; }
 .item.is-tenho .item-main strong { color: var(--muted); }
 

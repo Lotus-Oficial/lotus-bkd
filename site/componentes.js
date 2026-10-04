@@ -22,6 +22,7 @@ function resumo(itens) {
     previsto: custo.reduce((s, i) => s + unit(i) * i.qtd, 0),
     gasto: custo.filter((i) => i.status === "comprado").reduce((s, i) => s + (i.pago ?? 0) * i.qtd, 0),
     falta: custo.filter((i) => i.status === "comprar").reduce((s, i) => s + (i.estimativa ?? 0) * i.qtd, 0),
+    reaproveitado: itens.filter((i) => i.status === "tenho").reduce((s, i) => s + (i.estimativa ?? 0) * i.qtd, 0),
     total: custo.length,
     comprados: custo.filter((i) => i.status === "comprado").length,
   };
@@ -40,6 +41,7 @@ function cardTotal(titulo, r, extra = "") {
         <div><dt>falta</dt><dd>${brl0.format(r.falta)}</dd></div>
         <div><dt>itens</dt><dd>${r.comprados}/${r.total}</dd></div>
       </dl>
+      ${r.reaproveitado ? `<p class="total-reuse"><span>+ ${brl0.format(r.reaproveitado)}</span> em equipamento reaproveitado · valor total ${brl0.format(r.previsto + r.reaproveitado)}</p>` : ""}
     </article>`;
 }
 
@@ -51,6 +53,8 @@ function renderTotais() {
 }
 
 function linkLoja(i) {
+  if (i.loja && i.status === "tenho")
+    return `<a class="lnk" href="${i.loja}" target="_blank" rel="noopener" title="Anúncio usado como valor de referência">Referência ↗</a>`;
   if (i.loja) return `<a class="lnk lnk-shop" href="${i.loja}" target="_blank" rel="noopener">Loja ↗</a>`;
   if (i.busca)
     return `<a class="lnk" href="https://lista.mercadolivre.com.br/${encodeURIComponent(i.busca.replace(/\s+/g, "-"))}" target="_blank" rel="noopener">Buscar ↗</a>`;
@@ -64,7 +68,10 @@ function linkManual(i) {
 }
 
 function preco(i) {
-  if (i.status === "tenho") return `<span class="price-muted">reaproveitado</span>`;
+  if (i.status === "tenho")
+    return i.estimativa != null
+      ? `<span class="price-ref" title="Valor de referência de mercado">ref. ${brl.format(i.estimativa)}</span>`
+      : `<span class="price-muted">reaproveitado</span>`;
   if (i.pago != null) return `<span class="price-paid">${brl.format(i.pago)}</span>`;
   if (i.estimativa != null) return `<span class="price-est">~${brl.format(i.estimativa)}</span>`;
   return `<span class="price-muted">—</span>`;

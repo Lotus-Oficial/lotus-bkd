@@ -6,7 +6,9 @@
 //   3. coloque em `loja` o link de onde comprou
 //
 // Campos:
-//   status      "comprar" | "comprado" | "tenho"  ("tenho" = já existia, não entra no custo)
+//   status      "comprar" | "comprado" | "tenho"
+//               "tenho" = já existia: não entra no gasto, mas a `estimativa` vira o valor
+//               de referência do equipamento reaproveitado (e `loja` aponta para a referência)
 //   etapa       agrupa os itens na página (bancada, quadro, bomba, sensores, hidraulica)
 //   qtd         quantidade; `unidade` opcional (padrão "un")
 //   estimativa  preço unitário estimado em reais (referência de mercado, out/2026)
@@ -252,7 +254,8 @@ window.FLORA_COMPONENTES = [
     site: "amigo", etapa: "quadro", status: "tenho",
     nome: "CLP Delta DVP20SX211R",
     spec: "Equipamento reaproveitado. Abre as válvulas e aplica as travas de segurança.",
-    qtd: 1, estimativa: null, pago: null, loja: null,
+    qtd: 1, estimativa: 897.99, pago: null,
+    loja: "https://pt.aliexpress.com/item/1005009014378130.html",
     busca: null,
     manual: "../docs/manuais/delta-dvp-sx2-instruction-sheet.pdf",
   },
@@ -348,8 +351,9 @@ window.FLORA_COMPONENTES = [
   {
     site: "amigo", etapa: "bomba", status: "tenho",
     nome: "Inversor Metaltex IF10-203-1 (3cv)",
-    spec: "Equipamento reaproveitado. Recebe 1F 220V, entrega 3F 220V e controla a pressão por PID.",
-    qtd: 1, estimativa: null, pago: null, loja: null,
+    spec: "Equipamento reaproveitado. Recebe 1F 220V, entrega 3F 220V e controla a pressão por PID. Referência: anúncio do IF10-202-1 (2cv), modelo menor que o nosso.",
+    qtd: 1, estimativa: 665, pago: null,
+    loja: "https://www.mercadolivre.com.br/inversor-frequencia-metaltex-if10-202-1-2cv-7a-15kw-mono-trifasico/p/MLB27200695",
     busca: null,
     manual: "../docs/manuais/metaltex-if10-20x-1-manual.pdf",
   },
