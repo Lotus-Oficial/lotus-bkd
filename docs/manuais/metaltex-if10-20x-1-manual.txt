@@ -1,0 +1,1499 @@
+                   INVERSOR DE FREQUÊNCIA
+
+
+
+
+                                   IF10
+Dados Técnicos
+Instalação
+Parametrização
+Tabela de Falhas
+
+
+
+MANUAL DE OPERAÇÃO
+www.metaltex.com.br
+
+
+                                        Ref. 4-003-1.5
+                                             Jul / 2021
+MANUAL    DE   OPERAÇÃO–        IF10
+
+
+
+
+  1. Ligações
+
+    1.1. Diagrama Básico de Ligação
+
+         Os usuários devem efetuar as ligações do inversor de acordo com o circuito do diagrama mostrado
+         abaixo.
+
+
+
+
+   Atenção:
+   1) Não toque nos terminais de entrada ou abra o inversor enquanto estiver energizado. Isto pode causar
+   choques elétricos.
+   2) Não conecte um modem ou fio de telefone na porta de comunicação RS485, sob risco de danos
+   permanentes ao equipamento.
+   3) Certifique-se que a tensão de alimentação bem como os demais sinais elétricos estejam corretamente
+   conectados, para que o inversor não seja danificado.
+   4) Para alimentação monofásica 220VCA utilize os terminais L1 e L2.
+   5) Para alimentação trifásica utilize os terminais L1, L2 e L3.
+
+
+
+
+MANUAL    DE   OPERAÇÃO–        IF10                                                                        2
+MANUAL   DE   OPERAÇÃO–         IF10
+
+
+
+
+  2. Operação do Teclado Frontal
+
+
+
+
+           Tipo                  Item                                  Função
+                       Display digital      Visualização de frequência, parâmetros, tensão, corrente,
+                       principal            temperatura, mensagem de falha.
+                                                     Ligado quando o motor estiver em rotação.
+                                             RUN
+                                                     Desligado quando o motor estiver em repouso.
+       Display e LED                                 Ligado enquanto o motor trabalha no sentido
+                                            FWD:
+                                                     horário.
+                           LED de status
+                                                     Ligado enquanto o motor trabalha no sentido anti-
+                                             REV:
+                                                     horário.
+                                                     Ligado quando o motor está parado.
+                                            STOP:
+                                                     Piscando quando o motor estiver parando.
+      Potenciômetro        Potenciômetro    Usado para ajustar a frequência.
+                             RUN/STOP       RUN: Comando de partida do motor.
+                           (Dupla função)   STOP: Comando de parada do motor.
+                                            PROG: Pressione para acessar o grupo de parâmetros.
+                                            RESET: Pressione por 2 segundos para limpar alarmes e
+                            PROG/RESET
+                                            falhas.
+                           (Dupla função)
+                                            Retorna ao nível anterior quando estiver no valor de um
+          Teclas                            parâmetro.
+                                 ▲          Incrementa número do parâmetro e ajusta valores.
+                                 ▼          Decrementa número do parâmetro e ajusta valores.
+                                            ENTER: Pressione para navegar entre os menus ou deslocar à
+                            ENTER/DISP      esquerda.
+                           (Dupla função)   DISP: Pressione por 2 segundos para acessar o valor de um
+                                            parâmetro e pressione novamente para salvar o valor.
+                                  I         Para entrada de corrente 4-20mA.
+      Chave seletora
+                                  V         Para entrada de tensão 0-10V.
+
+
+
+
+MANUAL   DE   OPERAÇÃO–         IF10                                                                     3
+MANUAL      DE   OPERAÇÃO–         IF10
+
+
+
+
+  3. Parâmetros
+
+     O inversor IF10 sai de fábrica configurado para utilizar o potenciômetro do teclado para ajuste da
+     frequência e o comando RUN/STOP é feito pelo botão do teclado digital.
+
+   Função        Parâmetro            Valor                                          Descrição                         Fábrica
+                                                      Configura display principal
+                                                      0: Exibe a frequência ajustada
+                                                      1: Exibe a frequência de saída
+                                                      2: Exibe a corrente de saída
+                   P000               0 a 32          3: Exibe o sentido de rotação                                      1
+                                                      4: Exibe a velocidade
+                                                      5: Exibe a tensão do circuito CC
+                                                      6: Exibe a temperatura interna
+                                                      7: Exibe o retorno do PID
+                   P001                 -             Exibe a frequência ajustada.                                        -
+                   P002                 -             Exibe a frequência de saída.                                        -
+                   P003                 -             Exibe a corrente de saída.                                          -
+                   P004                 -             Exibe a velocidade do motor.                                        -
+                   P005                 -             Exibe o valor da tensão do barramento DC.                           -
+                   P006                 -             Exibe a temperatura do inversor.                                    -
+                   P007                 -             Exibe PID.                                                          -
+                   P010                 -             Registro de alarme 1.                                               -
+  Display
+                   P011                 -             Registro de alarme 2.                                               -
+                   P012                 -             Registro de alarme 3.                                               -
+                   P013                 -             Registro de alarme 4.                                               -
+                   P014                 -             Exibe a frequência ajustada no último alarme.                       -
+                   P015                 -             Exibe a frequência de saída no último alarme.                       -
+                   P016                 -             Exibe a corrente de saída no último alarme.                         -
+                   P017                 -             Exibe a tensão de saída no último alarme.                           -
+                                                      Terminal de entrada:
+                                                      Bit0: Avanço
+                   P021                  -            Bit1: Reverso                                                     0010
+                                                      Bit2: S1
+                                                      Bit3: S2
+                                                      Terminal de saída:
+                   P022                  -            Bit0: Ra Rc desacionado                                           0000
+                                                      Bit1: Ra Rc acionado
+                                                      Tensão AI:
+                   P023                                                                                                 00.00
+                                                      0.00 ~ 10.00V
+                   P100      0.00 a frequência máxima Ajuste da frequência.                                              0.0
+                                                      Seleção do comando principal de frequência:
+                                                      0: Teclado digital setas /.
+                                                      1: 0 a +10VCC entrada AVI (chave seletora na posição V).
+                                                      2: 4 a 20mA/CC entrada AVI (chave seletora na posição I).
+  Funções                                             2 : Ajustado pelo potenciômetro do teclado externo
+                               Frequência principal 3: Potenciômetro do teclado
+  básicas          P101                                                                                                  3
+                             (fonte de frequência X) 4: Controle da frequência pelos terminais externos (UP/DOWN) *
+                                                      5: Controle da frequência pela comunicação serial RS485.
+                                                      6 : Instrução de multi velocidade.
+                                                      7 : CLP
+                                                      8 : PID
+                                                      *Configurar as entradas S1 e S2 (P317 e P318) igual a 15 e 16.
+
+
+
+MANUAL      DE   OPERAÇÃO–         IF10                                                                                          4
+MANUAL     DE   OPERAÇÃO–        IF10
+
+
+
+  Função        Parâmetro           Valor                                        Descrição                              Fábrica
+                                                       Controle de partida e parada:
+                                       0
+                                                       0: Teclado digital.
+                  P102                 1                                                                                      0
+                                                       1: Terminais externos.
+                                       2
+                                                       2: Comunicação (RS485).
+                                       0               0: Desabilita botão "STOP" (considerando P102 = 1).
+                  P103                                                                                                        1
+                                       1               1: Habilita botão "STOP".
+                                                       Controle de rotação reversa:
+                                       0
+                  P104                                 0: Rotação reversa desabilitada.                                       1
+                                       1
+                                                       1: Rotação reversa habilitada.
+                  P105            0.1 a 400            Frequência máxima de saída (Hz).                                     50.0
+                  P106            0.1 a 400            Frequência mínima de saída (Hz).                                     0.00
+                  P107            0 a 999.9            Tempo 1 de aceleração (segundos).                                  Depende
+                  P108            0 a 999.9            Tempo 1 de desaceleração (segundos).                                  do
+                  P109         de P111 a 500.0         Tensão máxima V/F (V).                                             modelo
+                  P110         de P112 a P105          Frequência de base V/F (Hz).                                         50.0
+                  P111         de P113 a P109          Tensão intermediária V/F.                                              -
+                  P112         de P114 a P110          Frequência intermediária.                                            2.50
+                  P113             0 a P111            Tensão mínima V/F.                                                   15.0
+                  P114             0 a P112            Frequência mínima V/F.                                               1.25
+                  P115            1.0 a 15.0           Frequência da portadora (KHz).                                         -
+                                                       Padrão de fábrica:
+                  P117                 8                                                                                      0
+                                                       8: Reset dos parâmetros para a configuração de fábrica - 60Hz.
+                                                       Bloqueio dos parâmetros:
+                                       0
+                  P118                                 0: Parâmetros destravados.                                             0
+                                       1
+                                                       1: Parâmetros bloqueados (sem senha).
+  Funções                              0               Direção da rotação:
+  básicas         P119                 1               0: Mesma direção
+                                                       1: Direção reversa
+                                                       Ajuste da fonte de frequência auxiliar Y:
+                                                       0: Configuração de frequência digital (pode modificar os botões UP
+                                                       / DOWN, memoriza o último valor)
+                                                       1: Entrada analógica AI
+                                                       2: Modo de ajuste pelo potenciômetro do teclado externo
+                                     0a8
+                  P120                                 3: Modo de ajuste pelo potenciômetro do teclado local                  0
+                                                       4: Ajusta da freqüência UP / DOWN
+                                                       5: Ajusta da frequência por comunicação RS485
+                                                       6: Referência multi-velocidade
+                                                       7: CLP simples
+                                                       8: PID
+                                                       Seleção da fonte de frequência:
+                                                       Dígito de unidade (seleção da fonte de frequência)
+                                                       0: Fonte de frequência principal X
+                                                       1: Operação X e Y (determinada pelo dígito decimal)
+                                                       2: Alternância entre X e Y
+                            Dígito de unidade: 0 a 4
+                                                       3: Alternância entre X e "operação X e Y"
+                  P121      Dígito de dezena: 0 a 3                                                                           0
+                                                       4: Alternância entre Y e "operação X e Y".
+                                                       Dígito de dezena (operação X e Y)
+                                                       0: X + Y
+                                                       1: X-Y
+                                                       2: Ambos o máximo
+                                                       3: Ambos o mínimo
+                                       0               Seleção da fonte de frequência auxiliar Y:
+                  P122                 1               0: Relativo à frequência máxima                                        0
+                                                       1: Relativo à fonte de frequência X
+
+
+
+MANUAL     DE   OPERAÇÃO–        IF10                                                                                               5
+MANUAL      DE   OPERAÇÃO–         IF10
+
+
+
+   Função        Parâmetro            Valor                                           Descrição                            Fábrica
+                                    0% ~ 150%
+                   P123                                 Escala da fonte de frequência auxiliar Y                            100%
+                                0.0Hz ~ Frequência
+                                                        Compensação de frequência da fonte de frequência auxiliar para
+                   P124           máximo P1.05                                                                              0.0Hz
+                                                        operação X e Y
+                                                        Frequência base para a modificação UP / DOWN durante a
+                                        0
+                                                        operação:
+                   P125                 1
+  Funções                                               0: Frequência de operação
+  básicas                                               1: Definir frequência
+                                 Limite inferior de
+                                                        Frequência limite superior
+                   P126         frequência P1.06 ~
+                             Frequência máxima P1.05
+                                          0             Frequência base do tempo de aceleração / desaceleração:
+                                         1              0: Frequência máxima
+                   P127
+                                         2              1: Definir frequência
+                                                        2: 100Hz
+                                                        Modo de inicialização:
+                                        0
+                   P200                                 0: Normal.                                                           0
+                                        1
+                                                        1: Reiniciar após auto diagnóstico.
+                                                        Seleção de modo de parada:
+                                        0
+                   P201                                 0: Desaceleração até a parada (P108).                                0
+                                        1
+                                                        1: Parada por inércia.
+                   P202            0.10 a 10.00         Frequência de desligamento freio DC na partida (Hz).                 0.5
+                   P203            0.10 a 10.00         Frequência de desligamento freio DC na parada (Hz).                  0.5
+                              0.0 a 10.0% da tensão
+                   P204                                 Corrente de operação do freio DC (partida).                         00.0
+                                nominal do motor
+                   P205               0 a 100           Tempo de operação do freio DC (partida) [segundos].                 000.0
+                              0.0 a 10.0% da tensão
+                   P206                                 Corrente de operação do freio DC (parada) [%].                      00.0
+                                nominal do motor
+ Informação        P207              0 a 100.0          Tempo de operação do freio DC (parada) [segundos].                  000.0
+ de placa do
+                   P208              0 a 20.0           Ganho de torque (Boost) [%].                                         0%
+    motor
+                   P209              0 a 500.0          Tensão nominal do motor (V).                                          -
+                   P210       0 a corrente do sistema   Corrente nominal do motor.                                            -
+                   P211              0 a 100            Corrente nominal do motor sem carga (%).                            40%
+                   P212              0 a 6.000          Velocidade nominal do motor (rpm). Informação na placa do motor.    1420
+                   P213               0 a 20            Número de pólos do motor. Informação na placa do motor.              4
+                   P214              0 a 10.00          Compensação do escorregamento do motor (Hz).                        2.50
+                   P215             0 a 400.00          Frequência nominal do motor (Hz).                                   60.00
+                   P216              0 a 100            Resistência do estator (Ω).                                          0
+                   P217              0 a 100            Resistência do rotor (Ω).                                            0
+                   P218              0 a 1.000          Auto indutância do rotor (H).                                        0
+                   P219              0 a 1.000          Indutância mútua do rotor (H).                                       0
+                   P300              0 a P301           Mínima tensão de entrada analógica AVI.                              0
+ Funções de        P301             P301 a 10V          Máxima tensão de entrada analógica AVI (V).                         10.0
+    I/O
+                   P302              0 a 100.0          Tempo de filtro da entrada analógica (segundos).                    00.10
+ (entrada e
+   saída)          P303       0 a máxima Corrente AI    Mínima corrente de entrada AVI.                                      4.0
+                   P304      Mínima corrente AI a 20    Máxima corrente de entrada AVI (mA).                                20.0
+
+
+
+
+MANUAL      DE   OPERAÇÃO–         IF10                                                                                              6
+MANUAL     DE   OPERAÇÃO–         IF10
+
+
+
+  Função        Parâmetro            Valor                                          Descrição                             Fábrica
+                  P305             0 a 25.0             Tempo de filtro de entrada AVI (segundos).                         2.5
+                  P306      0 a máxima tensão FOV       Reservado.                                                          0
+                  P307       Max. tensão FOV a 10       Reservado (V).                                                     10.0
+                                                        Frequência referente ao valor mínimo da entrada analógica (ex.:
+                  P310              0 a 50.00           0V ou 0/4mA). [Hz]                                                 0.00
+                                                        Direção de rotação em função da entrada analógica*:
+                                       0                0: Sentido Horário.
+                  P311                                  1: Sentido Anti-horário.
+                                                                                                                            0
+                                       1
+                                                        *P313 e P314 devem seguir o mesmo valor.
+                                                        Frequência referente ao valor máximo da entrada analógica (ex.:
+                  P312             0 a 600.00
+                                                        10V ou 20mA). [Hz]
+                                                                                                                           60.00
+                                                        Direção de rotação em função da entrada analógica*:
+                                       0                0: Sentido Horário.
+                  P313                                  1: Sentido Anti-horário.
+                                                                                                                            0
+                                       1
+                                                        *P311 e P314 devem seguir o mesmo valor.
+
+                                     0: Inválido
+                  P315                  1: JOG          Terminal de entrada FWD (0 a 32).                                   6
+                                   2: JOG horário
+                               3: JOG anti-horário
+                               4: Avanço / Reverso
+                                      5: Partida
+                  P316                6: Avanço         Terminal de entrada REV (0 a 32).                                   7
+                                     7: Reverso
+                                      8: Parada
+ Funções de                   9: Multi-velocidade 1
+    I/O                      10: Multi-velocidade 2
+ (entrada e       P317       11: Multi-velocidade 3     Terminal de entrada S1 (0 a 32).                                    18
+   saída)                    12: Multi-velocidade 4
+                                 13: Aceleração /
+                            Desaceleração terminal 1
+                                 14: Aceleração /
+                  P318      Desaceleração terminal 2    Terminal de entrada S2 (0 a 32).                                    9
+                                15: Incremento de
+                                  frequência (UP)
+                               16: Decremento de
+                  P319         frequência (DOWN)        Reservado.                                                           -
+                             17: Sinal de parada de
+                                    emergência
+                                 18: Sinal de reset
+                                   19: Aciona PID
+                  P320             20: Aciona CLP       Reservado.                                                           -
+                             21: Sinal de partida por
+                                       tempo 1
+                             22: Sinal de partida por
+                                       tempo 2
+                  P321      23: Sinal de contagem de    Reservado (0 a 32).                                                  -
+                                         pulso
+                                 24: Sinal de reset
+                                     contagem
+                               25: Limpa memória
+                  P322       26: Iniciar operação de    Reservado (0 a 32).                                                  -
+                                    bobinagem
+
+
+
+
+MANUAL     DE   OPERAÇÃO–         IF10                                                                                              7
+MANUAL      DE   OPERAÇÃO–         IF10
+
+
+
+  Função         Parâmetro            Valor                                         Descrição           Fábrica
+                   P323                 0: Inválido      Reservado.                                        -
+                                    1: Em operação
+                               2: Frequência atingida
+                                        3: Alarme
+                                  4: Velocidade zero
+                             5: Frequência 1 alcançada
+                             6: Frequência 2 alcançada
+                                     7: Aceleração
+                                   8: Desaceleração
+                                   9: Indicação para
+                                        subtensão
+                   P324         10: Tempo 1 atingido     Reservado.                                        -
+                                11: Tempo 2 atingido
+                                 12: Indicação para a
+                                  conclusão da fase
+                                 13: Indicação para a
+                                      conclusão do
+                                     procedimento
+                                    14: PID máximo
+                                    15: PID mínimo
+                             16: Desconexão 4 a 20mA
+                                    17: Sobrecarga
+                                   18: Sobre torque
+                                   26: Operação de
+                                bobinagem concluída
+                              27: Contagem alcançada
+                                     28: Contagem
+ Funções de        P325       intermediária alcançada    Terminal de saída de alarme RA, RC (0 a 32).     03
+    I/O                         29: Abastecimento de
+ (entrada e                        água por tensão
+   saída)                               constante
+                                         “1”: Ligar
+                                     “2”: Desligado
+                   P326        0: Frequência de saída    Reservado.                                        -
+                                 1: Corrente de saída
+                               2: Barramento de saída
+                                      3: Tensão CA
+                                  4: Pulso de saída,
+                   P327                1 pulso / Hz
+                                                         Reservado.                                        -
+                                    5: 2 pulsos / Hz
+                                    6: 3 pulsos / Hz
+                                    7: 6 pulsos / Hz
+                   P328             0.000s a 1.000s      Tempo de filtro S                              0.010s
+                                             0           Modo de comando do terminal:
+                                             1           0: Modo 1 (comando 2 fios)
+                   P329                      2           1: Modo 2 (comando 2 fios)
+                                             3           2: Modo 1 (comando 3 fios)
+                                                         3: Modo 2 (comando 3 fios)
+                               0.01Hz/s a 99.99Hz/s
+                   P330                                  Taxa incremento/decremento do terminal         1.00Hz/s
+
+                                                         Modo válido do terminal de saída DO:
+                                        0                0: lógica positiva
+                   P331                 1                1: lógica negativa                             00000
+                                                         Dígito da unidade: Reservado
+                                                         Dígito dezena: RA-RC
+                   P332            0.0s a 999.9s         Tempo de atraso da saída do FWD                 0.0s
+                   P333            0.0s a 999.9s         Tempo de atraso da saída REV                    0.0s
+
+
+
+MANUAL      DE   OPERAÇÃO–         IF10                                                                            8
+MANUAL     DE   OPERAÇÃO–         IF10
+
+
+
+  Função        Parâmetro            Valor                                        Descrição                              Fábrica
+                  P334            0.0s a 999.9s      Tempo de atraso da saída S1                                          0.0s
+                                                     Seleção 1 do modo válido X:
+ Funções de                                          0: alto nível válido
+    I/O                                  0           1: baixo nível válido
+ (entrada e       P335                   1           Dígito da unidade: FWD                                              00000
+   saída)                                            Dígito de dezena: REV
+                                                     Dígito das centenas: S1
+                                                     Milhares de dígitos: S2
+                  P400      0.00 a frequência máxima Ajuste da frequência Jog.                                            5.00
+                  P401               0 a 999.9       Tempo de aceleração 2 (segundos).                                    10.0
+                  P402               0 a 999.9       Tempo de desaceleração 2 (segundos).                                 10.0
+                  P403               0 a 999.9       Tempo de aceleração 3 (segundos).                                    10.0
+                  P404               0 a 999.9       Tempo de desaceleração 3 (segundos).                                 10.0
+                  P405               0 a 999.9       Tempo de aceleração 4 / Tempo de aceleração Jog (segundos).          10.0
+                  P406               0 a 999.9       Tempo de desaceleração 4 / Tempo de desaceleração Jog (segundos).    10.0
+                  P407             0 a 999.9          Valor designado para contagem (segundos).                           100
+                  P408             0 a 999.9          Valor intermediário para contagem (segundos).                        50
+                  P409              0 a 200           Limitação do torque na aceleração (%).                              150%
+                  P410              0 a 100           Ganho de supressão de sobre corrente de eixo travado.               000
+                                                      Sobre tensão de eixo travado habilitada:
+                                       0
+                  P411                                0: Desabilitada.                                                     1
+                                       1
+                                                      1: Habilitada.
+                  P412              0 a 100           Ganho de sobre excitação V/F (%).                                   010
+                  P413              0 a 200           Ganho de supressão de sobre tensão de eixo travado (%).             050
+                  P414        Depende do modelo       Tensão de frenagem DC.
+                  P415             Reservado          Reservado.                                                          000
+                                                      Reinicio imediato após o desligamento:
+                                       0
+                  P416                                0: Desabilitado.                                                     0
+                                       1
+  Aplicações                                          1: Habilitado.
+ secundárias                                          Seleção de ação em caso de perda instantânea de alimentação:
+                                                      0: Invalido.
+                  P417                0a2                                                                                  0
+                                                      1: Desaceleração.
+                                                      2: Desaceleração por inércia.
+                  P418             Reservado          Reservado.                                                          150%
+                  P419             Reservado          Reservado.                                                           10
+                  P420                0a5             Número máximo de tentativas de reinício após falhas.                 0
+                  P421              0 a 100           Tempo de retardo para a reinício após falha (segundos).              2
+                  P422             Reservado          Reservado.                                                           0
+                  P423              0 a 200           Nível de detecção de sobrecorrente (%).                              00
+                  P424              0 a 20.0          Tempo de detecção de sobrecorrente (segundos).                       00
+                  P425      0.00 a frequência máxima Frequência atingida – 1.                                             100
+                  P426      0.00 a frequência máxima Frequência atingida – 2.                                              5.0
+                  P427              0 a 10.0          Definição do temporizador 1 (segundos).                              0
+                  P428              0 a 100           Definição do temporizador 2 (segundos).                              0
+                  P429             Reservado          Reservado.                                                            -
+                  P430           000.0 a 100.0        Histerese da frequência de detecção.                                005.0
+                  P431      0.00 a frequência máxima Frequência evitada 1 (Hz).                                            0
+                  P432      0.00 a frequência máxima Frequência evitada 2 (Hz).                                            0
+                  P433             0.00 a 2.00        Faixa de histerese para frequência evitada (Hz).                    0.50
+
+
+
+MANUAL     DE   OPERAÇÃO–         IF10                                                                                             9
+MANUAL     DE   OPERAÇÃO–         IF10
+
+
+
+  Função        Parâmetro            Valor                                          Descrição                                Fábrica
+                                                       Modo de memória do CLP*:
+                                       0               0: Não salvar.
+                  P500                                                                                                         0
+                                       1               1: Salvar.
+                                                       *Retenção do status após desligamento por falha ou outra razão.
+                                                       Modo de início do CLP:
+                                       0
+                  P501                                 0: CLP desligado.                                                       0
+                                       1
+                                                       1: CLP habilitado.
+                                                       Modo de execução CLP:
+                                                       0: O inversor executa 1 ciclo completo de segmentos (P508 a
+                                                       P532) e para.
+                                       0
+                                                       1: O inversor executa um segmento de velocidade/tempo (ex.
+                                       1
+                                                       P508 + P518) desacelera, para e acelera para o próximo ajuste. Ao
+                  P502                 2                                                                                       0
+                                                       final para.
+                                       3
+                                                       2: Idem 0, porém continua a executar o ciclo indefinidamente.
+                                       4
+                                                       3: Idem 1, porém continua a executar o ciclo indefinidamente.
+                                                       4: Idem 0, porém continua a executar a última frequência
+                                                       definida.
+                  P503      0.00 a frequência máxima   Multi-velocidade 1 (Hz).                                               20.0
+                  P504      0.00 a frequência máxima   Multi-velocidade 2 (Hz).                                               10.0
+                  P505      0.00 a frequência máxima   Multi-velocidade 3 (Hz).                                               20.0
+                  P506      0.00 a frequência máxima   Multi-velocidade 4 (Hz).                                               25.0
+                  P507      0.00 a frequência máxima   Multi-velocidade 5 (Hz).                                               30.0
+                  P508      0.00 a frequência máxima   Multi-velocidade 6 (Hz).                                               35.0
+                  P509      0.00 a frequência máxima   Multi-velocidade 7 (Hz).                                               40.0
+                  P510      0.00 a frequência máxima   Multi-velocidade 8 (Hz).                                               45.0
+                  P511      0.00 a frequência máxima   Multi-velocidade 9 (Hz).                                               50.0
+   CLP            P512      0.00 a frequência máxima   Multi-velocidade 10 (Hz).                                              10.0
+                  P513      0.00 a frequência máxima   Multi-velocidade 11 (Hz).                                              10.0
+                  P514      0.00 a frequência máxima   Multi-velocidade 12 (Hz).                                              10.0
+                  P515      0.00 a frequência máxima   Multi-velocidade 13 (Hz).                                              10.0
+                  P516      0.00 a frequência máxima   Multi-velocidade 14 (Hz).                                              10.0
+                  P517      0.00 a frequência máxima   Multi-velocidade 15 (Hz).                                              10.0
+                  P518               0 a 9999          Tempo 1 de operação do CLP (segundos).                                 100
+                  P519               0 a 9999          Tempo 2 de operação do CLP (segundos).                                 100
+                  P520               0 a 9999          Tempo 3 de operação do CLP (segundos).                                 100
+                  P521               0 a 9999          Tempo 4 de operação do CLP (segundos).                                 100
+                  P522               0 a 9999          Tempo 5 de operação do CLP (segundos).                                  0
+                  P523               0 a 9999          Tempo 6 de operação do CLP (segundos).                                  0
+                  P524               0 a 9999          Tempo 7 de operação do CLP (segundos).                                  0
+                  P525               0 a 9999          Tempo 8 de operação do CLP (segundos).                                  0
+                  P526               0 a 9999          Tempo 9 de operação do CLP (segundos).                                  0
+                  P527               0 a 9999          Tempo 10 de operação do CLP (segundos).                                 0
+                  P528               0 a 9999          Tempo 11 de operação do CLP (segundos).                                 0
+                  P529               0 a 9999          Tempo 12 de operação do CLP (segundos).                                 0
+                  P530               0 a 9999          Tempo 13 de operação do CLP (segundos).                                 0
+                  P531               0 a 9999          Tempo 14 de operação do CLP (segundos).                                 0
+                  P532               0 a 9999          Tempo 15 de operação do CLP (segundos).                                 0
+                                                       Define sentido de rotação do segmento:
+                                                       0-9999: Conversão de valor binário para decimal. Colocando o
+                  P533              0 a 9999                                                                                   0
+                                                       valor binário = 0 (avanço) ou 1 (reverso) para cada bit relacionado
+                                                       a um segmento.
+
+
+
+MANUAL     DE   OPERAÇÃO–         IF10                                                                                                 10
+MANUAL     DE   OPERAÇÃO–    IF10
+
+
+
+  Função        Parâmetro      Valor                                    Descrição                        Fábrica
+                  P536          0a3         Define sentido de operação do segmento em nível alto           0
+                                 0          Define a unidade de tempo de operação:
+                  P537           1          0: s                                                           0
+                                            1: h
+                                 0          Seleciona a multi-velocidade 1:                                0
+                  P538
+                                            0: P5.03
+                                0a3                                                                        0
+                  P539                      Tempo de aceleração / desaceleração do CLP - referência 1
+                                0a3                                                                        0
+                  P540                      Tempo de aceleração / desaceleração do CLP - referência 2
+                                0a3                                                                        0
+                  P541                      Tempo de aceleração / desaceleração do CLP - referência 3
+                                0a3                                                                        0
+                  P542                      Tempo de aceleração / desaceleração do CLP - referência 4
+                                0a3                                                                        0
+                  P543                      Tempo de aceleração / desaceleração do CLP - referência 5
+                                0a3                                                                        0
+                  P544                      Tempo de aceleração / desaceleração do CLP - referência 6
+                                0a3                                                                        0
+                  P545                      Tempo de aceleração / desaceleração do CLP - referência 7
+                                0a3                                                                        0
+                  P546                      Tempo de aceleração / desaceleração do CLP - referência 8
+                                0a3                                                                        0
+                  P547                      Tempo de aceleração / desaceleração do CLP - referência 9
+   CLP
+                                0a3                                                                        0
+                  P548                      Tempo de aceleração / desaceleração do CLP - referência 10
+                                0a3                                                                        0
+                  P549                      Tempo de aceleração / desaceleração do CLP - referência 11
+                                0a3                                                                        0
+                  P550                      Tempo de aceleração / desaceleração do CLP - referência 12
+                                0a3                                                                        0
+                  P551                      Tempo de aceleração / desaceleração do CLP - referência 13
+                                0a3                                                                        0
+                  P552                      Tempo de aceleração / desaceleração do CLP - referência 14
+                                0a3                                                                        0
+                  P553                      Tempo de aceleração / desaceleração do CLP - referência 15
+                                 0          Modo de ajuste da frequência de oscilação:                     0
+                  P554           1          0: Relativo à frequência central
+                                            1: Relativo à frequência máxima
+                            0.0% a 100.0%                                                                 0.0%
+                  P555                      Amplitude da frequência de oscilação
+                            0.0% a 50.0%                                                                  0.0%
+                  P556                      Amplitude de frequência de salto
+                            0.1s a 999.9s                                                                 10.0s
+                  P557                      Ciclo de frequência da oscilação
+                            0.1% a 100.0%                                                                50.0%
+                  P558                      Coeficiente de tempo de subida da onda triangular
+                                            Modo de partida PID:
+                                 0
+                                            0: PID desabilitado.
+                  P600           1                                                                         0
+                                            1: PID habilitado.
+                                 2
+    cc                                      2: PID habilitado por sinal externo.
+                                            Seleção do modo de operação do PID:
+                                 0
+                  P601                      0: Modo de feedback negativo.                                  0
+                                 1
+                                            1: Modo de feedback positivo.
+
+
+
+
+MANUAL     DE   OPERAÇÃO–    IF10                                                                                  11
+MANUAL     DE   OPERAÇÃO–          IF10
+
+
+
+
+  Função        Parâmetro            Valor                                           Descrição                       Fábrica
+                                                         Ponto de ajuste da ação PID:
+                                                         0: Modo valor alvo (P604).
+                  P602                0a6                                                                              0
+                                                         1: Entrada analógica.
+                                                         2 a 6: Reservado.
+                                        0                Seleção de valor de ação PID:
+                                        1                0: AVI (0 a 10V).
+                  P603                                                                                                 0
+                                        2                1: AVI (0 a 20mA).
+                                        3                2 e 3: Reservado.
+                  P604             0.0 a P614            Ajuste do valor alvo do PID (Bar).                           02.50
+                  P605            P606 a P614            Limite superior do valor de alarme PID (Bar).                10.00
+                  P606             0.0 a P605            Limite inferior do valor de alarme PID (Bar).                0.00
+                  P607             0.0 a 200             Banda proporcional PID (%).                                  100%
+                  P608             0.0 a 10.0            Tempo integral PID (segundos).                               02.00
+                  P609           0.000 a 9.999           Tempo diferencial PID (segundos).                            0.000
+                  P610           00.00 a 99.99           Passo da frequência do PID (%).                              02.00
+                                  0.00 a 120.0
+                  P611                                   Frequência de espera PID (Hz).                               0.0Hz
+                               (P611: 0: Fechado)
+                  P612               0 a 200             Tempo de espera PID (segundos).                               10s
+                  P613               0 a 100             Valor de acionamento PID (%).                                  0
+                  P614             0 a 99.99             Valor correspondente do display PID (Bar).                   10.00
+                  P615                1a5                Dígito do display PID.                                        4
+                  P616                0a4                Dígito decimal do display PID.                                 2
+                  P617       0 a frequência máxima       Limite superior da frequência PID.                           48.00
+                  P618       0 a frequência máxima       Limite inferior da frequência PID.                           20.00
+   PID            P619                  -                Tempo de detecção do PID (segundos).                         0020
+                  P620                  -                Limite de desvio do PID (%).                                  0.1
+                                                         Alarme de perda de feedback no PID:
+                                        0
+                                                         0: Sem alarme.
+                  P621                  1
+                                                         1: Alarme, sem parada. Código de alarme 20.
+                                        2
+                                                         2: Alarme, com parada. Código de falha 20.
+                            0 a 10.00V (se 4 a 20mA,
+                               considere perda de
+                             feedback quando o sinal
+                  P622                                   Valor de perda na detecção do feedback do PID.               0.50V
+                            for inferior a 2mA. Ajuste
+                               P622 = 2mA*250Ω =
+                                       0,50V)
+                  P623               0.0 a 20.0          Tempo de detecção de perda no feedback do PID (segundos).     1.0
+                  P624      0.00 a máxima frequência     Frequência de corte de PID reverso.                         0.00Hz
+                  P625            0.00 a 99.99%          Limite diferencial do PID.                                  0.10%
+                  P626             0.00 a 99.99s         Tempo de ajuste do PID (segundos).                           0.00s
+                  P627             0.00 a 60.00s         Filtro do feedback do PID (segundos).                        0.00s
+                  P628             0.00 a 60.00s         Filtro de saída do PID (segundos).                           0.00s
+                  P630             0.0 a 600.0%          Ganho proporcional do PID P2.                               200.0%
+                  P631             0.0 a 10.00s          Ganho proporcional do PID I2 (segundos).                     0.50s
+                  P632             0.0 a 9.999s          Ganho proporcional do PID D2 (segundos).                    0.000s
+                                                         Condição de mudança de parâmetro PID:
+                                        0
+                                                         0: Sem mudança
+                  P633                  1                                                                              0
+                                                         1: Mudança através da fonte de frequência “X”.
+                                        2
+                                                         2: Mudança automática.
+                  P634            0.0% a P620            Desvio 1 na mudança de parâmetro PID.                       5.0%
+                  P635           P619 a 100.0%           Desvio 2 na mudança de parâmetro PID.                       10.0%
+
+
+MANUAL     DE   OPERAÇÃO–          IF10                                                                                        12
+MANUAL     DE   OPERAÇÃO–        IF10
+
+
+
+
+  Função        Parâmetro           Valor                                          Descrição                             Fábrica
+                  P636           0.0 a 100.0%         Valor inicial do PID.                                               0.0%
+                  P637           0.00 a 99.9s         Tempo de duração do valor inicial do PID.                           0.00s
+                  P639          0: desabilitado       Tempo integral do PID.                                               00
+                                                      Operação do PID na parada do motor:
+                                      0
+                  P640                                0: PID não atua na parada do motor.                                   0
+                                      1
+                                                      1: PID atua na parada do motor.
+                                0.00 a P601 bar
+                  P641                                Valor de detecção de pressão na falta d’água                       0.50 bar
+                            (00.0 bar sem detecção)
+                                                      Ao exibir o alarme de alta/baixa pressão, ocorre um atraso em
+                                                      P642, onde:
+                                                       Alta pressão: é exibido o alarme de alta pressão, após a
+                                                        estabilização do sistema o atraso atua e a falha é removida
+                                                        automaticamente.
+                  P642            0 a 9999s            Baixa pressão: é exibido o alarme de baixa pressão atuando o       10s
+                                                        atraso definido em P642 e a falha é removida
+                                                        automaticamente.
+
+                                                      Se P642=0, ao ocorrer um alarme de alta/baixa pressão a falha
+                                                      não será removida.
+                                                      Tempo de detecção para o alarme de baixa pressão:
+                                                      Quando a pressão é menor que P606 e o sistema continua
+                  P643            0 a 9999s                                                                                10s
+                                                      operando sob essa condição durante o tempo pré estabelecido
+    PID                                               em P643, mantida a baixa pressão nesse tempo, o sistema para.
+                  P644            0 a 9999s           Tempo de detecção para o alarme de falta d’água                     100s
+                                                      Atraso da partida automática na energização:
+                                      0
+                  P645                                0: desabilitado                                                       0
+                                      1
+                                                      1: habilitado
+                                                      Intervalo de tempo para reinício do sistema após as primeiras 10
+                  P646            0 a 9999s                                                                               600s
+                                                      ocorrências de falta d’água.
+                  P647           0 a 1000min          Intervalo entre as primeiras 10 ocorrências de falta d’água.       60min
+                                                      Habilitar anti-congelamento:
+                                      0
+                  P648                                0: não habilitado                                                     0
+                                      1
+                                                      1: habilitado
+                  P649            0 a 9999s           Tempo de espera do anti-congelamento durante o repouso.             900s
+                  P650            0 a 9999s           Tempo de operação do anti-congelamento durante o repouso.           30s
+                  P651            0 a 50.0Hz          Frequência de operação do anti-congelamento durante o repouso.     15.0Hz
+                                                      Atuação do repouso: atua quando a frequência for menor que
+                  P652            0 a 10.0Hz                                                                              0.5Hz
+                                                      P652/s
+                  P653             0 a 10.0%          Pressão admitida durante a redução de freqüência (no repouso).     0.60%
+                  P654             0 a 10.0Hz         Taxa da redução de freqüência por segundo (no repouso).             0.3Hz
+                  P655              0 a 1000          Número de reduções de frequência (no repouso)                         10
+                  P656         0 a máximo P105        Operação do repouso: frequência maior que P656, não opera.         42.0Hz
+                  P657            0 a 1000ms          Tempo de amostra do PID                                              4ms
+                                                      Velocidade de comunicação (bps):
+                                      0
+                                                      0: 4800.
+ Comunicaçã                           1
+                  P700                                1: 9600.                                                              1
+  o RS485                             2
+                                                      2: 19200.
+                                      3
+                                                      3: 38400.
+
+
+
+
+MANUAL     DE   OPERAÇÃO–        IF10                                                                                               13
+MANUAL      DE   OPERAÇÃO–       IF10
+
+
+
+   Função        Parâmetro          Valor                                      Descrição              Fábrica
+                                                    Modo de comunicação:
+                                      0
+                                                    0: 8N1 para ASC.
+                                      1
+                                                    1: 8E1 para ASC.
+                                      2
+                   P701                             2: 8O1 para ASC.                                    0
+                                      3
+                                                    3: 8N1 para RTU.
+ Comunicaçã                           4
+                                                    4: 8E1 para RTU.
+  o RS485                             5
+                                                    5: 8O1 para RTU.
+                   P702            0 a 240          Endereço de comunicação.                            0
+                                                    0: Sem aviso.
+                             Indicação de erro de
+                   P703                             1: Aviso de falha.
+                                comunicação.
+                                                    2: Aviso de falha e para.
+                                                    Bloqueio de aplicação avançada:
+                                      0
+                   P800                             0: Bloqueado.                                       1
+                                      1
+                                                    1: Liberado.
+                                                    Ajuste da frequência de rede 50/60Hz:
+                                      0
+                   P801                             0: 50Hz.                                            1
+                                      1
+                                                    1: 60Hz.
+                   P802           Reservado         Reservado.                                           -
+                             Conforme a tensão de
+                   P803                             Nível de proteção contra sobretensão (link DC).      -
+                                 alimentação
+                             Conforme a tensão de
+                   P804                             Nível de proteção contra subtensão (link DC).        -
+                                 alimentação
+                   P805            40 a 120         Ajuste da proteção de sobre temperatura (°C).     85/95°C
+                   P806           Reservado         Reservado.                                           -
+  Aplicação        P807           Reservado         Reservado.                                           -
+  avançada
+                   P808           Reservado         Reservado.                                           -
+                   P809           Reservado         Reservado.                                           -
+                   P810           Reservado         Reservado.                                           -
+                   P811           Reservado         Reservado.                                           -
+                                                    Memorização da última frequência:
+                                      0
+                   P812                             0: Não memorizar.                                   1
+                                      1
+                                                    1: Memorizar.
+                                 0.20 a 10.00
+                   P814                             Coeficiente de sobrecarga do motor                 1.00
+                                  (Ver. 2.0)
+                   P815           Reservado         Reservado.                                           -
+                                       0            Seleção de proteção contra sobrecarga do motor:
+                   P816                1            0: Habilitado                                     12.0Hz
+                                  (Ver. 2.0)        1: Desabilitado
+
+
+
+
+MANUAL      DE   OPERAÇÃO–       IF10                                                                           14
+MANUAL   DE   OPERAÇÃO–        IF10
+
+
+
+
+  4. Tabela de falhas
+
+
+     Falha            Descrição da falha                        Possível causa                      Ações corretivas
+                                                                                           Entre em contato com a
+   OC0/UC0      Sobrecorrente durante a parada     1: Falha no inversor.
+                                                                                           assistência técnica Metaltex.
+                                                                                           1: Aumentar tempo de aceleração.
+                                                                                           2: Ajustar corretamente a curva
+                                                  1: Tempo de aceleração muito curto.
+                                                                                           V/F.
+                                                  2: Curva V/F não está ajustada
+                                                                                           3: Verifique a isolação do motor e
+                                                  corretamente.
+                                                                                           fio do motor.
+                                                  3: Motor ou fio do motor estão em
+                                                                                           4: Reduzir o valor do torque do
+                                                  curto.
+                                                                                           motor.
+                                                  4: O torque de impulso está ajustado
+   OC1/UC1     Sobrecorrente durante a aceleração                                          5: Verifique tensão de
+                                                  muito rápido.
+                                                                                           alimentação.
+                                                  5: A entrada de tensão está muito baixa.
+                                                                                           6: Checar a carga.
+                                                  6: Início com o motor em movimento.
+                                                                                           7: Verifique os dados de placa do
+                                                  7: O inversor não está ajustado
+                                                                                           motor.
+                                                  corretamente.
+                                                                                           8: Aumente a capacidade do
+                                                  9: Falha no inversor
+                                                                                           inversor.
+                                                                                           9: Enviar para reparo.
+                                                                                           1: Aumentar tempo de
+                                                  1: Tempo de desaceleração muito curto. desaceleração.
+                    Sobrecorrente durante a
+   OC2/UC2                                        2: Capacidade do inversor é inadequada. 2: Aumente a capacidade do
+                         desaceleração
+                                                  3: Há alguma falha no inversor.          inversor.
+                                                                                           3: Enviar para reparo.
+                                                  1: A isolação do motor ou fio do motor 1: Verifique a isolação do motor e
+                                                  não está boa.                            fio do motor.
+                                                  2: Flutuação da carga.                   2: Verificar carga e a lubrificação
+                                                  3: Flutuação da tensão de entrada e a    mecânica.
+                Sobrecorrente durante velocidade tensão é baixa.                           3: Verifique a tensão de entrada.
+   OC3/UC3
+                           constante              4: Capacidade do inversor é inadequada. 4: Aumente a capacidade do
+                                                  5: Motor de grande potência de           inversor.
+                                                  arranque que leva a tensão de entrada 5: Aumente a capacidade do
+                                                  para baixo.                              transformador.
+                                                  6: Há alguma falha no inversor.          6: Enviar para reparo.
+                                                                                           1: Verifique a tensão de entrada.
+                                                  1: Tempo de desaceleração muito curto.
+                                                                                           2: Aumente a capacidade do
+     OU0          Sobretensão durante a parada    2: Capacidade do inversor é inadequada.
+                                                                                           inversor.
+                                                  3: Há alguma falha no inversor.
+                                                                                           3: Enviar para reparo.
+                                                                                           1: Verifique a tensão de
+                                                  1: Tensão de alimentação anormal.        alimentação.
+                                                  2: Circuito periférico está incorreto    2: Não utilize interruptor de
+     OU1        Sobretensão durante a aceleração
+                                                  (interruptor liga ou desliga, etc.)      alimentação para ligar ou desligar
+                                                  3: Há alguma falha no inversor.          o inversor.
+                                                                                           3: Enviar para reparo.
+                                                                                           1: Verifique a tensão de
+                                                  1: Tensão de alimentação anormal.        alimentação.
+                                                  2: Retorno de energia da carga.          2: Instale um resistor de frenagem.
+                                                  3: Grande inércia de carga.              3: Verificar o resistor novamente.
+                     Sobretensão durante a
+     OU2                                          4: Resistor de frenagem definido         4: Reconfigure o resistor de
+                         desaceleração
+                                                  incorretamente.                          frenagem.
+                                                  5:A configuração do parâmetro do freio 5: Defina parâmetros
+                                                  está errada.                             corretamente, como tensão de
+                                                                                           operação do tubo de freio, etc.
+
+
+
+
+MANUAL   DE   OPERAÇÃO–        IF10                                                                                              15
+MANUAL     DE   OPERAÇÃO–        IF10
+
+
+
+    Falha               Descrição da falha                        Possível causa                       Ações corretivas
+                                                                                              1: Aumentar tempo de
+                                                                                              desaceleração.
+                                                   1: Tempo de desaceleração muito baixo. 2: Verifique a tensão de
+                                                   2: Tensão de alimentação anormal.          alimentação.
+                                                   3: Sobrecarga                              3: Verifique a unidade de
+                  Sobretensão durante velocidade
+    OU3                       constante
+                                                   4: Resistor de frenagem definido           frenagem.
+                                                   incorretamente.                            4: Ajuste o resistor de frenagem
+                                                   5: Parâmetro de parada ajustado            novamente.
+                                                   incorretamente.                            5: Parametrize corretamente o
+                                                                                              inversor, por exemplo, ajuste de
+                                                                                              sobre tensão e etc.
+    POF           Sobrecarga no resistor de buffer
+                                                   1: Tensão de alimentação anormal.
+                                                                                              1: Verifique a tensão de
+                                                                                              alimentação.
+    LU0              Subtensão durante a parada    2: Falta de fase.
+                                                                                              2: Verifique se há falta de fase.
+    LU1            Subtensão durante a aceleração                                             1: Verifique a tensão de
+    LU2          Subtensão durante a desaceleração 1: Tensão  de alimentação   anormal.       alimentação.
+                                                   2: Falta de fase.                          2: Verifique se há falta de fase.
+                    Subtensão durante velocidade   3: Sobrecarga na alimentação.              3: Use uma fonte de alimentação
+    LU3
+                              constante                                                       independente.
+                  Sobrecarga no inversor durante a                                            1: Reduza a carga ou mude para
+    OL0                                            1: Sobrecarga.                             um inversor de maior capacidade.
+                               parada
+                                                   2: Tempo de aceleração muito curto.        2: Aumente o tempo de
+                  Sobrecarga no inversor durante a 3: Ganho de torque muito alto.             aceleração.
+    OL1                      aceleração            4: Curva V/F ajustada incorretamente.      3: Reduza o torque de impulso.
+                  Sobrecarga no inversor durante a 5: Subtensão   na entrada.                 4: Ajuste a curva V/F novamente.
+    OL2                     desaceleração          6: Quando   o motor  não  para  de maneira 5: Verifique tensão de entrada.
+                                                   estável, o inversor inicia diretamente.    6: Execute o modo de análise na
+                   Sobrecarga no inversor durante  7: Travamento do motor.                    inicialização.
+    OL3                 velocidade constante                                                  7: Verifique a carga.
+                                                   1: A temperatura ambiente está muito 1: Reduza a temperatura
+                                                   alta.                                      ambiente.
+                                                   2: Inversor com fluxo de ar bloqueado. 2: Efetue uma limpeza preventiva.
+     OH             Superaquecimento do módulo
+                                                   3: O ventilador está danificado.           3: Substitua o ventilador.
+                                                   4: O termistor está danificado.            4: Substitua o termistor.
+                                                   5: O módulo inversor está danificado.      5: Substitua o módulo inversor.
+                   Sobrecarga no motor durante a   1: Motor em sobrecarga.                    1: Reduza a carga.
+    OT0                                                                                       2: Aumente o tempo de
+                               parada              2: Tempo de aceleração muito curto.
+                                                   3: Proteção do motor está muito            aceleração.
+                   Sobrecarga no motor durante a
+    OT1                                            pequena.                                   3: Aumente a proteção do motor.
+                             aceleração
+                                                   4: Curva V/F ajustada incorretamente.      4: Ajuste a curva V/F novamente.
+                   Sobrecarga no motor durante a   5: Torque de impulso está ajustado         5: Reduza o torque de impulso.
+    OT2
+                            desaceleração          muito rápido.                              6: Verifique a isolação do motor e
+                    Sobrecarga no motor durante    6: Isolação do motor inadequada.           substitua o motor.
+    OT3                                                                                       7: Use um inversor ou um motor
+                        velocidade constante       7: Ajuste do motor pequeno.
+                                                                                              com   maiordecapacidade.
+                                                                                              1: Depois      liberar a parada de
+                                                   1: Inversor em condição de parada de
+     ES                Parada de emergência
+                                                   emergência.
+                                                                                              emergência iniciar procedimento
+                                                                                              regular.
+                                                   1: Conexão de comunicação com              1: Executar a ligação dos terminais
+                                                   problema.                                  RS485 corretamente.
+     CO                 Erro de comunicação        2: Parâmetro de comunicação ajustado 2: Ajustar parâmetro novamente.
+                                                   incorretamente.                            3: Verificar formato de
+                                                   3: Formato de transmissão errado.          transmissão de dados.
+                                                   1: Terminal solto ou fio do sinal de       1: Verificar terminais de conexão
+     20              Conexão 4 a 20mA rompida
+                                                   entrada com má conexão.                    RS485.
+                                                                                              Depois de parar a operação ajuste
+     Pr            Erro de gravação de parâmetro   Parâmetro ajustado errado.
+                                                                                              o parâmetro.
+                                                   O parâmetro não é editável ou está fora
+     Err             Grupo de parâmetro errado                                                Saia do parâmetro.
+                                                   do range de seu grupo.
+    SLP                 Inversor em stand by       -                                          -
+
+
+
+MANUAL     DE   OPERAÇÃO–        IF10                                                                                               16
+MANUAL    DE    OPERAÇÃO–           IF10
+
+
+
+
+  5. Especificações
+
+
+                                                                                     Classe de Tensão
+                                                            220V                                                     380V
+               Modelo                      1HP       2HP        3HP           5HP      1HP           2HP      3HP       5HP       7,5HP   10HP
+
+            Motor (kW)                     0,75       1,5          2,2        3,7      0,75           1,5      2,2          3,7    5,5    7,5
+
+ Capacidade nominal de saída (kVA)          2         2,8          4,5        6,2       2,2           3,2       4           6,8    10      14
+
+   Corrente nominal de saída (A)            5         7            11         16,5      2,7           4         5           8,6   12,5    17,5
+
+         Tensão de saída (V)                           0 ~ 220V                                                  0 ~ 380V
+
+      Frequência de saída (Hz)                                                          1,0 ~ 400Hz
+
+  Corrente nominal de entrada (A)          7,2        10           16          17       3,8           5        5,8          10     15      20
+                                                      Monofásico
+   Faixa de tensão de entrada (V)                                                                     Trifásico: 330 ~ 440V - 50/60Hz
+                                                  170 ~ 240V - 50/60Hz
+   Faixa de frequência de entrada
+                                                                                              ± 5%
+                (Hz)
+        Sistema de controle                                     SVPWM (Modulação por Largura de Pulso Senoidal)
+
+  Resolução da frequência de saída                                                            0,1Hz
+                                           Incluso auto-torque, compensação automática de escorregamento e torque de partida de
+      Características de torque
+                                                                               150% a 5Hz
+       Tempo de sobrecarga                                   150% da corrente nominal por 1 minuto (torque constante)
+
+    Aceleração / Desaceleração                                           0,1 ~ 999,9 seg. (ajustado individualmente)
+
+             Curva V/F                                                               Curva V/F ajustável
+
+                          Teclado                               Ajuste feito pelas teclas ▼▲, no painel de controle
+ Configuração de
+   frequência                           Potenciômetro 5kΩ / 0,5W, 0 ~ +10VCC (impedância de 47kΩ), 4-20mA (impedância de
+                     Sinal externo
+                                      250Ω), entrada multifunção de 1 a 3 (3 passos, JOG, comando Sobe / Desce), RS485 MODBUS
+                          Teclado                                         Acionamento feito pela tecla RUN/STOP
+ Configuração de
+    operação                           4 terminais multifunção podem ser combinados para oferecer vários modos de operação ou
+                     Sinal externo
+                                                                          via RS485 MODBUS
+                                           Seleção de multipasso, JOG, inibidor de aceleração/desaceleração, seleção de primeira ou
+    Sinal de entrada multifunção           segunda aceleração/desaceleração, contador, operação CLP, seleção de bloqueio de base
+                                                                                 externo NA/NF
+                                      Uma saída relé. Pode indicar inversor habilitado, frequência atingida, velocidade diferente de
+     Sinal de Saída multifunção
+                                       zero, indicação de falha, indicação de operação local/remota, indicação de operação CLP
+                                           Regulagem automática de tensão (AVR), curva suave, proteção de travamento por sobre
+                                             tensão, freio DC, histórico de falhas, frequência de chaveamento ajustável, ajuste da
+           Outras funções                    frequência inicial para freio DC, proteção de travamento por sobre corrente, reinício
+                                             automático por perda momentânea da alimentação, inibidor de reversão, limites de
+                                                             frequência, trava/reset dos parâmetros, entre outros
+               Proteção               Sobretensão, sobrecorrente, subtensão, sobrecarga, térmica, sobreaquecimento e auto teste
+
+               Outros                                        Filtro de interferências eletromagnéticas (EMI) incorporado
+
+
+
+
+MANUAL    DE    OPERAÇÃO–           IF10                                                                                                         17
+MANUAL   DE    OPERAÇÃO–          IF10
+
+
+
+
+                                                                   Classe de Tensão
+                                               220V                                          380V
+          Refrigeração                                          Refrigeração forçada a ar
+
+      Temperatura ambiente                            -10 a 40˚C (sem condensação e congelamento)
+
+  Temperatura de armazenamento                                          -20 a 60˚C
+
+              Umidade                                    Abaixo de 90% e UR (não condensável)
+
+              Vibração                                9,8m/s² menos de 20Hz, 5,88m/s² de 20 a 50Hz
+
+
+
+
+  6. Dimensões (mm)
+
+
+
+
+               Modelo                    W     H         D         A          B         d       Desenho
+      IF10-201-1 até IF10-202-1          68    132      102       120        57        4,5           1
+
+              IF10-203-1                 72    142     112,2      130        61        4,5           1
+
+      IF10-401-3 até IF10-403-3          72    142     112,2      130        61        4,5           1
+
+      IF10-405-3 até IF10-408-3
+                                         85    180      116       167        72        5,5           2
+             IF10-205-1
+              IF10-410-3                 106   240      153       230        96        4,5           2
+
+
+
+
+MANUAL   DE    OPERAÇÃO–          IF10                                                                    18
+MANUAL   DE    OPERAÇÃO–              IF10
+
+
+
+
+  7. Nota de aplicação – Comunicação ModBus - RTU
+
+
+
+      7.1. Funções Disponíveis
+
+         Função:
+
+          04 Leitura de registradores
+          06 Escrita de registradores retentivos
+
+
+
+
+      7.2. Protocolo
+
+         Protocolo ModBus-RTU:
+
+              Modo RTU          ADDR FUNC             DATA     CRCL,CRCH
+              Inv. resposta        01        03   2000,0001      XX,XX        8BYTES
+                                                                               5+N
+               Inv. envio          01        03    02,0120       XX,XX       N=2,4,6,8
+           Inv. erro, envio        01        03       00         XX,XX        5BYTES
+              Inv. resposta        01        06   2000,0010      XX,XX        8BYTES
+               Inv. envio          01        06   2000,0010      XX,XX        8BYTES
+           Inv. erro, envio        01        06       00         XX,XX        5BYTES
+
+         Se um erro é enviado:
+         (1) - Código de função não existe
+         (2) - Código de função bloqueado ou protegido.
+
+
+
+      7.3. Ajustes de comunicação
+
+
+          Parâmetro           Valor                           Descrição                       ModBus-RTU
+                                        Seleção do comando principal de frequência:
+                               0
+                                        0: Teclado digital (setas).
+                               1
+                                        1: 0 a +10VCC entrada AVI.
+                               2
+               P101                     2: 4 a 20mA/CC entrada AVI.                               5
+                               3
+                                        3: Potenciômetro do teclado
+                               4
+                                        4: Controle da frequência pelos terminais externos.
+                               5
+                                        5: Controle da frequência pela comunicação RS485.
+                                        Controle de partida e parada:
+                               0
+                                        0: Teclado digital.
+               P102            1                                                                  2
+                                        1: Terminais externos.
+                               2
+                                        2: Comunicação (RS485).
+
+
+MANUAL   DE    OPERAÇÃO–              IF10                                                                 19
+MANUAL   DE    OPERAÇÃO–           IF10
+
+
+
+
+          Parâmetro        Valor                         Descrição                           ModBus-RTU
+                                    BaudRate (bps):
+                             0
+                                    0: 4800.
+                             1                                                             Use o BaudRate
+               P700                 1: 9600.
+                             2                                                            (bps) de sua rede
+                                    2: 19200.
+                             3
+                                    3: 38400.
+                                    Modo de comunicação:
+                             0
+                                    0: 8N1 para ASC.
+                             1                                                             Use o número de
+                                    1: 8E1 para ASC.
+                             2                                                              Bits paridade e
+               P701                 2: 8O1 para ASC.
+                             3                                                             Stop Bits de sua
+                                    3: 8N1 para RTU.
+                             4                                                                    rede
+                                    4: 8E1 para RTU.
+                             5
+                                    5: 8O1 para RTU.
+                                                                                             Entre com o
+                                                                                          número do nó do
+               P702       0 a 240 Endereço de comunicação.
+                                                                                           inversor de sua
+                                                                                                rede
+
+
+
+     7.4. Parâmetros e Endereços
+
+         Endereços básicos:
+
+                                                                                    Valor      Leitura /
+           Endereço (Hex)           Bit                  Conteúdo
+                                                                                   Decimal      Escrita
+                                           00B: sem ação                              0
+                                           01B: parada                                1
+                                 BIT1~BIT0
+                                           10B: início                                2
+                                           11B: início do JOG                         3
+                  2000H                    01B: reverso (REV)                         4         Escrita
+                                 BIT2~BIT3 10B: avanço (FWD)                          8
+                                            11B: escolher direção                    12
+                                    BIT4    1B: resetar alarme                       16
+                                 BIT5~BIT15 Reservado                                XX
+                                            Freq. de comando 00000~40000
+                                                                                               Leitura /
+                  2001H
+                                 BIT0~BIT15 2 dígitos após o ponto decimal                      Escrita
+                                            (P101=5)
+
+
+              Observação:
+              1) Não é possível escrever com comando single/multiple coils, os bits são apenas para
+              referência, deverá ser o usado o comando 4x.
+              2) Não é possível ler os valores do endereço 2000H, ao tentar ler vai dar erro na rede.
+
+
+
+
+MANUAL   DE    OPERAÇÃO–           IF10                                                                       20
+MANUAL   DE   OPERAÇÃO–          IF10
+
+
+
+         Parâmetros básicos:
+
+                                                                                    Leitura /       Endereço
+           Parâmetro        Descrição                   Observações
+                                                                                     Escrita      Modbus(Hex)
+              P001         Ajustar Freq.   2 dígitos após o ponto decimal: Hz           Leitura      0001H
+              P002        Freq. de saída 1 dígito após o ponto decimal: Hz              Leitura      0002H
+                           Corrente de
+              P003                             1 dígito após o ponto decimal: A         Leitura      0003H
+                              saída
+              P004         Velocidade        0 dígito após o ponto decimal: r/min       Leitura      0004H
+                            Tensão do
+              P005                             1 dígito após o ponto decimal: V         Leitura      0005H
+                          barramento DC
+              P009     Tensão de saída         1 dígito após o ponto decimal: V         Leitura      0009H
+              P020           Potência         1 dígito após o ponto decimal: KW         Leitura      0014H
+                            Status do               BIT0: 0: FWD 1: REV
+                                                                                        Leitura      001CH
+              P028          Comando                 BIT1: 0: Stop 1: Run
+
+
+         Alarmes:
+
+                                                                             Leitura /
+              Parâmetro                    Código de alarme                                   Endereço Modbus(Hex)
+                                                                              Escrita
+                          BIT0- 1: UC; 0: sem alarme
+                          BIT1- 1: OC; 0: sem alarme
+                          BIT2- 1: erro de comunicação NF; 0: sem
+                          alarme
+                          BIT3- 1: falta de fase de saída LO; 0: sem
+                          alarme
+                          BIT4- 1: OU; 0: sem alarme
+                          BIT5- Reservado
+                P027      BIT6- 1: LU; 0: sem alarme                          Leitura                001BH
+                          BIT7- 1: motor com sobrecarga OL; 0: sem
+                          alarme
+                          BIT8- 1: sobretorque OT; 0: sem alarme
+                          BIT9- 1: sobreaquecimento OH; 0: sem
+                          alarme
+                          BIT10- 1: erro no sinal 4mA; 0: sem
+                          alarme
+                          BIT11~BIT14- reservado
+                          BIT15- 1: alarme; 0: sem alarme
+
+
+
+
+MANUAL   DE   OPERAÇÃO–          IF10                                                                                21
+MANUAL   DE   OPERAÇÃO–         IF10
+
+
+
+     7.5. Exemplos
+
+         Parâmetros adotados:
+         P101 = 5(frequência); P102 = 2(modo de controle); P700 = 1(BaudRate 9600); P701 = 3 (8N1 FOR
+         RTU);
+         P702 = 1 (endereço);
+
+
+         Protocolo Geral
+               Escreva frequência 50.00HZ (1388H) para 2001H:
+                     Envio: 01 06 20 01 13 88 DE 9C
+                     Resposta: 01 06 20 01 13 88 DE 9C
+               Enviar comando de execução - Escreva (02H) para 2000H:
+                     Envio: 01H 06H 2000H 00H 02H 03H(CRCL) CBH(CRCH)
+                     Resposta: 01H 06H 2000H 00H 02H 03H(CRCL) CBH(CRCH)
+               Enviar comando de parada - Escreva (01H) para 2000H:
+                     Envio: 01H 06H 2000H 00H 01H 43H(CRCL) CAH(CRCH)
+                     Resposta: 01H 06H 2000H 00H 01H 43H(CRCL) CAH(CRCH)
+
+
+
+
+MANUAL   DE   OPERAÇÃO–         IF10                                                                    22
+MANUAL    DE   OPERAÇÃO–        IF10
+
+
+
+
+  8. Nota de aplicação – Analógica 0-20mA – Sentido contrário
+
+
+
+      8.1. Objetivo
+
+          Configurar o inversor para receber entrada de 0-20mA e controlar a freqüência no sentido inverso da
+          corrente. Quando a corrente de entrada estiver com seu valor máximo, 20mA, a saída da freqüência
+          no inversor estará com ZERO de freqüência e quando a corrente de entrada estiver em 0mA a saída
+          da freqüência estará na máxima configuração.
+
+
+
+      8.2. Ligação
+
+          Configurar o inversor de acordo com o esquema de ligação apresentado no capitulo 1
+          Mudar a chave V/I na parte frontal do inversor.
+
+
+      8.3. Parâmetros
+
+          Modificar os parâmetros conforme abaixo.
+
+           P117 = 8 – Iniciaizar o inversor com os parâmetros de fábrica.
+           Após alterar o parâmetro acima, desligar o inversor e depois re-ligar.
+   P101 = 2 – Ajusta o inversor para receber a freqüência através da entrada física de corrente
+   P310 = Freq. Máxima *
+   P312 = Freq. Mínima *
+   P313 = 1 – Sentido da analógica
+   * A frequência máxima e mínima devem ser iguais quando desejar trabalhas nos limites tanto da freqüência
+   quanto da corrente. Ex.: Se deseja 0-20mA correspondente a 0-40Hz. Colocar os dois parâmetros com o valor
+   de 40Hz. Os valores quando forem distintos representam uma relação proporcional de alcance da freqüência
+   em relação a entrada analógica..
+
+
+
+
+MANUAL    DE   OPERAÇÃO–        IF10                                                                            23
+MANUAL    DE   OPERAÇÃO–          IF10
+
+
+
+
+  9. Apêndice
+
+       8.1. Apêndice A
+
+                                        0               Modo de comando do terminal:
+                                        1               0: 2 fios (tipo 1)
+                P329                    2               1: 2 fios (tipo 2)
+                                        3               2: 3 fios (tipo 1)
+                                    (Ver. 2.0)          3: 3 fios (tipo 2)
+
+   Este parâmetro define quatro formas diferentes de controlar o funcionamento do inversor de frequência
+   através de terminais externos.
+   0- O modo de dois fios (tipo 1): Este modo é o modo de dois fios mais utilizado. O funcionamento positivo e
+   negativo do motor é determinado pelos terminais de Sx e Sy.
+
+   As funções do terminal são definidas como se segue:
+
+                   Terminal            Valor definido                      Descrição
+                      Sx                      6                          Avanço (FWD)
+                      Sy                      7                          Reverso (VER)
+
+   Entre eles, Sx e Sy são FWD REV S1, terminais de entrada multi-função S2, e o nível é válido.
+
+
+
+
+   1- Modo de dois fios (tipo 2): Neste modo, a função de terminal de Sx é a habilitação da partida, já a função
+   do terminal de Sy é determina o sentido da marcha. As funções do terminal são definidas como se segue:
+
+                   Terminal            Valor definido                      Descrição
+                      Sx                      6                          Avanço (FWD)
+                      Sy                      7                          Reverso (VER)
+
+   Entre eles, Sx e Sy são FWD REV S1, terminais de entrada multi-função S2, eo nível é válido.
+
+
+
+
+   2- Modo três fios (tipo 1): Este modo é o terminal permitindo, e o sentido é controlado por Sx e Sy
+   respectivamente. As funções do terminal são definidos como se segue:
+
+
+MANUAL    DE   OPERAÇÃO–          IF10                                                                             24
+MANUAL   DE   OPERAÇÃO–         IF10
+
+
+
+
+                Terminal           Valor definido                        Descrição
+                   Sx                     6                            Avanço (FWD)
+                   Sy                     7                            Reverso (VER)
+                   Sn                     8               Parar (controle de operação de três fios)
+
+  Quando for necessário fazer a partida, o terminal de Sn deve ser fechado em primeiro lugar, e o controle
+  avanço ou reverso do motor é realizado pela borda de subida do pulso de Sx ou Sy.
+  Quando for necessária a parada, ela deverá ser feita pelo desligamento do sinal no terminal Sn. Entre eles,
+  Sx, Sy, Sn são FWD REV S1, terminais de entrada multifunção S2, Sx, Sy são pulso eficaz, Sn é nível eficaz.
+
+
+
+
+  Entre eles:
+  KB1: Botão para; KB2: Botão avanço; KB3: Botão reverso.
+  3- Três fios (modo de controle 2) : Nesse modo o terminal de partida é Sn, o comando de execução é dada
+  por Sx, e a direção é determinada pelo estado de Sy. As funções do terminal são definidas da seguinte
+  maneira:
+
+                Terminal           Valor definido                        Descrição
+                   Sx                     6                            Avanço (FWD)
+                   Sy                     7                            Reverso (VER)
+                   Sn                     8               Parar (controle de operação de três fios)
+
+  Quando for iniciar, o terminal de Sn deve ser fechado primeiramente, o controle avanço do motor é realizado
+  pela borda de subida do pulso de Sx e o estado de Sy define o sentido de rotação do motor.
+  Quando for necessário parar, deve ser feito o desligamento do sinal no terminal Sn.
+
+
+
+
+  Entre eles:
+  KB1: Botão para; KB2: Botão avanço.
+
+
+
+                                        PRODUTOS ELETRÔNICOS METALTEX LTDA.
+
+                                       Suporte técnico: engenharia@metaltex.com.br
+
+                                                    www.metaltex.com.br
+
+MANUAL   DE   OPERAÇÃO–         IF10                                                                            25
+

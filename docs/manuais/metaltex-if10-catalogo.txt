@@ -1,0 +1,262 @@
+LINHA IF10
+IF10 SERIES
+
+
+INVERSORES DE FREQUÊNCIA
+VARIABLE FREQUENCY DRIVERS
+
+
+
+
+ESPECIFICAÇÕES TÉCNICAS
+TECHNICAL SPECIFICATIONS
+                                                                                                                                 IF10
+
+PRINCIPAIS CARACTERÍSTICAS / MAIN CHARACTERISTICS
+
+ • Comunicação RS-485 com protocolo Modbus-RTU incorporada;
+   RS-485 communication with Modbus-RTU protocol integrated;
+
+ • Modo de controle escalar;
+      Scalar control mode;
+
+ • Montagem em trilho DIN até 3 HP;
+   DIN rail mounting up to 3 HP;
+
+ • Sistema de controle SVPWM (Modulação por largura de Pulso Senoidal);
+      SVPWM (Sinusoidal Pulse Width Modulation) control system;
+
+ • Incluso auto-torque e compensação automática de escorregamento;
+   Includes auto-torque and automatic slip compensation;
+
+ • Torque de partida de 150% a 5 Hz;
+   Starting torque of 150% at 5 Hz;
+
+
+
+
+FUNÇÕES / FUNCTIONS
+
+Freio DC / DC Brake
+JOG
+CLP Simples / Simple PLC
+Regulação automática da tensão (AVR) / Automatic voltage regulation (AVR)
+PID
+Rampa linear / Linear ramp
+Frequência de chaveamento ajustável / Adjustable switching frequency
+Curva suave / Smooth curve
+Reinício automático por perda momentânea da alimentação / Automatic restart in case of momentary power loss
+Histórico de falhas / Failure history
+Proteção de travamento por sobre tensão / Overvoltage lockout protection
+Ajuste da frequência inicial para freio DC / Initial frequency adjustment for DC Brake
+Inibidor de reversão / Reversion inhibitor
+Limites de frequência / Frequency limits
+Trava/reset dos parâmetros / Lock/reset parameters
+Para mais funções avançadas consultar manual de parametrizações / For more advanced functions, see the parameterization manual
+
+
+ PROTEÇÕES / PROTECTIONS
+
+ Sobretensão / Overvoltage
+ Sobrecorrente / Overcurrent
+ Subtensão / Undervoltage
+ Sobrecarga / Overload
+ Super aquecimento / Overheating
+ Auto teste / Self test
+                                                                                                                                                   IF10
+
+ESPECIFICAÇÕES GERAIS / GENERAL SPECIFICATIONS
+
+     Faixa de tensão de entrada monofásico / Single-phase input voltage                                      170 ~ 240 V
+     faixa de tensão de entrada trifásico / Three-phase input voltage range                                  330 ~ 440 V
+          Tensão de saída para modelos com alimentação 220 V
+                                                                                                               0 ~ 220 V
+                Output voltage for models with 220 V power supply
+          Tensão de saída para modelos com alimentação 380 V
+                                                                                                               0 ~ 380 V
+                Output voltage for models with 380 V power supply
+                    Frequência de saída / Output frequency                                                   1,0 ~ 400 Hz
+                                                                                                      Monofásico / Single phase
+             Sistema de tensão de entrada / Input voltage system
+                                                                                                        Trifásico / Three phase
+       Tolerância de frequência de entrada / Input frequency tolerance                                            ± 5%
+       Resolução da frequência de saída / Output frequency resolution                                            0,1 Hz
+                                   Controle PID                                                         Integrado / Integrated
+  Tempo de sobrecarga em 120% da corrente nominal (torque constante)
+                                                                                                          1 minuto / minute
+            Overload time at 120% of nominal current (constant torque)
+     Tempo de aceleração / desaceleração (ajustado individualmente)
+                                                                                                  0,1 ~ 999,9 segundos / seconds
+               Acceleration/deceleration time (individually adjusted)
+                             Curva V/F / V/F curve                                                      Ajustável / Adjustable
+                                                                 Teclado               Ajuste feito pelas teclas ▼▲ no painel de controle
+                                                                 Keyboard                   Adjustment by the ▼▲ keys on the control panel
+                                                                                                   Potenciômetro 10 kΩ / 0,5 W
+                                                                                                      Potentiometer 10 kΩ / 0.5 W
+                                                                                               0 ~ +10 VCC (impedância de 47 kΩ)
+       Configuração de frequência                                                                          (47 kΩ impedance)
+              Frequency Setting                              Sinal externo
+                                                                                                 4-20 mA (impedância de 250 Ω)
+                                                              External signal
+                                                                                                      4-20 mA (250 Ω impedance)
+                                                                                                   Entrada multifunção de 1 a 3
+                                                                                                       Multi-function input 1 to 3
+                                                                                                           RS485 - Modbus
+                                                                 Teclado                   Acionamento feito pela tecla RUN / STOP
+                                                                 Keyboard                           Activation by the RUN / STOP key
+        Configuração de operação
+                                                                                  4 terminais multifunção com multiplos modos de operação
+               Operation setting                           Entradas digitais    4 multifunction terminals with multiple combinations and operating modes
+                                                               Digital inputs
+                                                                                                           RS485 - Modbus
+                                                                                                              Multispeed
+                                                                                                                  JOG
+                                                                                             Inibidor de aceleração / desaceleração
+                                                                                                  Acceleration / deceleration inhibitor
+                        Sinal de entrada multifunção                             Seleção de primeira ou segunda aceleração / desaceleração
+                             Multifunction input signal                                    First or second acceleration / deceleration selection
+                                                                                                          Contador / Counter
+                                                                                                   Operação CLP / PLC Operation
+                                                                                              Seleção de bloqueio de base externo
+                                                                                                       External base lock selection
+
+
+
+
+                                                                                                                                                       02
+                                                                                                                                                   IF10
+
+ESPECIFICAÇÕES DE INSTALAÇÃO / INSTALLATION SPECIFICATIONS
+
+                           Local de instalação / Installation location¹                                             < 1000 m (altitude)
+             Temperatura ambiente (sem condensação e congelamento)
+                                                                                                                       -10 °C ~ 60 °C
+                        Ambient temperature (no condensation or freezing)
+                   Temperatura de armazenamento / Storage temperature                                                  -20 °C ~ 60 °C
+                                   Umidade / Humidity (UR)                                                                 < 90%
+                                                                          < 20 Hz                                         9,8 m/s²
+                  Vibração / Vibration
+                                                                      20 ~ 50 Hz                                          5,88 m/s²
+¹ É necessário manter o equipamento em local protegido contra gases corrisivos, liquidos e poeira.
+  The equipment must be kept in a place protected from corrosive gases, liquids and dust.
+
+
+
+
+MODELOS / MODELS
+
+
+
+
+                                    IF10-201-1            IF10-202-1                IF10-205-1            IF10-410-3
+                                                          IF10-203-1                IF10-405-1
+                                                          IF10-401-3                IF10-408-3
+                                                          IF10-402-3
+                                                          IF10-403-3
+
+
+CÓDIGOS / CODES
+
+                                                               Potência motor                Corrente de saída          Capacidade
+  Alimentação          Corrente de entrada                      Engine power
+                                                                                                                                               Modelos
+                                                                                                 nominal              nominal de saída
+  Power Supply              Input current                                                                                                       Models
+                                                         HP                     kW           Rated output current   Nominal output capacity
+
+                               7,2 A                      1                     0,75                 5,0 A                 2,0 kVA            IF10-201-1
+  Monofásico                  10,0 A                      2                     1,50                 7,0 A                 2,8 kVA            IF10-202-1
+   Single Phase
+     220 V                    16,0 A                      3                     2,20                 11,0 A                4,5 kVA            IF10-203-1
+                              17,0 A                      5                     3,70                 16,5 A                6,2 kVA            IF10-205-1
+                               3,8 A                      1                     0,75                 2,7 A                 2,2 kVA            IF10-401-3
+                               5,0 A                      2                     1,50                 4,0 A                 3,2 kVA            IF10-402-3
+    Trifásico                  5,8 A                      3                     2,20                 5,0 A                 4,0 kVA            IF10-403-3
+   Three phase
+     380 V                     10 A                       5                     3,70                 8,6 A                 6,8 kVA            IF10-405-3
+                               15 A                      7,5                    5,50                 12,5 A               10,0 kVA            IF10-408-3
+                               20 A                      10                     7,50                 17,5 A               14,0 kVA            IF10-410-3
+
+
+
+
+                                                                                                                                                           03
+                                                                                             IF10
+
+DIMENSÕES / DIMENSIONS (mm)
+
+                                        Desenho 1 / Drawing 1
+                               L/W                                     P/D
+
+
+
+
+                  A/H                            a
+
+
+
+
+                                   b
+
+                              Largura       Altura      Profundidade
+                  Modelo
+                                (L)          (A)             (P)             a    b    d
+                   Models
+                              Width (W)    Height (H)     Depth (D)
+                 IF10-201-1      68          132            102             120   57   4,5
+                 IF10-202-1      72          142           112,2            130   61   4,5
+                 IF10-203-1      72          142           112,2            130   61   4,5
+                 IF10-401-3      72          142           112,2            130   61   4,5
+                 IF10-402-3      72          142           112,2            130   61   4,5
+                 IF10-403-3      72          142           112,2            130   61   4,5
+
+                                       Desenho 2 / Drawing 2
+                              L/W                                     P/D
+
+
+
+
+                 A/H                            a
+
+
+
+
+                               b
+
+                              Largura       Altura      Profundidade
+                  Modelo
+                                (L)          (A)             (P)             a    b    d
+                   Models
+                              Width (W)    Height (H)     Depth (D)
+                 IF10-205-1      85          180            116             167   72   5,5
+                 IF10-405-3      85          180            116             167   72   5,5
+                 IF10-408-3      85          180            116             167   72   5,5
+                 IF10-410-3     106          240            153             230   96   4,5
+                                                                                                04
+                                                                                                                       IF10
+
+DIAGRAMA BÁSICO DE LIGAÇÃO / BASIC WIRING DIAGRAM
+
+
+
+
+ACESSÓRIOS / ACCESSORIES
+
+
+                            IF10-KEP*
+              Teclado remoto com cabo de 2 metros.
+                 Remote keyboard with 2 meters cable.
+
+
+
+
+                                                                                                *Vendido separadamente
+                                                                                                     Sold separately
+
+
+
+
+Visite o site: metaltex.com.br e conheça a linha completa de controle de movimento e motores.
+Visit site: metaltex.com.br and discover the complete line of motion control and motors.
+                                                                                                                          05
+

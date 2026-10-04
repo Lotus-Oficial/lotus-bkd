@@ -1,0 +1,15 @@
+.DS_Store
+*.swp
+.vscode/
+.idea/
+node_modules/
+
+# ESPHome
+.esphome/
+secrets.yaml
+
+# Android
+.gradle/
+build/
+local.properties
+*.apk

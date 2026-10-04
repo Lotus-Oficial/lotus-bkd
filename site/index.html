@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flora · Irrigação automática</title>
+  <meta name="description" content="Irrigação automática para duas casas: ESP32 com ESPHome e CLP Delta com inversor, conversando com um app Android pelo mesmo contrato MQTT.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M16 3c5 7 9 11.5 9 16.5A9 9 0 0 1 7 19.5C7 14.5 11 10 16 3z' fill='%238fd18a'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="rain" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero" id="topo">
+    <nav class="nav">
+      <a class="brand" href="#topo">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c5 7 9 11.5 9 16.5A9 9 0 0 1 7 19.5C7 14.5 11 10 16 3z"/><path class="vein" d="M16 27V14m0 6 4-4m-4 1-3-3"/></svg>
+        flora
+      </a>
+      <ul class="nav-links">
+        <li><a href="#casas">Casas</a></li>
+        <li><a href="#comunicacao">Comunicação</a></li>
+        <li><a href="#principios">Princípios</a></li>
+        <li><a href="#roteiro">Roteiro</a></li>
+      </ul>
+      <span class="nav-pill"><span class="dot"></span>em bancada</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Irrigação automática · ESP32 · CLP · Android</p>
+        <h1>O quintal se rega <em>sozinho.</em> Você só acompanha.</h1>
+        <p class="lede">
+          Dois controladores em duas casas, um único app. Um ESP32 com ESPHome na casa do pai
+          e um CLP Delta com inversor na casa do amigo. Os dois falam o mesmo contrato MQTT.
+        </p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#comunicacao">Ver arquitetura</a>
+          <a class="btn btn-ghost" href="#casas">Conhecer as casas →</a>
+        </div>
+        <dl class="stats">
+          <div><dt>2</dt><dd>casas independentes</dd></div>
+          <div><dt>12</dt><dd>zonas de rega</dd></div>
+          <div><dt>1</dt><dd>app para tudo</dd></div>
+        </dl>
+      </div>
+
+      <!-- Controlador simulado -->
+      <aside class="device" aria-label="Simulação do controlador">
+        <div class="device-head">
+          <div class="tabs" role="tablist">
+            <button class="tab is-active" role="tab" data-site="pai">casa-pai</button>
+            <button class="tab" role="tab" data-site="amigo">casa-amigo</button>
+          </div>
+          <span class="online"><span class="dot"></span>online</span>
+        </div>
+
+        <div class="device-hw" id="hw">ESP32 · ESPHome sprinkler · 7 zonas</div>
+
+        <div class="now">
+          <div class="ring" id="ring" style="--p:0">
+            <div class="ring-inner">
+              <span class="ring-time" id="time">00:00</span>
+              <span class="ring-label">restante</span>
+            </div>
+          </div>
+          <div class="now-info">
+            <span class="now-kicker">Regando agora</span>
+            <strong class="now-zone" id="zoneName">Zona 1</strong>
+            <span class="now-sub" id="zoneSub">gotejamento · 16mm</span>
+            <div class="flow" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+        </div>
+
+        <ol class="zones" id="zones"></ol>
+
+        <div class="sensors" id="sensors"></div>
+      </aside>
+    </div>
+
+    <a class="scroll-hint" href="#casas" aria-label="Rolar para baixo"><span></span></a>
+  </header>
+
+  <main>
+    <!-- ============ CASAS ============ -->
+    <section class="section" id="casas">
+      <div class="section-head reveal">
+        <p class="eyebrow">01 · Duas casas</p>
+        <h2>Mesmo app, <em>hardware diferente.</em></h2>
+        <p class="section-lede">Os projetos não compartilham nada físico. Cada casa tem seu quadro, sua bomba e sua conexão Wi-Fi.</p>
+      </div>
+
+      <div class="sites">
+        <article class="site reveal">
+          <header>
+            <span class="site-tag">Site A</span>
+            <h3>Casa do pai</h3>
+            <p>Feito para custar pouco e ser fácil de consertar.</p>
+          </header>
+          <ul class="stack">
+            <li><b>Cérebro</b><span>ESP32 + placa de 8 relés optoacoplados</span></li>
+            <li><b>Firmware</b><span>ESPHome · componente <code>sprinkler</code></span></li>
+            <li><b>Válvulas</b><span>7 zonas · solenoides 24VAC normalmente fechadas</span></li>
+            <li><b>Bomba</b><span>Contator com bobina 24VAC + boia em série</span></li>
+            <li><b>Extras</b><span>Sensor de chuva · botão manual por zona</span></li>
+          </ul>
+          <div class="site-foot"><span class="chip">baixo custo</span><span class="chip">220V fora da placa</span></div>
+        </article>
+
+        <article class="site site-b reveal">
+          <header>
+            <span class="site-tag">Site B</span>
+            <h3>Casa do amigo</h3>
+            <p>Usa equipamento industrial que já estava parado.</p>
+          </header>
+          <ul class="stack">
+            <li><b>Cérebro</b><span>CLP Delta DVP20SX211R · ladder com intertravamento</span></li>
+            <li><b>Gateway</b><span>ESP32 + RS-485 · Modbus RTU mestre</span></li>
+            <li><b>Válvulas</b><span>5 zonas direto nas saídas a relé Y0–Y4</span></li>
+            <li><b>Bomba</b><span>Inversor Metaltex IF10 · 3cv · pressão constante por PID</span></li>
+            <li><b>Proteções</b><span>Falta d'água · pressão fora da faixa · watchdog</span></li>
+          </ul>
+          <div class="site-foot"><span class="chip">pressão constante</span><span class="chip">padrão industrial</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ COMUNICAÇÃO ============ -->
+    <section class="section" id="comunicacao">
+      <div class="section-head reveal">
+        <p class="eyebrow">02 · Comunicação</p>
+        <h2>Um ponto de encontro <em>na nuvem.</em></h2>
+        <p class="section-lede">O roteador de casa barra quem chega de fora. Por isso todos se conectam de dentro para fora a um broker MQTT. Não é preciso abrir porta nem manter servidor em casa.</p>
+      </div>
+
+      <figure class="diagram reveal">
+        <svg viewBox="0 0 1000 380" role="img" aria-label="ESP32 das duas casas e o app se conectam ao broker MQTT">
+          <defs>
+            <linearGradient id="g-line" x1="0" x2="1">
+              <stop offset="0" stop-color="var(--leaf)"/>
+              <stop offset="1" stop-color="var(--water)"/>
+            </linearGradient>
+          </defs>
+
+          <!-- linhas -->
+          <path class="wire" d="M300 95 C 400 95, 400 190, 440 190"/>
+          <path class="wire" d="M300 285 C 400 285, 400 190, 440 190"/>
+          <path class="wire" d="M560 190 L 700 190"/>
+          <path class="packet" d="M300 95 C 400 95, 400 190, 440 190"/>
+          <path class="packet p2" d="M300 285 C 400 285, 400 190, 440 190"/>
+          <path class="packet p3" d="M700 190 L 560 190"/>
+
+          <!-- casa A -->
+          <g class="node">
+            <rect x="20" y="40" width="280" height="110" rx="18"/>
+            <text class="n-kicker" x="44" y="72">CASA DO PAI</text>
+            <text class="n-title" x="44" y="102">ESP32 · ESPHome</text>
+            <text class="n-sub" x="44" y="128">relés → 7 válvulas · contator → bomba</text>
+          </g>
+          <!-- casa B -->
+          <g class="node">
+            <rect x="20" y="230" width="280" height="110" rx="18"/>
+            <text class="n-kicker" x="44" y="262">CASA DO AMIGO</text>
+            <text class="n-title" x="44" y="292">ESP32 ⇄ CLP Delta</text>
+            <text class="n-sub" x="44" y="318">Modbus RS-485 · inversor → bomba</text>
+          </g>
+          <!-- broker -->
+          <g class="node node-core">
+            <circle cx="500" cy="190" r="72"/>
+            <circle class="halo" cx="500" cy="190" r="72"/>
+            <text class="n-title" x="500" y="186" text-anchor="middle">Broker</text>
+            <text class="n-sub" x="500" y="210" text-anchor="middle">MQTT · TLS</text>
+          </g>
+          <!-- app -->
+          <g class="node">
+            <rect x="700" y="110" width="280" height="160" rx="18"/>
+            <rect class="phone" x="728" y="138" width="56" height="104" rx="12"/>
+            <rect class="phone-screen" x="736" y="152" width="40" height="70" rx="5"/>
+            <text class="n-kicker" x="806" y="162">ETAPA FINAL</text>
+            <text class="n-title" x="806" y="192">App Android</text>
+            <text class="n-sub" x="806" y="218">Kotlin nativo</text>
+            <text class="n-sub" x="806" y="240">4G ou qualquer Wi-Fi</text>
+          </g>
+        </svg>
+        <figcaption>As setas animadas mostram a direção das conexões. Todas partem dos dispositivos e do app em direção ao broker.</figcaption>
+      </figure>
+
+      <div class="contract reveal">
+        <div class="contract-copy">
+          <h3>Contrato <code>flora/v1</code></h3>
+          <p>O app conhece só estes tópicos e nunca fala com Modbus ou GPIO. Cada casa anuncia o que tem: pressão e vazão só aparecem onde existem.</p>
+          <ul class="ticks">
+            <li>Estado fica guardado no broker (<em>retained</em>)</li>
+            <li>Queda de conexão avisada por LWT</li>
+            <li>Todo comando volta com <code>ack</code></li>
+          </ul>
+        </div>
+        <pre class="code" aria-label="Tópicos MQTT"><code><span class="c">// estado publicado pelo quadro</span>
+<span class="t">flora/v1/</span><span class="v">{site}</span><span class="t">/status</span>      <span class="a">→</span> <span class="s">"online"</span>
+<span class="t">flora/v1/</span><span class="v">{site}</span><span class="t">/state</span>       <span class="a">→</span> {activeZone, remainingS}
+<span class="t">flora/v1/</span><span class="v">{site}</span><span class="t">/sensors</span>     <span class="a">→</span> {rain, pressureKpa?}
+
+<span class="c">// comandos enviados pelo app</span>
+<span class="t">flora/v1/</span><span class="v">{site}</span><span class="t">/cmd</span>         <span class="b">←</span> {op: <span class="s">"start_zone"</span>, zone: 3}
+<span class="t">flora/v1/</span><span class="v">{site}</span><span class="t">/cmd/ack</span>     <span class="a">→</span> {ok: <span class="k">true</span>}</code></pre>
+      </div>
+    </section>
+
+    <!-- ============ PRINCÍPIOS ============ -->
+    <section class="section" id="principios">
+      <div class="section-head reveal">
+        <p class="eyebrow">03 · Princípios</p>
+        <h2>Feito para funcionar <em>quando a internet não funciona.</em></h2>
+      </div>
+      <div class="principles">
+        <article class="principle reveal">
+          <span class="p-num">i</span>
+          <h3>A agenda mora no quadro</h3>
+          <p>Se a internet cair, a irrigação continua. O app só acompanha e manda comandos.</p>
+        </article>
+        <article class="principle reveal">
+          <span class="p-num">ii</span>
+          <h3>Segurança no hardware</h3>
+          <p>A boia fica em série com o contator. O CLP aplica intertravamento e watchdog. Erro de software não liga bomba a seco.</p>
+        </article>
+        <article class="principle reveal">
+          <span class="p-num">iii</span>
+          <h3>Botão físico sempre</h3>
+          <p>Cada quadro tem botões e modo manual. Ninguém precisa pegar o celular para regar a horta.</p>
+        </article>
+        <article class="principle reveal">
+          <span class="p-num">iv</span>
+          <h3>Peças de loja</h3>
+          <p>Válvulas Rain Bird ou Hunter, tubo de 16mm e filtro de disco. A loja de irrigação vende e sabe consertar.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ ROTEIRO ============ -->
+    <section class="section" id="roteiro">
+      <div class="section-head reveal">
+        <p class="eyebrow">04 · Roteiro</p>
+        <h2>Do fio <em>ao app.</em></h2>
+      </div>
+      <ol class="roadmap">
+        <li class="reveal is-now"><span class="r-step">1</span><div><h3>Bancada da casa A</h3><p>ESP32, relés, ESPHome <code>sprinkler</code> e LEDs no lugar das válvulas.</p></div></li>
+        <li class="reveal"><span class="r-step">2</span><div><h3>Broker e contrato</h3><p>Conta no HiveMQ ou EMQX e o ESP32 publicando no <code>flora/v1</code>.</p></div></li>
+        <li class="reveal"><span class="r-step">3</span><div><h3>Instalação da casa A</h3><p>Bomba, hidráulica e quadro definitivo.</p></div></li>
+        <li class="reveal"><span class="r-step">4</span><div><h3>Bancada da casa B</h3><p>Configuração do IF10, ladder no CLP e teste do Modbus pelo PC.</p></div></li>
+        <li class="reveal"><span class="r-step">5</span><div><h3>Instalação da casa B</h3><p>Gateway ESP32, inversor, bomba trifásica e transdutor de pressão.</p></div></li>
+        <li class="reveal"><span class="r-step">6</span><div><h3>App Android</h3><p>Kotlin nativo, consumindo apenas o contrato <code>flora/v1</code>.</p></div></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span class="brand brand-sm">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c5 7 9 11.5 9 16.5A9 9 0 0 1 7 19.5C7 14.5 11 10 16 3z"/></svg>
+      flora
+    </span>
+    <span>Projeto pessoal de irrigação · documentação em <code>docs/</code></span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
