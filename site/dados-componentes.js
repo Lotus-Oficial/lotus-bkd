@@ -28,10 +28,11 @@ window.FLORA_COMPONENTES = [
   // ================= CASA DO PAI (site A) =================
   // --- bancada
   {
-    site: "pai", etapa: "bancada", status: "tenho",
+    site: "pai", etapa: "bancada", status: "comprado",
     nome: "ESP32 DevKit V1 (38 pinos)",
     spec: "Cérebro do quadro. Roda o ESPHome com o componente sprinkler.",
-    qtd: 1, estimativa: 45, pago: null, loja: null,
+    qtd: 1, estimativa: 45, pago: 47.99,
+    loja: "https://pt.aliexpress.com/item/1005010248826971.html",
     busca: "esp32 devkit v1 38 pinos",
     manual: "https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf",
   },
@@ -251,10 +252,10 @@ window.FLORA_COMPONENTES = [
   // ================= CASA DO AMIGO (site B) =================
   // --- quadro
   {
-    site: "amigo", etapa: "quadro", status: "tenho",
+    site: "amigo", etapa: "quadro", status: "comprado",
     nome: "CLP Delta DVP20SX211R",
-    spec: "Equipamento reaproveitado. Abre as válvulas e aplica as travas de segurança.",
-    qtd: 1, estimativa: 897.99, pago: null,
+    spec: "Abre as válvulas e aplica as travas de segurança.",
+    qtd: 1, estimativa: 897.99, pago: 897.99,
     loja: "https://pt.aliexpress.com/item/1005009014378130.html",
     busca: null,
     manual: "../docs/manuais/delta-dvp-sx2-instruction-sheet.pdf",
@@ -349,11 +350,11 @@ window.FLORA_COMPONENTES = [
   },
   // --- bomba
   {
-    site: "amigo", etapa: "bomba", status: "tenho",
+    site: "amigo", etapa: "bomba", status: "comprado",
     nome: "Inversor Metaltex IF10-203-1 (3cv)",
-    spec: "Equipamento reaproveitado. Recebe 1F 220V, entrega 3F 220V e controla a pressão por PID. Referência: anúncio do IF10-202-1 (2cv), modelo menor que o nosso.",
-    qtd: 1, estimativa: 665, pago: null,
-    loja: "https://www.mercadolivre.com.br/inversor-frequencia-metaltex-if10-202-1-2cv-7a-15kw-mono-trifasico/p/MLB27200695",
+    spec: "Recebe 1F 220V, entrega 3F 220V e controla a pressão por PID.",
+    qtd: 1, estimativa: 900, pago: 900,
+    loja: "https://www.mercadolivre.com.br/inversor-de-frequencia-metaltex-if10-203-1-3cv-monofasico-saida-trifasica/p/MLB27200452",
     busca: null,
     manual: "../docs/manuais/metaltex-if10-20x-1-manual.pdf",
   },
