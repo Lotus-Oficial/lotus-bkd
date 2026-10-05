@@ -29,11 +29,11 @@ window.LOTUS_COMPONENTES = [
   // --- bancada
   {
     site: "esp", etapa: "bancada", status: "comprado",
-    nome: "ESP32 DevKit V1 (38 pinos)",
-    spec: "Cérebro do quadro. Roda o ESPHome com o componente sprinkler.",
+    nome: "ESP32 DevKit V1 (30 pinos, USB-C)",
+    spec: "Cérebro do quadro. Roda o ESPHome com o componente sprinkler. ESP32-WROOM-32 rev 3.1 com CP2102. As fileiras de pinos ficam a 1\" uma da outra: na protoboard só sobra um furo livre do lado esquerdo.",
     qtd: 1, estimativa: 45, pago: 47.99,
     loja: "https://pt.aliexpress.com/item/1005010248826971.html",
-    busca: "esp32 devkit v1 38 pinos",
+    busca: "esp32 devkit v1 30 pinos usb-c",
     manual: "https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf",
   },
   {
