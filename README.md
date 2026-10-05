@@ -40,6 +40,7 @@ A agenda roda no quadro, então se a internet cair a irrigação continua.
 ```
 lotus/
 ├── docs/
+│   ├── FUNCIONALIDADES.md   o que já funciona, o que está projetado e as ideias
 │   ├── ARCHITECTURE.md      arquitetura física e de comunicação dos dois sites
 │   ├── hardware/            notas de projeto por equipamento (o que usamos e como configurar)
 │   ├── manuais/             PDFs originais dos fabricantes + extração em .txt
@@ -52,6 +53,7 @@ lotus/
 
 ## Documentação
 
+- [Funcionalidades](docs/FUNCIONALIDADES.md): o que já funciona, o que está projetado e as ideias
 - [Arquitetura](docs/ARCHITECTURE.md): quadros, mapa de E/S, Modbus, contrato `lotus/v1` e roteiro
 - [Contrato MQTT `lotus/v1`](docs/CONTRATO-MQTT.md): tópicos, comandos e erros
 - [Broker](broker/README.md): EMQX na nuvem, permissões e broker local para testes
