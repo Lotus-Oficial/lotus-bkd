@@ -85,8 +85,8 @@ python3 -m http.server -d site 8000
 
 | Etapa | Situação |
 |---|---|
-| 1. Bancada do site ESP (ESP32 + relés + ESPHome) | 🟡 próxima |
-| 2. Broker e contrato `lotus/v1` | ⚪ |
+| 1. Bancada do site ESP (ESP32 + relés + ESPHome) | 🟡 ESP32 gravado e testado com LEDs; falta a placa de relés |
+| 2. Broker e contrato `lotus/v1` | ✅ ESP32 no EMQX, comandos e tópicos validados com `tools/lotus_mqtt.py` |
 | 3. Instalação do site ESP | ⚪ |
 | 4. Bancada do site CLP (IF10 + ladder + Modbus) | ⚪ |
 | 5. Instalação do site CLP | ⚪ |

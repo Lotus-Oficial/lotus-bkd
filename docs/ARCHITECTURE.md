@@ -247,7 +247,8 @@ lotus/v1/{site}/cmd/ack           → {id, ok, error?}
 
 1. **Site ESP:** bancada com ESP32 + relés + ESPHome `sprinkler` + LEDs no lugar das válvulas.
 2. **Broker:** conta no EMQX e ESP32 publicando no `lotus/v1`, testado com `tools/lotus_mqtt.py`.
-   O firmware (`firmware/lotus-esp.yaml`) e o simulador já existem; falta criar a conta e gravar o ESP32.
+   Feito: o ESP32 está gravado, conecta no EMQX com TLS e responde ao `lotus/v1`. Na bancada,
+   LEDs nos GPIO25 (zona 6) e GPIO27 (bomba) confirmaram a sequência válvula → bomba.
 3. **Site ESP:** escolha da bomba, hidráulica e instalação.
 4. **Site CLP:** parametrizar o IF10 (`docs/hardware/metaltex-if10.md`), ladder no CLP, teste Modbus pelo PC (mbpoll/QModMaster).
 5. **Site CLP:** gateway ESP32 com o mesmo contrato, depois inversor, bomba trifásica e transdutor.
