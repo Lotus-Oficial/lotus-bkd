@@ -106,6 +106,11 @@ const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const canvas = $("#rain");
 const ctx = canvas.getContext("2d");
 let drops = [];
+let rainRgb = "31, 95, 115";
+
+// a cor das gotas vem do tema (--rain), para aparecerem no creme e no escuro
+const readRain = () =>
+  (rainRgb = getComputedStyle(document.documentElement).getPropertyValue("--rain").trim() || rainRgb);
 
 function resize() {
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -122,7 +127,7 @@ function newDrop(anywhere) {
     y: anywhere ? Math.random() * innerHeight : -20,
     len: 8 + Math.random() * 18,
     speed: 0.6 + Math.random() * 1.6,
-    alpha: 0.05 + Math.random() * 0.16,
+    alpha: 0.08 + Math.random() * 0.2,
   };
 }
 
@@ -130,8 +135,8 @@ function frame() {
   ctx.clearRect(0, 0, innerWidth, innerHeight);
   for (const d of drops) {
     const g = ctx.createLinearGradient(d.x, d.y, d.x, d.y + d.len);
-    g.addColorStop(0, "rgba(127,215,234,0)");
-    g.addColorStop(1, `rgba(127,215,234,${d.alpha})`);
+    g.addColorStop(0, `rgba(${rainRgb},0)`);
+    g.addColorStop(1, `rgba(${rainRgb},${d.alpha})`);
     ctx.strokeStyle = g;
     ctx.lineWidth = 1.2;
     ctx.beginPath();
@@ -145,6 +150,8 @@ function frame() {
 }
 
 if (!reduced) {
+  readRain();
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", readRain);
   resize();
   addEventListener("resize", resize);
   requestAnimationFrame(frame);
