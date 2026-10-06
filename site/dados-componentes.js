@@ -191,7 +191,7 @@ window.LOTUS_COMPONENTES = [
   {
     site: "esp", etapa: "sensores", status: "comprar",
     nome: "Sensor de chuva Hunter Mini-Clik",
-    spec: "Contato seco. Suspende a irrigação quando chove.",
+    spec: "Contato seco. Suspende a irrigação quando chove. Instalar no alto e fora do alcance de todos os aspersores.",
     qtd: 1, estimativa: 220, pago: null, loja: null,
     busca: "sensor de chuva hunter mini-clik",
     manual: null,
@@ -415,7 +415,7 @@ window.LOTUS_COMPONENTES = [
   {
     site: "clp", etapa: "sensores", status: "comprar",
     nome: "Sensor de chuva Hunter Mini-Clik",
-    spec: "Contato seco, ligado no X1 do CLP.",
+    spec: "Contato seco, ligado no X1 do CLP. Instalar no alto e fora do alcance de todos os aspersores.",
     qtd: 1, estimativa: 220, pago: null, loja: null,
     busca: "sensor de chuva hunter mini-clik",
     manual: null,

@@ -73,6 +73,10 @@ O ciclo agendado roda todas as zonas em sequência, cada uma pelo seu `defaultDu
 Ele é pulado se o quadro já estiver irrigando, se houver atraso por chuva, se o sensor de
 chuva estiver molhado ou se o nível estiver baixo.
 
+Quando o sensor de chuva passa de seco para molhado, o quadro para o que estiver rodando
+ou pausado (ciclo ou zona avulsa) e limpa a fila, como num `stop_all`. Com o sensor já
+molhado, `start_zone` e `start_cycle` continuam aceitos: é a pessoa decidindo regar mesmo assim.
+
 ## Comandos (app → quadro)
 
 Publicados em `lotus/v1/{site}/cmd`, **QoS 1, nunca retidos**. Um comando retido seria

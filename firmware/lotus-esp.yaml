@@ -260,10 +260,18 @@ pcf8574:
 
 binary_sensor:
   # Sensor de chuva: contato seco para o GND, fechado = molhado.
+  # Só a passagem de seco para molhado para a rega: com o sensor já molhado, a pessoa
+  # ainda consegue regar à mão pelo app ou pelos botões.
   - platform: gpio
     id: chuva
     pin: { number: GPIO32, mode: { input: true, pullup: true }, inverted: true }
     filters: [delayed_on_off: 5s]
+    on_press:
+      - lambda: |-
+          auto *irr = id(irrigacao);
+          if (!irr->active_valve().has_value() && !irr->paused_valve().has_value()) return;
+          ESP_LOGI("chuva", "começou a chover: parando tudo");
+          irr->shutdown(true);
 
   # Boia: contato fechado para o GND = tem água. Fio solto lê como "falta água" (falha segura).
   # A trava de verdade é o outro contato da boia em série com a bobina do contator;

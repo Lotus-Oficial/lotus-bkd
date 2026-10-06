@@ -68,14 +68,26 @@ correspondente, e o 8 para tudo. Funcionam sem internet. O código está pronto;
 🧪 **Site ESP.** Há duas formas, e as duas estão no firmware:
 
 - **Sensor de chuva** (Hunter Mini-Clik, contato seco no GPIO32). Molhado, a agenda pula o
-  ciclo. O estado vai para o app em `sensors.rain`. O sensor ainda não foi comprado.
+  ciclo; se começar a chover no meio da rega, o quadro para tudo. O estado vai para o app em
+  `sensors.rain`. O sensor ainda não foi comprado.
 - **Atraso por chuva** pelo app (`rain_delay`): suspende a agenda por até 14 dias e para o
   que estiver rodando. Serve quando choveu e o solo ainda está molhado, mesmo com o sensor já seco.
 
-Limite atual: o sensor só bloqueia o **início** de um ciclo agendado. Se começar a chover no
-meio do ciclo, a irrigação continua até o fim, e comandos manuais pelo app ou pelos botões
-também ignoram o sensor. Isso é proposital no manual, mas vale decidir se a chuva deve
-interromper um ciclo agendado em andamento.
+A parada vale para qualquer rega em andamento ou pausada, agendada ou manual, e acontece só
+na passagem de seco para molhado. Com o sensor já molhado, comandos manuais pelo app ou pelos
+botões continuam funcionando: é a pessoa decidindo regar mesmo com chuva.
+
+**Instalação do sensor.** O quadro não distingue chuva de água do aspersor: se a rega molhar o
+sensor, ela para no meio e as próximas regas agendadas são puladas até os discos secarem, o que
+leva horas. O Mini-Clik só fecha o contato depois de acumular alguns milímetros de água (regulável
+de ~3 a 25 mm), então respingo e névoa não bastam; jato direto basta. Por isso:
+
+- no alto e a céu aberto (beiral, calha ou poste), fora do alcance de **todas** as zonas.
+  Ligue cada zona uma vez e confira até onde a água chega;
+- longe de árvores e de onde escorre água do telhado;
+- regulagem num valor médio, não no mínimo.
+
+Se não houver lugar seguro, a saída é um "ignorar sensor de chuva" no app, o que muda o contrato.
 
 📐 **Site CLP.** Sensor de chuva na entrada X1 do CLP.
 
@@ -213,7 +225,6 @@ Impacto:
 
 ## Em aberto
 
-- [ ] Chuva no meio de um ciclo agendado: interromper ou deixar terminar?
 - [ ] Caixa "desativada": o que exatamente ela bloqueia, e cada casa tem uma caixa só?
 - [ ] Pressão por zona: vale o custo no site ESP ou fica só no site CLP?
 - [ ] Umidade: quantos canteiros e sensores por casa, e a que distância do quadro?
